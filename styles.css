@@ -1,4 +1,4 @@
-/* === Zoom-In Animation === */
+/* === Animations === */
 @keyframes zoomIn {
   0% {
     transform: scale(0.8);
@@ -10,11 +10,6 @@
   }
 }
 
-.animate-zoom {
-  animation: zoomIn 600ms ease-out both;
-}
-
-/* === Animate background gradient flow === */
 @keyframes gradientShift {
   0% {
     background-position: 0% 50%;
@@ -27,17 +22,13 @@
   }
 }
 
+.animate-zoom {
+  animation: zoomIn 600ms ease-out both;
+}
+
 /* === Base Styles === */
 body {
-  background: linear-gradient(
-    -45deg,
-    rgba(131, 58, 180, 1) 0%,
-    rgba(253, 29, 29, 1) 50%,
-    rgba(252, 176, 69, 1) 100%
-  );
-  background-size: 200% 200%; /* Make it bigger for animation */
-  background-repeat: no-repeat;
-  background-attachment: fixed;
+  background-color: rgb(255, 81, 0);
   margin: 0;
   padding: 2rem;
   height: 80vh;
@@ -47,8 +38,15 @@ body {
   align-items: center;
   font-family: "Open Sans", sans-serif;
   position: relative;
-
-  /* Animate the background gradient */
+  background: linear-gradient(
+    -45deg,
+    rgba(131, 58, 180, 1) 0%,
+    rgba(253, 29, 29, 1) 50%,
+    rgba(252, 176, 69, 1) 100%
+  );
+  background-size: 200% 200%;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
   animation: gradientShift 20s ease infinite;
 }
 
@@ -58,15 +56,14 @@ nav {
   top: 0;
   left: 0;
   right: 0;
+  z-index: 1000;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 1rem 2rem;
-  z-index: 1000;
   backdrop-filter: blur(10px);
 }
 
-/* Hamburger toggle */
 .nav-toggle {
   background: none;
   border: none;
@@ -76,7 +73,7 @@ nav {
   display: block;
 }
 
-/* Nav links container */
+/* Nav links */
 .nav-links {
   display: none;
   flex-direction: column;
@@ -85,7 +82,6 @@ nav {
   padding: 1rem 0;
 }
 
-/* Glass-style nav buttons with fixed size */
 .nav-links a {
   width: 7rem;
   height: 2.8rem;
@@ -93,16 +89,16 @@ nav {
   justify-content: center;
   align-items: center;
   color: white;
-  text-decoration: none;
-  font-weight: 500;
   font-size: 0.9rem;
-  padding: 0;
+  font-weight: 500;
+  text-decoration: none;
   border-radius: 2rem;
-  background-color: rgba(0, 0, 0, 0.53); /* matches .titleGlass */
+  background-color: rgba(0, 0, 0, 0.53);
   backdrop-filter: blur(10px);
-  border: none;
   transition: background-color 200ms ease, transform 200ms ease;
   box-sizing: border-box;
+  padding: 0;
+  border: none;
 }
 
 .nav-links a:hover {
@@ -110,12 +106,11 @@ nav {
   transform: scale(1.05);
 }
 
-/* Show menu on toggle */
 .nav-active .nav-links {
   display: flex;
 }
 
-/* === Title / Subtitle / Glassbox === */
+/* === Title & Subtitle === */
 .titleGlass {
   display: flex;
   justify-content: center;
@@ -126,11 +121,12 @@ nav {
   border-radius: 2rem;
   width: 90%;
   max-width: 30rem;
-  height: 25%;
+  aspect-ratio: 3 / 1.2;
   font-size: 2rem;
   font-weight: 900;
-  padding: 1.5rem;
+  padding: 7rem;
   margin-bottom: -10rem;
+  box-sizing: border-box;
 }
 
 .title {
@@ -158,7 +154,7 @@ nav {
   max-width: 90%;
 }
 
-/* === Optional staggered animation delay === */
+/* === Stagger Animation Delay === */
 .titleGlass.animate-zoom {
   animation-delay: 0s;
 }
@@ -172,13 +168,14 @@ nav {
 /* === Desktop Styles === */
 @media (min-width: 758px) {
   body {
+    height: 90vh;
+    background-color: rgb(255, 81, 0);
     background: linear-gradient(
       90deg,
       rgba(131, 58, 180, 1) 0%,
       rgba(253, 29, 29, 1) 50%,
       rgba(252, 176, 69, 1) 100%
     );
-    height: 90vh;
     background-size: 200% 200%;
     animation: gradientShift 20s ease infinite;
   }
@@ -203,11 +200,12 @@ nav {
     width: 8rem;
     height: 3rem;
     font-size: 0.95rem;
-    padding: 0;
   }
 
   .titleGlass {
-    padding: 5rem;
+    padding: 12rem;
+    max-width: 40rem;
+    border-radius: 3rem;
   }
 
   .title {
@@ -227,7 +225,7 @@ nav {
   }
 }
 
-/* === Mobile Navbar Fix === */
+/* === Mobile Navbar Layout Fix === */
 @media (max-width: 757px) {
   nav {
     flex-direction: column;
