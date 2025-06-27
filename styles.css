@@ -28,10 +28,10 @@
 
 /* === Base Styles === */
 body {
-  background-color: rgb(255, 81, 0);
-  margin: 0;
+  background-color: black;
+  margin-top: -25rem;
   padding: 2rem;
-  height: 80vh;
+  height: 1500px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -61,7 +61,6 @@ nav {
   justify-content: space-between;
   align-items: center;
   padding: 1rem 2rem;
-  backdrop-filter: blur(10px);
 }
 
 .nav-toggle {
@@ -119,13 +118,13 @@ nav {
   background-color: rgba(0, 0, 0, 0.53);
   color: white;
   border-radius: 2rem;
-  width: 27rem;
+  width: 25rem;
   max-width: 50rem;
   aspect-ratio: 3 / 1.2;
   font-size: 2rem;
   font-weight: 900;
   padding: 7rem;
-  margin-bottom: -10rem;
+  margin: 0;
   box-sizing: border-box;
 }
 
@@ -137,7 +136,7 @@ nav {
   color: white;
   font-size: 3rem;
   font-weight: 900;
-  margin: 0;
+  margin-top: -10rem;
   padding: 0;
   max-width: 100%;
 }
@@ -169,7 +168,8 @@ nav {
 @media (min-width: 758px) {
   body {
     height: 90vh;
-    background-color: rgb(255, 81, 0);
+    margin: 0;
+    background-color: black;
     background: linear-gradient(
       90deg,
       rgba(131, 58, 180, 1) 0%,
@@ -204,7 +204,7 @@ nav {
 
   .titleGlass {
     padding: 12rem;
-    max-width: 40rem;
+    width: 40rem;
     border-radius: 3rem;
   }
 
@@ -212,7 +212,7 @@ nav {
     text-align: center;
     font-size: 5rem;
     font-weight: 900;
-    margin-top: -7rem;
+    margin-top: -16.5rem;
     max-width: 50rem;
   }
 
