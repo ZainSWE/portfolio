@@ -39,10 +39,10 @@ body {
   font-family: "Open Sans", sans-serif;
   position: relative;
   background: linear-gradient(
-    -45deg,
-    rgba(131, 58, 180, 1) 0%,
-    rgba(253, 29, 29, 1) 50%,
-    rgba(252, 176, 69, 1) 100%
+    45deg,
+    rgb(153, 0, 255) 0%,
+    rgb(255, 0, 0) 50%,
+    rgb(255, 179, 0) 100%
   );
   background-size: 200% 200%;
   background-repeat: no-repeat;
@@ -114,13 +114,12 @@ nav {
   display: flex;
   justify-content: center;
   align-items: center;
-  text-align: left;
+  text-align: center;
   background-color: rgba(0, 0, 0, 0.53);
   color: white;
   border-radius: 2rem;
-  width: 25rem;
+  width: 22rem;
   max-width: 50rem;
-  aspect-ratio: 3 / 1.2;
   font-size: 2rem;
   font-weight: 900;
   padding: 7rem;
@@ -145,12 +144,12 @@ nav {
   display: flex;
   justify-content: center;
   align-items: center;
-  text-align: center;
+  text-align: left;
   color: white;
   font-size: 0.9rem;
   font-weight: 500;
-  margin-top: 1rem;
-  max-width: 90%;
+  margin-top: 0.5rem;
+  max-width: 100%;
 }
 
 /* === Stagger Animation Delay === */
@@ -171,10 +170,10 @@ nav {
     margin: 0;
     background-color: black;
     background: linear-gradient(
-      90deg,
-      rgba(131, 58, 180, 1) 0%,
-      rgba(253, 29, 29, 1) 50%,
-      rgba(252, 176, 69, 1) 100%
+      45deg,
+      rgb(153, 0, 255) 0%,
+      rgb(255, 0, 0) 50%,
+      rgb(255, 179, 0) 100%
     );
     background-size: 200% 200%;
     animation: gradientShift 20s ease infinite;
@@ -217,11 +216,10 @@ nav {
   }
 
   .subtitle {
-    text-align: left;
-    margin-right: 1.9rem;
+    text-align: center;
     font-size: 1.4rem;
     font-weight: 600;
-    margin-top: 1.5rem;
+    margin-top: 1.3rem;
   }
 }
 
