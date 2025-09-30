@@ -34,13 +34,14 @@ body {
 }
 
 .tech-stack {
+  position: fixed;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 15px;
-  margin-top: -25rem;
-  flex-wrap: wrap;
+  margin-top: 25rem;
+  width: 100%;
 }
 
 button {
