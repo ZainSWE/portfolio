@@ -127,7 +127,7 @@ button:hover {
   width: 100%;
   padding: 0;
   margin: 0;
-  padding-top: 5rem;
+  padding-top: 20rem;
 }
 
 .indexPage-heading,
@@ -221,6 +221,85 @@ button:hover {
   color: transparent;
 }
 
+.techStack {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+  width: 55rem;
+  max-width: 90%;
+  gap: 1rem;
+  margin-top: 8rem;
+}
+
+.techStack-languages,
+.techStack-creativeTools {
+  background: blurred;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+  border-radius: 24px;
+  border: solid #222222;
+  gap: 2rem;
+  padding: 1rem;
+}
+
+.techStack h1 {
+  color: #ffffff;
+  font-size: 24px;
+  font-weight: 300;
+}
+
+.techStack p {
+  font-weight: 400;
+}
+
+.techStack-languages button {
+  color: #ffffff;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+  width: auto;
+  margin: 0;
+  padding: 0 10px;
+}
+
+.techStack-languages button:hover {
+  transform: scale(1.1);
+  background: linear-gradient(
+    90deg,
+    rgba(255, 0, 0, 1) 0%,
+    rgb(255, 204, 0) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  text-shadow: 0 0 15px rgba(255, 0, 0, 0.797);
+}
+
+.techStack-creativeTools button {
+  color: #ffffff;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+  width: auto;
+  margin: 0;
+  padding: 0 10px;
+}
+
+.techStack-creativeTools button:hover {
+  transform: scale(1.1);
+  background: linear-gradient(90deg, rgba(255, 204, 0) 0%, rgb(255, 0, 0) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  text-shadow: 0 0 15px rgba(255, 0, 0, 0.797);
+}
+
 .contactPage {
   display: flex;
   flex-direction: column;
@@ -239,7 +318,7 @@ button:hover {
   justify-content: center;
   text-align: left;
   height: 45rem;
-  width: 20rem;
+  width: 25rem;
   padding: 2rem;
   margin: 0;
   margin-top: 5rem;
