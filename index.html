@@ -4,6 +4,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Zain Ahmad</title>
+        <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
@@ -31,12 +34,25 @@
       </header>
 
       <section class="indexPage-buttons">
-        <button>
-          <p>View Projects</p>
+        <div class="mainButtons">
+          <button onclick="window.location.href='projects.html'">
+            <p>View Projects</p>
+          </button>
+          <button onclick="window.location.href='contact.html'">
+            <p>Contact Me</p>
         </button>
-        <button onclick="window.location.href='contact.html'">
-          <p>Contact Me</p>
-        </button>
+        </div>
+        <div class="indexPage-socialButtons">
+          <button onclick="window.open('//github.com/ZainSWE')">
+            <i class="fa-brands fa-github"></i>
+          </button>
+          <button onclick="window.open('//www.linkedin.com/in/zainswe/')">
+            <i class="fa-brands fa-linkedin"></i>
+          </button>
+          <button onclick="window.open('//www.instagram.com/tahiti.3d/')">
+            <i class="fa-brands fa-instagram"></i>
+          </button>
+        </div>
       </section>
   </body>
 </html>
