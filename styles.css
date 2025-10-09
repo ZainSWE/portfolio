@@ -139,6 +139,7 @@ button:hover {
     rgba(255, 0, 0, 1) 0%,
     rgb(197, 0, 0) 100%
   );
+  box-shadow: 0 0 15px rgba(255, 0, 0, 0.797);
   color: rgb(0, 0, 0);
   mix-blend-mode: screen;
 }
@@ -230,7 +231,7 @@ textarea:focus {
   background-color: #111111;
   color: #ffffff;
   border: none;
-  resize: vertical;
+  resize: none;
   min-height: 5rem;
   max-width: 100%;
 }
@@ -251,4 +252,47 @@ textarea:hover {
   margin-top: 2rem;
   height: 3rem;
   width: 100%;
+}
+
+.contactSuccessPage {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+.contactSuccessPage h1 {
+  font-weight: 900;
+  font-size: 3rem;
+  padding: 2rem;
+  margin: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 0, 0, 1) 0%,
+    rgb(175, 0, 0) 100%
+  );
+  text-shadow: 0 0 15px rgba(255, 0, 0, 0.797);
+  background-clip: text;
+  color: transparent;
+}
+
+.text {
+  font-weight: 300;
+  font-size: 1.2rem;
+  padding: 0;
+  margin: 0;
+}
+
+.contactSuccessPage-button {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  justify-content: center;
+  align-self: center;
+  margin-top: 2rem;
 }
