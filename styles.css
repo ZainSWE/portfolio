@@ -23,6 +23,51 @@
   box-sizing: border-box;
 }
 
+/* Keyframe Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slideInFromLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInFromRight {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
 #bg-video {
   position: fixed;
   top: 0;
@@ -91,6 +136,10 @@ nav {
   align-items: center;
   justify-content: space-between;
   padding: 1rem 2rem;
+}
+
+nav.first-load {
+  animation: slideInFromLeft 0.6s ease-out;
 }
 
 nav p {
@@ -194,6 +243,7 @@ button:hover {
   font-weight: 900;
   font-size: clamp(2.5rem, 8vw, 5rem);
   margin-bottom: 0.5rem;
+  animation: fadeInScale 0.8s ease-out 0.2s backwards;
 }
 
 .indexPage-subheading {
@@ -209,6 +259,7 @@ button:hover {
   color: rgb(0, 0, 0);
   padding: 0.5rem 1.5rem;
   mix-blend-mode: screen;
+  animation: fadeInScale 0.8s ease-out 0.4s backwards;
 }
 
 .indexPage-subheading::before {
@@ -228,6 +279,7 @@ button:hover {
   justify-content: center;
   margin-top: 2rem;
   line-height: 1.6;
+  animation: fadeInUp 0.8s ease-out 0.6s backwards;
 }
 
 .indexPage-buttons {
@@ -239,6 +291,7 @@ button:hover {
   margin-top: 2rem;
   width: 100%;
   max-width: 30rem;
+  animation: fadeInUp 0.8s ease-out 0.8s backwards;
 }
 
 .mainButtons {
@@ -311,6 +364,7 @@ button:hover {
   font-size: clamp(2rem, 6vw, 3rem);
   color: red;
   text-shadow: 0 0 15px rgb(255, 0, 0);
+  animation: fadeInScale 0.8s ease-out 1.2s backwards;
 }
 
 .techStack {
@@ -338,6 +392,19 @@ button:hover {
   flex-wrap: wrap;
   gap: 0.5rem;
   align-items: center;
+  animation: fadeInUp 0.8s ease-out backwards;
+}
+
+.techStack-languages {
+  animation-delay: 1.4s;
+}
+
+.techStack-devTools {
+  animation-delay: 1.6s;
+}
+
+.techStack-creativeTools {
+  animation-delay: 1.8s;
 }
 
 .techStack h1 {
@@ -407,6 +474,7 @@ button:hover {
   border: 1px solid #222222;
   background: rgba(0, 0, 0, 0.3);
   margin-top: 4rem;
+  animation: fadeInScale 0.8s ease-out 0.3s backwards;
 }
 
 .contactForm h1 {
@@ -513,6 +581,7 @@ textarea:hover {
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
+  animation: fadeInScale 0.8s ease-out 0.2s backwards;
 }
 
 .text {
@@ -521,6 +590,7 @@ textarea:hover {
   padding: 0.5rem;
   margin: 0;
   max-width: 40rem;
+  animation: fadeInUp 0.8s ease-out 0.4s backwards;
 }
 
 .contactSuccessPage-button {
@@ -531,6 +601,7 @@ textarea:hover {
   align-self: center;
   margin-top: 2rem;
   flex-wrap: wrap;
+  animation: fadeInUp 0.8s ease-out 0.6s backwards;
 }
 
 /* Social Buttons */
@@ -590,15 +661,25 @@ textarea:hover {
   min-height: 100vh;
   width: 100%;
   padding: 1rem;
-  padding-top: 8rem;
-  padding-bottom: 3rem;
+  padding-top: 12rem;
   margin: 0;
+}
+
+.aboutPage-profilePic {
+  width: 180px;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-bottom: 2rem;
+  border: 3px solid #ffffff;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+  animation: fadeInScale 0.8s ease-out 0.1s backwards;
 }
 
 .aboutPage-heading {
   display: flex;
   flex-direction: column;
-  max-width: 45rem;
+  max-width: 50rem;
   width: 100%;
   font-weight: 300;
   font-size: clamp(1rem, 2.5vw, 1.2rem);
@@ -611,6 +692,7 @@ textarea:hover {
   border-radius: 24px;
   background: rgba(0, 0, 0, 0.3);
   line-height: 1.6;
+  animation: fadeInScale 0.8s ease-out 0.2s backwards;
 }
 
 .aboutPage h1 {
@@ -634,7 +716,7 @@ textarea:hover {
   width: 100%;
   padding: 0 1rem 5rem 1rem;
   margin: 0;
-  margin-top: 10rem;
+  margin-top: 3rem;
 }
 
 .aboutPage-content h1 {
@@ -648,11 +730,63 @@ textarea:hover {
   border-radius: 24px;
   margin: 0 0 2rem 0;
   background: rgba(0, 0, 0, 0.3);
+  animation: fadeInScale 0.8s ease-out 0.4s backwards;
 }
 
 .aboutPage-content p {
   font-size: clamp(0.9rem, 2vw, 1rem);
   margin: 0.25rem 0;
+}
+
+.aboutPage-education {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 55rem;
+  width: 100%;
+  font-weight: 300;
+  font-size: clamp(1rem, 2.5vw, 1.2rem);
+  text-align: left;
+  margin-top: 2rem;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid #222222;
+  padding: 2rem;
+  border-radius: 24px;
+  gap: 2rem;
+  background: rgba(0, 0, 0, 0.3);
+  animation: fadeInUp 0.8s ease-out 0.6s backwards;
+}
+
+.education-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.education-content h2 {
+  font-size: clamp(1.2rem, 3vw, 1.5rem);
+  margin: 0.5rem 0;
+}
+
+.education-content h3 {
+  font-size: clamp(1rem, 2.5vw, 1.2rem);
+  margin: 0.5rem 0;
+  font-weight: 400;
+}
+
+.education-content p {
+  font-size: clamp(0.9rem, 2vw, 1rem);
+  margin: 0 0 0.5rem 0;
+  opacity: 0.8;
+}
+
+.aboutPage-universityIcon {
+  width: 120px;
+  height: 120px;
+  object-fit: contain;
+  flex-shrink: 0;
+  border-radius: 18px;
 }
 
 .aboutPage-work {
@@ -673,6 +807,19 @@ textarea:hover {
   border-radius: 24px;
   gap: 2rem;
   background: rgba(0, 0, 0, 0.3);
+  animation: fadeInUp 0.8s ease-out backwards;
+}
+
+.aboutPage-work:nth-of-type(1) {
+  animation-delay: 0.8s;
+}
+
+.aboutPage-work:nth-of-type(2) {
+  animation-delay: 1s;
+}
+
+.aboutPage-work:nth-of-type(3) {
+  animation-delay: 1.2s;
 }
 
 .work-content {
@@ -748,6 +895,7 @@ textarea:hover {
   border-radius: 24px;
   background: rgba(0, 0, 0, 0.3);
   line-height: 1.6;
+  animation: fadeInScale 0.8s ease-out 0.2s backwards;
 }
 
 .projectsPage h1 {
@@ -780,6 +928,27 @@ textarea:hover {
   background: rgba(0, 0, 0, 0.3);
   text-align: left;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  animation: fadeInUp 0.8s ease-out backwards;
+}
+
+.project-card:nth-child(1) {
+  animation-delay: 0.4s;
+}
+
+.project-card:nth-child(2) {
+  animation-delay: 0.6s;
+}
+
+.project-card:nth-child(3) {
+  animation-delay: 0.8s;
+}
+
+.project-card:nth-child(4) {
+  animation-delay: 1s;
+}
+
+.project-card:nth-child(5) {
+  animation-delay: 1.2s;
 }
 
 .project-card:hover {
@@ -885,6 +1054,7 @@ textarea:hover {
   border-radius: 24px;
   background: rgba(0, 0, 0, 0.3);
   line-height: 1.6;
+  animation: fadeInScale 0.8s ease-out 0.2s backwards;
 }
 
 .blogPage h1 {
@@ -943,6 +1113,28 @@ footer p {
 
   .indexPage {
     padding-top: 10rem;
+  }
+
+  .aboutPage-profilePic {
+    width: 150px;
+    height: 150px;
+  }
+
+  .aboutPage-education {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 1.5rem;
+  }
+
+  .education-content {
+    text-align: center;
+  }
+
+  .aboutPage-universityIcon {
+    width: 100px;
+    height: 100px;
+    margin-top: 1rem;
   }
 
   .aboutPage-work {
@@ -1014,6 +1206,11 @@ footer p {
 
   .mainButtons button {
     width: 100%;
+  }
+
+  .aboutPage-profilePic {
+    width: 120px;
+    height: 120px;
   }
 
   .aboutPage-work {

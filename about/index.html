@@ -4,16 +4,48 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Zain Ahmad - About</title>
+
+    <!-- Preconnect to external domains -->
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
+    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com" />
+
+    <!-- Preload critical assets -->
+    <link rel="preload" href="/styles.css" as="style" />
+    <link
+      rel="preload"
+      href="/assets/Background.webm"
+      as="video"
+      type="video/webm"
+    />
+
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+      media="print"
+      onload="this.media='all'"
     />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+      />
+    </noscript>
+
     <link rel="stylesheet" href="/styles.css" />
     <link rel="icon" type="image/png" href="/assets/favicon.png" />
   </head>
   <body>
-    <video autoplay muted loop playsinline webkit-playsinline id="bg-video">
-      <source src="/assets/Background.mp4" type="video/mp4" />
+    <video
+      autoplay
+      muted
+      loop
+      playsinline
+      webkit-playsinline
+      id="bg-video"
+      preload="auto"
+      poster="/assets/video-poster.jpg"
+    >
+      <source src="/assets/Background.webm" type="video/webm" />
       Your browser does not support the video tag.
     </video>
     <nav>
@@ -31,6 +63,48 @@
         <li><a href="/contact/">CONTACT</a></li>
       </ul>
     </nav>
+
+    <section class="aboutPage">
+      <img
+        class="aboutPage-profilePic"
+        src="/assets/pfp.png"
+        alt="Zain Ahmad"
+        loading="eager"
+      />
+      <div class="aboutPage-heading">
+        <h1>About Me</h1>
+        <p>
+          I'm a Computer Science student at the University of Guelph who enjoys
+          designing and developing interfaces that feel effortless to use. I
+          care about clarity, accessibility, and thoughtful design. My work on
+          the GPYOU project earned Best UI at GDSC Hacks 2025.
+        </p>
+        <p>
+          Outside of coding, I explore 3D design and motion graphics using
+          Blender, Premiere Pro, and After Effects. I enjoy experimenting with
+          animation and visual storytelling, bringing that same creative eye to
+          the interfaces and experiences I design.
+        </p>
+      </div>
+    </section>
+
+    <section class="aboutPage-content" style="margin-top: 3rem">
+      <h1>Education</h1>
+      <div class="aboutPage-education">
+        <div class="education-content">
+          <p>2024 - 2028</p>
+          <h2>Bachelor of Applied Science in Computer Science</h2>
+          <h3>University of Guelph, Guelph, ON</h3>
+        </div>
+        <img
+          class="aboutPage-universityIcon"
+          src="/assets/university-of-guelph-logo.png"
+          alt="University of Guelph"
+          loading="lazy"
+        />
+      </div>
+    </section>
+
     <section class="aboutPage-content">
       <h1>Work Experience</h1>
       <div class="aboutPage-work">
@@ -59,6 +133,7 @@
           class="aboutPage-companyIcon"
           src="/assets/kkc-classroom-logo.png"
           alt="KKC Classroom"
+          loading="lazy"
         />
       </div>
       <div class="aboutPage-work">
@@ -113,13 +188,41 @@
           class="aboutPage-companyIcon"
           src="/assets/national-proms-logo.png"
           alt="National Proms"
+          loading="lazy"
         />
       </div>
     </section>
+
     <footer>
       <p style="font-weight: 300">&copy; 2025 Zain Ahmad</p>
     </footer>
     <script>
+      // Performance optimizations
+      // Defer non-critical operations
+      if ("requestIdleCallback" in window) {
+        requestIdleCallback(() => {
+          // Preload next likely pages
+          const links = ["/projects/", "/contact/", "/"];
+          links.forEach((link) => {
+            const linkEl = document.createElement("link");
+            linkEl.rel = "prefetch";
+            linkEl.href = link;
+            document.head.appendChild(linkEl);
+          });
+        });
+      }
+
+      // Check if this is the first page load
+      const hasVisited = sessionStorage.getItem("hasVisited");
+
+      if (!hasVisited) {
+        // First visit - add animation class
+        document.addEventListener("DOMContentLoaded", function () {
+          document.querySelector("nav").classList.add("first-load");
+          sessionStorage.setItem("hasVisited", "true");
+        });
+      }
+
       // Hamburger menu toggle
       const hamburger = document.getElementById("hamburger");
       const navMenu = document.getElementById("navMenu");
