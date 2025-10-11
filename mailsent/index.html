@@ -3,9 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Zain Ahmad</title>
-    <link rel="stylesheet" href="/styles.css"/>
-    <link rel="icon" type="image/png" href="/assets/favicon.png">
+    <title>Zain Ahmad - Message Sent</title>
+    <link rel="stylesheet" href="/styles.css" />
+    <link rel="icon" type="image/png" href="/assets/favicon.png" />
   </head>
   <body>
     <video autoplay muted loop playsinline webkit-playsinline id="bg-video">
@@ -13,8 +13,13 @@
       Your browser does not support the video tag.
     </video>
     <nav>
-      <p style="font-weight: 900; font-size: 18px;">ZAIN AHMAD</p>
-      <ul>
+      <p style="font-weight: 900; font-size: 18px">ZAIN AHMAD</p>
+      <div class="hamburger" id="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <ul id="navMenu">
         <li><a href="/">HOME</a></li>
         <li><a href="/about/">ABOUT</a></li>
         <li><a href="/projects/">PROJECTS</a></li>
@@ -24,10 +29,17 @@
     </nav>
     <section class="contactSuccessPage">
       <h1>Thanks for reaching out!</h1>
-      <p class="text">Hang tight! I will check your message as soon as possible.</p>
+      <p class="text">
+        Hang tight! I will check your message as soon as possible.
+      </p>
       <p class="text">
         In the meantime, feel free to check out some of my
-        <a href="/projects/" style="text-decoration: underline; font-weight: 400;">projects</a> 🚀
+        <a
+          href="/projects/"
+          style="text-decoration: underline; font-weight: 400"
+          >projects</a
+        >
+        🚀
       </p>
       <section class="contactSuccessPage-button">
         <button onclick="window.location.href='/contact/'">
@@ -36,6 +48,36 @@
         <button onclick="window.location.href='/'">
           <p>Home</p>
         </button>
+      </section>
     </section>
+    <footer>
+      <p style="font-weight: 300">&copy; 2025 Zain Ahmad</p>
+    </footer>
+    <script>
+      // Hamburger menu toggle
+      const hamburger = document.getElementById("hamburger");
+      const navMenu = document.getElementById("navMenu");
+
+      hamburger.addEventListener("click", () => {
+        hamburger.classList.toggle("active");
+        navMenu.classList.toggle("active");
+      });
+
+      // Close menu when clicking on a link
+      document.querySelectorAll("nav ul li a").forEach((link) => {
+        link.addEventListener("click", () => {
+          hamburger.classList.remove("active");
+          navMenu.classList.remove("active");
+        });
+      });
+
+      // Close menu when clicking outside
+      document.addEventListener("click", (e) => {
+        if (!hamburger.contains(e.target) && !navMenu.contains(e.target)) {
+          hamburger.classList.remove("active");
+          navMenu.classList.remove("active");
+        }
+      });
+    </script>
   </body>
 </html>

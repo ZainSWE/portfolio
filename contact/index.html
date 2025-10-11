@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Zain Ahmad</title>
+    <title>Zain Ahmad - Contact</title>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
@@ -18,7 +18,12 @@
     </video>
     <nav>
       <p style="font-weight: 900; font-size: 18px">ZAIN AHMAD</p>
-      <ul>
+      <div class="hamburger" id="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <ul id="navMenu">
         <li><a href="/">HOME</a></li>
         <li><a href="/about/">ABOUT</a></li>
         <li><a href="/projects/">PROJECTS</a></li>
@@ -35,13 +40,19 @@
       >
         <h1>Contact Me</h1>
         <div class="socialButtons">
-          <button onclick="window.open('//github.com/ZainSWE')">
+          <button type="button" onclick="window.open('//github.com/ZainSWE')">
             <i class="fa-brands fa-github"></i>
           </button>
-          <button onclick="window.open('//www.linkedin.com/in/zainswe/')">
+          <button
+            type="button"
+            onclick="window.open('//www.linkedin.com/in/zainswe/')"
+          >
             <i class="fa-brands fa-linkedin"></i>
           </button>
-          <button onclick="window.open('//www.instagram.com/tahiti.3d/')">
+          <button
+            type="button"
+            onclick="window.open('//www.instagram.com/tahiti.3d/')"
+          >
             <i class="fa-brands fa-instagram"></i>
           </button>
         </div>
@@ -74,7 +85,35 @@
         </button>
       </form>
     </section>
+    <footer>
+      <p style="font-weight: 300">&copy; 2025 Zain Ahmad</p>
+    </footer>
     <script>
+      // Hamburger menu toggle
+      const hamburger = document.getElementById("hamburger");
+      const navMenu = document.getElementById("navMenu");
+
+      hamburger.addEventListener("click", () => {
+        hamburger.classList.toggle("active");
+        navMenu.classList.toggle("active");
+      });
+
+      // Close menu when clicking on a link
+      document.querySelectorAll("nav ul li a").forEach((link) => {
+        link.addEventListener("click", () => {
+          hamburger.classList.remove("active");
+          navMenu.classList.remove("active");
+        });
+      });
+
+      // Close menu when clicking outside
+      document.addEventListener("click", (e) => {
+        if (!hamburger.contains(e.target) && !navMenu.contains(e.target)) {
+          hamburger.classList.remove("active");
+          navMenu.classList.remove("active");
+        }
+      });
+
       window.onload = function () {
         // Reset the form fields when the page loads
         document.getElementById("contactForm").reset();

@@ -4,11 +4,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Zain Ahmad</title>
-        <link
+    <link
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
     <link rel="stylesheet" href="/styles.css" />
-    <link rel="icon" type="image/png" href="/assets/favicon.png">
+    <link rel="icon" type="image/png" href="/assets/favicon.png" />
   </head>
   <body>
     <video autoplay muted loop playsinline webkit-playsinline id="bg-video">
@@ -16,9 +17,13 @@
       Your browser does not support the video tag.
     </video>
     <nav>
-      <p style="font-weight: 900; font-size: 18px;">ZAIN AHMAD</p>
-    <!--<img class="logo" src="/assets/logo.png" alt="Site logo">-->
-      <ul>
+      <p style="font-weight: 900; font-size: 18px">ZAIN AHMAD</p>
+      <div class="hamburger" id="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <ul id="navMenu">
         <li><a href="/">HOME</a></li>
         <li><a href="/about/">ABOUT</a></li>
         <li><a href="/projects/">PROJECTS</a></li>
@@ -32,7 +37,8 @@
           <h1 class="indexPage-heading">ZAIN AHMAD</h1>
           <p class="indexPage-subheading">Web Developer | UX/UI Designer</p>
           <p class="indexPage-about">
-            Computer Science student at the University of Guelph interested in Web Design, Multimedia & Visual Effects.
+            Computer Science student at the University of Guelph interested in
+            Web Design, Multimedia & Visual Effects.
           </p>
         </section>
       </header>
@@ -44,7 +50,7 @@
           </button>
           <button onclick="window.location.href='/contact/'">
             <p>Contact Me</p>
-        </button>
+          </button>
         </div>
         <div class="indexPage-socialButtons">
           <button onclick="window.open('//github.com/ZainSWE')">
@@ -58,49 +64,74 @@
           </button>
         </div>
       </section>
-      <h1 class="techStack-heading">Tech Stack</h1>
-      <section class="techStack">
-        <div class="techStack-languages">
-          <h1>Languages</h1>
-          <button><p>C</p></button>
-          <button><p>R</p></button>
-          <button><p>Java</p></button>
-          <button><p>Python</p></button>
-          <button><p>HTML</p></button>
-          <button><p>CSS</p></button>
-          <button><p>JavaScript</p></button>
-          <button><p>NodeJS</p></button>
-          <button><p>TailwindCSS</p></button>
-        </div>
-        <div class="techStack-devTools">
-          <h1>Developer Tools</h1>
-          <button><p>Git</p></button>
-          <button><p>GitHub</p></button>
-          <button><p>Gitlabs</p></button>
-          <button><p>VS Code</p></button>
-          <button><p>IntelliJ</p></button>
-          <button><p>Eclipse IDE</p></button>
-          <button><p>Apache NetBeans</p></button>
-        </div>
-        <div class="techStack-creativeTools">
-          <h1>Creative Tools</h1>
-          <button><p>EmberGen</p></button>
-          <button><p>Blender</p></button>
-          <button><p>SketchUp</p></button>
-          <button><p>Unreal Engine 5</p></button>
-          <button><p>Adobe Premiere Pro</p></button>
-          <button><p>Adobe After Effects</p></button>
-          <button><p>Adobe Photoshop</p></button>
-          <button><p>Adobe Illustrator</p></button>
-          <button><p>HandBrake</p></button>
-          <button><p>Figma</p></button>
-        </div>
-      </section>
-      <footer>
-        <p style="font-weight: 300;">&copy 2025 Zain Ahmad</p>
-      </footer>
-      <script>
-        console.log("stop poking around you nosey 🐀 ")
-      </script>
+    </section>
+    <h1 class="techStack-heading">Tech Stack</h1>
+    <section class="techStack">
+      <div class="techStack-languages">
+        <h1>Languages</h1>
+        <button><p>C</p></button>
+        <button><p>Java</p></button>
+        <button><p>Python</p></button>
+        <button><p>HTML</p></button>
+        <button><p>CSS</p></button>
+        <button><p>JavaScript</p></button>
+        <button><p>NodeJS</p></button>
+        <button><p>TailwindCSS</p></button>
+      </div>
+      <div class="techStack-devTools">
+        <h1>Developer Tools</h1>
+        <button><p>Git</p></button>
+        <button><p>GitHub</p></button>
+        <button><p>Gitlabs</p></button>
+        <button><p>VS Code</p></button>
+        <button><p>IntelliJ</p></button>
+        <button><p>Eclipse IDE</p></button>
+        <button><p>Apache NetBeans</p></button>
+      </div>
+      <div class="techStack-creativeTools">
+        <h1>Creative Tools</h1>
+        <button><p>EmberGen</p></button>
+        <button><p>Blender</p></button>
+        <button><p>SketchUp</p></button>
+        <button><p>Unreal Engine 5</p></button>
+        <button><p>Adobe Premiere Pro</p></button>
+        <button><p>Adobe After Effects</p></button>
+        <button><p>Adobe Photoshop</p></button>
+        <button><p>Adobe Illustrator</p></button>
+        <button><p>HandBrake</p></button>
+        <button><p>Figma</p></button>
+      </div>
+    </section>
+    <footer>
+      <p style="font-weight: 300">&copy; 2025 Zain Ahmad</p>
+    </footer>
+    <script>
+      // Hamburger menu toggle
+      const hamburger = document.getElementById("hamburger");
+      const navMenu = document.getElementById("navMenu");
+
+      hamburger.addEventListener("click", () => {
+        hamburger.classList.toggle("active");
+        navMenu.classList.toggle("active");
+      });
+
+      // Close menu when clicking on a link
+      document.querySelectorAll("nav ul li a").forEach((link) => {
+        link.addEventListener("click", () => {
+          hamburger.classList.remove("active");
+          navMenu.classList.remove("active");
+        });
+      });
+
+      // Close menu when clicking outside
+      document.addEventListener("click", (e) => {
+        if (!hamburger.contains(e.target) && !navMenu.contains(e.target)) {
+          hamburger.classList.remove("active");
+          navMenu.classList.remove("active");
+        }
+      });
+
+      console.log("stop poking around you nosey 🤓 ");
+    </script>
   </body>
 </html>

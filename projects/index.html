@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Zain Ahmad</title>
+    <title>Zain Ahmad - Projects</title>
     <link rel="stylesheet" href="/styles.css" />
     <link rel="icon" type="image/png" href="/assets/favicon.png" />
   </head>
@@ -14,7 +14,12 @@
     </video>
     <nav>
       <p style="font-weight: 900; font-size: 18px">ZAIN AHMAD</p>
-      <ul>
+      <div class="hamburger" id="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <ul id="navMenu">
         <li><a href="/">HOME</a></li>
         <li><a href="/about/">ABOUT</a></li>
         <li><a href="/projects/">PROJECTS</a></li>
@@ -22,5 +27,265 @@
         <li><a href="/contact/">CONTACT</a></li>
       </ul>
     </nav>
+
+    <section class="projectsPage">
+      <div class="projectsPage-heading">
+        <h1>My Projects</h1>
+        <p>
+          A collection of my work spanning web development, UI/UX design, and
+          multimedia projects. Each project represents a unique challenge and
+          learning experience.
+        </p>
+      </div>
+
+      <div class="projectsPage-content">
+        <!-- Project 1 -->
+        <div class="project-card">
+          <div class="project-header">
+            <div class="project-info">
+              <h2>GPYOU</h2>
+              <h3>Web Application | UI/UX Design</h3>
+            </div>
+            <img
+              class="project-icon"
+              src="/assets/gpyou-logo.png"
+              alt="GPYOU"
+            />
+          </div>
+          <p class="project-description">
+            A comprehensive academic planning platform designed for University
+            of Guelph students. Features an intuitive course scheduler, degree
+            progress tracker, and personalized recommendations. Awarded Best UI
+            at GDSC Hacks 2025 for its clean interface and exceptional user
+            experience.
+          </p>
+          <div class="project-tags">
+            <span class="project-tag">React</span>
+            <span class="project-tag">Node.js</span>
+            <span class="project-tag">Figma</span>
+            <span class="project-tag">UI/UX</span>
+          </div>
+          <div class="project-links">
+            <button
+              onclick="window.open('//www.zainswe.github.io/GPYOU/src//')"
+            >
+              <p>View Live</p>
+            </button>
+            <button onclick="window.open('//www.github.com/ZainSWE/GPYOU/')">
+              <p>View Code</p>
+            </button>
+          </div>
+        </div>
+
+        <!-- Project 2 -->
+        <div class="project-card">
+          <div class="project-header">
+            <div class="project-info">
+              <h2>Portfolio Website</h2>
+              <h3>Web Development | Design</h3>
+            </div>
+            <img class="project-icon" src="/assets/logo.png" alt="Portfolio" />
+          </div>
+          <p class="project-description">
+            A modern, responsive portfolio website featuring custom animations
+            and a sleek glassmorphism design. Built with vanilla HTML, CSS, and
+            JavaScript, showcasing clean code practices and attention to visual
+            detail. Optimized for all devices and browsers.
+          </p>
+          <div class="project-tags">
+            <span class="project-tag">HTML</span>
+            <span class="project-tag">CSS</span>
+            <span class="project-tag">JavaScript</span>
+            <span class="project-tag">Responsive Design</span>
+          </div>
+          <div class="project-links">
+            <button onclick="window.open('//www.zainahmad.com//')">
+              <p>View Live</p>
+            </button>
+            <button onclick="window.open('//www.github.com/ZainSWE/portfolio')">
+              <p>View Code</p>
+            </button>
+          </div>
+        </div>
+
+        <!-- Project 3 -->
+        <div class="project-card">
+          <div class="project-header">
+            <div class="project-info">
+              <h2>KKC Classroom Platform</h2>
+              <h3>Full-Stack Development | UI Redesign</h3>
+            </div>
+            <img
+              class="project-icon"
+              src="/assets/kkc-classroom-logo.png"
+              alt="KKC Classroom"
+            />
+          </div>
+          <p class="project-description">
+            Led the complete platform redesign for an educational technology
+            company. Created responsive prototypes in Figma and implemented the
+            design using Next.js and TailwindCSS. Improved usability, modernized
+            the visual identity, and enhanced the overall user experience across
+            web and mobile platforms.
+          </p>
+          <div class="project-tags">
+            <span class="project-tag">Next.js</span>
+            <span class="project-tag">TailwindCSS</span>
+            <span class="project-tag">Figma</span>
+            <span class="project-tag">Full-Stack</span>
+          </div>
+          <div class="project-links">
+            <button onclick="window.open('//www.kkcclassroom.com/')">
+              <p>View Project</p>
+            </button>
+            <button onclick="window.open('#')">
+              <p>Case Study</p>
+            </button>
+          </div>
+        </div>
+
+        <!-- Project 4 -->
+        <div class="project-card">
+          <div class="project-header">
+            <div class="project-info">
+              <h2>3D Motion Graphics Reel</h2>
+              <h3>3D Animation | Visual Effects</h3>
+            </div>
+            <img
+              class="project-icon"
+              src="/assets/promfluence-logo.png"
+              alt="3D Reel"
+            />
+          </div>
+          <p class="project-description">
+            A showcase of 3D animation and motion graphics work created for
+            various clients and personal projects. Includes custom intro/outro
+            sequences, logo animations, and visual effects created in Blender,
+            After Effects, and Premiere Pro. Features dynamic camera work,
+            particle systems, and photorealistic rendering.
+          </p>
+          <div class="project-tags">
+            <span class="project-tag">Blender</span>
+            <span class="project-tag">After Effects</span>
+            <span class="project-tag">Premiere Pro</span>
+            <span class="project-tag">3D Animation</span>
+          </div>
+          <div class="project-links">
+            <button
+              onclick="window.open('//www.youtube.com/@Zee.ContentCreation/')"
+            >
+              <p>Watch Reel</p>
+            </button>
+            <button onclick="window.open('#')">
+              <p>View Gallery</p>
+            </button>
+          </div>
+        </div>
+
+        <!-- Project 5 
+        <div class="project-card">
+          <div class="project-header">
+            <div class="project-info">
+              <h2>Task Management App</h2>
+              <h3>Mobile-First Web App | UI/UX</h3>
+            </div>
+            <img
+              class="project-icon"
+              src="/assets/task-app-icon.png"
+              alt="Task App"
+            />
+          </div>
+          <p class="project-description">
+            A minimalist task management application with a focus on simplicity
+            and efficiency. Features drag-and-drop functionality, priority
+            sorting, and local storage persistence. Designed with a mobile-first
+            approach and includes dark mode support. Built to help users stay
+            organized without overwhelming complexity.
+          </p>
+          <div class="project-tags">
+            <span class="project-tag">JavaScript</span>
+            <span class="project-tag">CSS Grid</span>
+            <span class="project-tag">Local Storage</span>
+            <span class="project-tag">Mobile-First</span>
+          </div>
+          <div class="project-links">
+            <button onclick="window.open('#')">
+              <p>Try Demo</p>
+            </button>
+            <button onclick="window.open('#')">
+              <p>View Code</p>
+            </button>
+          </div>
+        </div>-->
+
+        <!-- Project 6 -->
+        <div class="project-card">
+          <div class="project-header">
+            <div class="project-info">
+              <h2>National Proms Campaign</h2>
+              <h3>Video Production | Brand Design</h3>
+            </div>
+            <img
+              class="project-icon"
+              src="/assets/national-proms-logo.png"
+              alt="National Proms"
+            />
+          </div>
+          <p class="project-description">
+            Produced 50+ promotional videos and campaign content for a national
+            event series. Created cohesive branding through custom logo
+            animations, title sequences, and social media graphics. Delivered
+            high-quality multimedia content on tight deadlines while maintaining
+            consistent visual identity across all platforms.
+          </p>
+          <div class="project-tags">
+            <span class="project-tag">Video Editing</span>
+            <span class="project-tag">Motion Graphics</span>
+            <span class="project-tag">Branding</span>
+            <span class="project-tag">Social Media</span>
+          </div>
+          <div class="project-links">
+            <button
+              onclick="window.open('//www.youtube.com/@Zee.ContentCreation/')"
+            >
+              <p>View Portfolio</p>
+            </button>
+            <button onclick="window.open('//www.nationalproms.com//')">
+              <p>Campaign Info</p>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <p style="font-weight: 300">&copy; 2025 Zain Ahmad</p>
+    </footer>
+    <script>
+      // Hamburger menu toggle
+      const hamburger = document.getElementById("hamburger");
+      const navMenu = document.getElementById("navMenu");
+
+      hamburger.addEventListener("click", () => {
+        hamburger.classList.toggle("active");
+        navMenu.classList.toggle("active");
+      });
+
+      // Close menu when clicking on a link
+      document.querySelectorAll("nav ul li a").forEach((link) => {
+        link.addEventListener("click", () => {
+          hamburger.classList.remove("active");
+          navMenu.classList.remove("active");
+        });
+      });
+
+      // Close menu when clicking outside
+      document.addEventListener("click", (e) => {
+        if (!hamburger.contains(e.target) && !navMenu.contains(e.target)) {
+          hamburger.classList.remove("active");
+          navMenu.classList.remove("active");
+        }
+      });
+    </script>
   </body>
 </html>
