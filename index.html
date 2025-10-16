@@ -69,12 +69,17 @@
     <section class="techStack">
       <div class="techStack-languages">
         <h1>Languages</h1>
+        <button><p>Assembly</p></button>
         <button><p>C</p></button>
         <button><p>Java</p></button>
         <button><p>Python</p></button>
         <button><p>HTML</p></button>
         <button><p>CSS</p></button>
         <button><p>JavaScript</p></button>
+        <button><p>R</p></button>
+      </div>
+      <div class="techStack-frameworks">
+        <h1>Frameworks</h1>
         <button><p>NodeJS</p></button>
         <button><p>TailwindCSS</p></button>
       </div>
@@ -87,6 +92,11 @@
         <button><p>IntelliJ</p></button>
         <button><p>Eclipse IDE</p></button>
         <button><p>Apache NetBeans</p></button>
+        <button><p>Nano</p></button>
+        <button><p>Micro</p></button>
+        <button><p>Vim</p></button>
+        <button><p>Easy68K</p></button>
+        <button><p>SSH</p></button>
       </div>
       <div class="techStack-creativeTools">
         <h1>Creative Tools</h1>
@@ -105,33 +115,6 @@
     <footer>
       <p style="font-weight: 300">&copy; 2025 Zain Ahmad</p>
     </footer>
-    <script>
-      // Hamburger menu toggle
-      const hamburger = document.getElementById("hamburger");
-      const navMenu = document.getElementById("navMenu");
-
-      hamburger.addEventListener("click", () => {
-        hamburger.classList.toggle("active");
-        navMenu.classList.toggle("active");
-      });
-
-      // Close menu when clicking on a link
-      document.querySelectorAll("nav ul li a").forEach((link) => {
-        link.addEventListener("click", () => {
-          hamburger.classList.remove("active");
-          navMenu.classList.remove("active");
-        });
-      });
-
-      // Close menu when clicking outside
-      document.addEventListener("click", (e) => {
-        if (!hamburger.contains(e.target) && !navMenu.contains(e.target)) {
-          hamburger.classList.remove("active");
-          navMenu.classList.remove("active");
-        }
-      });
-
-      console.log("stop poking around you nosey 🤓 ");
-    </script>
+    <srcript src="app.js"></srcript>
   </body>
 </html>

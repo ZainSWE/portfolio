@@ -139,7 +139,7 @@ nav {
 }
 
 nav.first-load {
-  animation: slideInFromLeft 0.6s ease-out;
+  animation: 0.6s ease-out;
 }
 
 nav p {
@@ -379,6 +379,7 @@ button:hover {
 }
 
 .techStack-languages,
+.techStack-frameworks,
 .techStack-devTools,
 .techStack-creativeTools {
   background: rgba(0, 0, 0, 0.5);
@@ -396,6 +397,10 @@ button:hover {
 }
 
 .techStack-languages {
+  animation-delay: 1.2s;
+}
+
+.techStack-frameworks {
   animation-delay: 1.4s;
 }
 
@@ -421,6 +426,7 @@ button:hover {
 }
 
 .techStack-languages button,
+.techStack-frameworks button,
 .techStack-devTools button,
 .techStack-creativeTools button {
   color: #ffffff;
@@ -436,6 +442,7 @@ button:hover {
 }
 
 .techStack-languages button:hover,
+.techStack-frameworks button:hover,
 .techStack-devTools button:hover,
 .techStack-creativeTools button:hover {
   transform: scale(1.05);

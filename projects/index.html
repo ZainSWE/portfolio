@@ -189,7 +189,7 @@
         <div class="project-card">
           <div class="project-header">
             <div class="project-info">
-              <h2>Discord Login Mockup</h2>
+              <h2>Discrod Login Mockup</h2>
               <h3>Website Mockups | UI/UX</h3>
             </div>
             <img
@@ -265,32 +265,6 @@
     <footer>
       <p style="font-weight: 300">&copy; 2025 Zain Ahmad</p>
     </footer>
-    <script>
-      // Hamburger menu toggle
-      const hamburger = document.getElementById("hamburger");
-      const navMenu = document.getElementById("navMenu");
-
-      hamburger.addEventListener("click", () => {
-        hamburger.classList.toggle("active");
-        navMenu.classList.toggle("active");
-      });
-
-      // Close menu when clicking on a link
-      document.querySelectorAll("nav ul li a").forEach((link) => {
-        link.addEventListener("click", () => {
-          hamburger.classList.remove("active");
-          navMenu.classList.remove("active");
-        });
-      });
-
-      // Close menu when clicking outside
-      document.addEventListener("click", (e) => {
-        if (!hamburger.contains(e.target) && !navMenu.contains(e.target)) {
-          hamburger.classList.remove("active");
-          navMenu.classList.remove("active");
-        }
-      });
-    </script>
+    <srcript src="app.js"></srcript>
   </body>
 </html>
-
