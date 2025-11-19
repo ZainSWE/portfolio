@@ -81,43 +81,43 @@ const videoData = [
     title: "Mustafa Syed - Reel 1",
     subtitle: "Instagram Reels | Video Editing | Adobe Premiere Pro",
     src: "/assets/Mustafa Reel - 10.webm",
-    thumbnailTime: 2
+    thumbnailTime: 0
   },
   {
     title: "Mustafa Syed - Reel 2",
     subtitle: "Instagram Reels | Video Editing | Adobe Premiere Pro",
     src: "/assets/Mustafa Reel - 8.webm",
-    thumbnailTime: 2
+    thumbnailTime: 0
   },
   {
     title: "KKC Classroom - Logo Intro",
     subtitle: "Motion Graphics | Brand Identity | Blender",
     src: "/assets/KKC Classroom Logo Intro Animation.webm",
-    thumbnailTime: 2
+    thumbnailTime: 0
   },
   {
     title: "KKC Classroom - Logo Outro",
     subtitle: "Motion Graphics | Brand Identity | Blender",
     src: "/assets/KKC Classroom Logo Outro Animation.webm",
-    thumbnailTime: 2
+    thumbnailTime: 0
   },
   {
     title: "Poppi AD - Commercial",
     subtitle: "Commercial Production | Video Editing | Blender | Adobe Premiere Pro",
     src: "/assets/Poppi AD.webm",
-    thumbnailTime: 2
+    thumbnailTime: 0
   },
   {
     title: "RTX 5090 FE Animation",
     subtitle: "3D Animation | Product Visualization | Blender | Adobe Premiere Pro",
     src: "/assets/RTX 5090 FE Animation.webm",
-    thumbnailTime: 2
+    thumbnailTime: 0
   },
   {
     title: "Walter White - Edit",
     subtitle: "TV/Movie Edit | Adobe Premiere Pro",
     src: "/assets/ww.webm",
-    thumbnailTime: 2
+    thumbnailTime: 0
   }
 ];
 
