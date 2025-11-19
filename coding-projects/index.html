@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Zain Ahmad - Projects</title>
+    <link rel="stylesheet" href="/styles.css" />
+    <link rel="icon" type="image/png" href="/assets/favicon.png" />
+  </head>
+  <body>
+    <video autoplay muted loop playsinline webkit-playsinline id="bg-video">
+      <source src="/assets/Background.webm" type="video/webm" />
+      Your browser does not support the video tag.
+    </video>
+    <nav>
+      <li style="font-weight: 900; font-size: 18px; list-style-type: none"><a href="/">ZAIN AHMAD</a></li>
+      <div class="hamburger" id="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <ul id="navMenu">
+        <li><a href="/">HOME</a></li>
+        <li><a href="/about/">ABOUT</a></li>
+        <li><a href="/coding-projects/">PROJECTS</a></li>
+        <li><a href="/blog/">BLOG</a></li>
+        <li><a href="/contact/">CONTACT</a></li>
+      </ul>
+    </nav>
+
+    <section class="projectsPage">
+      <div class="projectsPage-heading">
+        <h1>My Projects</h1>
+        <p>
+          A collection of my work spanning web development, UI/UX design, and
+          multimedia projects. Each project represents a unique challenge and
+          learning experience.
+        </p>
+        <h4>Displaying: Coding Projects</h4>
+      </div>
+
+      <div class="projectsPage-selection">
+        <button onclick="window.location.href='/coding-projects';">Coding</button>
+        <button onclick="window.location.href='/multimedia-projects';">Multimedia</button>
+      </div>
+
+      <div class="projectsPage-content">
+
+        <!-- Project 0 -->
+        <div class="project-card">
+          <div class="project-header">
+            <div class="project-info">
+              <h2>G.SKILL-RAM</h2>
+              <h3>Website Mockups | UX/UI</h3>
+            </div>
+            <img
+              class="project-icon"
+              src="/assets/ram-logo.png"
+              alt="GPYOU"
+            />
+          </div>
+          <p class="project-description">
+            A product design mockup showcasing a single G.SKILL RAM module in 3D. 
+            Features a realistic 3D model integrated into a clean, minimal web layout to 
+            highlight the product's design. Built with HTML, CSS, and JavaScript using the Three.js library, 
+            focusing on visual presentation, clean aesthetics, & responsive display.
+          </p>
+          <div class="project-tags">
+            <span class="project-tag">HTML</span>
+            <span class="project-tag">CSS</span>
+            <span class="project-tag">JavaScript</span>
+            <span class="project-tag">Three.js</span>
+          </div>
+          <div class="project-links">
+            <button
+              onclick="window.open('https://zainswe.github.io/G.SKILL-RAM/')"
+            >
+              <p>View Live</p>
+            </button>
+            <button onclick="window.open('https://github.com/ZainSWE/G.SKILL-RAM')">
+              <p>View Code</p>
+            </button>
+          </div>
+        </div>
+
+        <!-- Project 1 -->
+        <div class="project-card">
+          <div class="project-header">
+            <div class="project-info">
+              <h2>GPYOU</h2>
+              <h3>Web Application | Gemini API</h3>
+            </div>
+            <img
+              class="project-icon"
+              src="/assets/gpyou-logo.png"
+              alt="GPYOU"
+            />
+          </div>
+          <p class="project-description">
+            A comprehensive academic planning platform designed for University
+            of Guelph students. Features an intuitive course scheduler, degree
+            progress tracker, and personalized recommendations. Awarded Best UI
+            at GDSC Hacks 2025 for its clean interface and exceptional user
+            experience.
+          </p>
+          <div class="project-tags">
+            <span class="project-tag">HTML</span>
+            <span class="project-tag">CSS</span>
+            <span class="project-tag">JavaScript</span>
+            <span class="project-tag">Figma</span>
+            <span class="project-tag">Gemini Flash 2.0</span>
+            <span class="project-tag">Hackathon</span>
+          </div>
+          <div class="project-links">
+            <button
+              onclick="window.open('https://zainswe.github.io/GPYOU/src/')"
+            >
+              <p>View Live</p>
+            </button>
+            <button onclick="window.open('https://github.com/ZainSWE/GPYOU')">
+              <p>View Code</p>
+            </button>
+          </div>
+        </div>
+
+        <!-- Project 2 -->
+        <div class="project-card">
+          <div class="project-header">
+            <div class="project-info">
+              <h2>Portfolio Website</h2>
+              <h3>Web Development | Design</h3>
+            </div>
+            <img class="project-icon" src="/assets/logo.png" alt="Portfolio" />
+          </div>
+          <p class="project-description">
+            A modern, responsive portfolio website featuring custom animations
+            and a sleek glassmorphism design. Built with vanilla HTML, CSS, and
+            JavaScript, showcasing clean code practices and attention to visual
+            detail. Optimized for all devices and browsers.
+          </p>
+          <div class="project-tags">
+            <span class="project-tag">HTML</span>
+            <span class="project-tag">CSS</span>
+            <span class="project-tag">JavaScript</span>
+            <span class="project-tag">Responsive Design</span>
+          </div>
+          <div class="project-links">
+            <button onclick="window.open('https://zainahmad.com')">
+              <p>View Live</p>
+            </button>
+            <button onclick="window.open('https://github.com/ZainSWE/portfolio')">
+              <p>View Code</p>
+            </button>
+          </div>
+        </div>
+
+        <!-- Project 3 -->
+        <div class="project-card">
+          <div class="project-header">
+            <div class="project-info">
+              <h2>KKC Classroom Platform</h2>
+              <h3>Frontend Development | UI Redesign</h3>
+            </div>
+            <img
+              class="project-icon"
+              src="/assets/kkc-classroom-logo.png"
+              alt="KKC Classroom"
+            />
+          </div>
+          <p class="project-description">
+            Led the complete platform redesign for an educational technology
+            company. Created responsive prototypes in Figma and implemented the
+            design using Next.js and TailwindCSS. Improved usability, modernized
+            the visual identity, and enhanced the overall user experience across
+            web and mobile platforms.
+          </p>
+          <div class="project-tags">
+            <span class="project-tag">Next.js</span>
+            <span class="project-tag">TailwindCSS</span>
+            <span class="project-tag">Figma</span>
+            <span class="project-tag">Frontend</span>
+            <span class="project-tag">UX/UI</span>
+          </div>
+          <div class="project-links">
+            <button onclick="window.open('https://kkcclassroom.com')">
+              <p>View Project</p>
+            </button>
+            <button onclick="window.open('#')">
+              <p>Case Study</p>
+            </button>
+          </div>
+        </div>
+
+        <!-- Project 4 -->
+        <div class="project-card">
+          <div class="project-header">
+            <div class="project-info">
+              <h2>3D Motion Graphics Reel</h2>
+              <h3>3D Animation | Visual Effects</h3>
+            </div>
+            <img
+              class="project-icon"
+              src="/assets/promfluence-logo.png"
+              alt="3D Reel"
+            />
+          </div>
+          <p class="project-description">
+            A showcase of 3D animation and motion graphics work created for
+            various clients and personal projects. Includes custom intro/outro
+            sequences, logo animations, and visual effects created in Blender,
+            After Effects, and Premiere Pro. Features dynamic camera work,
+            particle systems, and photorealistic rendering.
+          </p>
+          <div class="project-tags">
+            <span class="project-tag">Blender</span>
+            <span class="project-tag">After Effects</span>
+            <span class="project-tag">Premiere Pro</span>
+            <span class="project-tag">3D Animation</span>
+          </div>
+          <div class="project-links">
+            <button
+              onclick="window.open('https://youtube.com/@Zee.ContentCreation')"
+            >
+              <p>Watch Reel</p>
+            </button>
+            <button onclick="window.open('#')">
+              <p>View Gallery</p>
+            </button>
+          </div>
+        </div>
+
+        <!-- Project 5 -->
+        <div class="project-card">
+          <div class="project-header">
+            <div class="project-info">
+              <h2>Discord Login Mockup</h2>
+              <h3>Website Mockups | UX/UI</h3>
+            </div>
+            <img
+              class="project-icon"
+              src="/assets/discord-logo.png"
+              alt="Discord"
+            />
+          </div>
+          <p class="project-description">
+            A creative interpretation of Discord's login interface, exploring modern 
+            UI design principles and layout techniques. Built using pure HTML and CSS, 
+            this mockup practices implementing Discord's distinctive branding, color scheme, 
+            and visual hierarchy. Demonstrates foundational web development skills 
+            including form styling, flexbox layouts, and creating polished user 
+            interfaces from scratch.
+          </p>
+          <div class="project-tags">
+            <span class="project-tag">HTML</span>
+            <span class="project-tag">CSS</span>
+            <span class="project-tag">Flexbox</span>
+            <span class="project-tag">Mockup</span>
+          </div>
+          <div class="project-links">
+            <button onclick="window.open('https://zainswe.github.io/discord-login')">
+              <p>View Live</p>
+            </button>
+            <button onclick="window.open('https://github.com/ZainSWE/discord-login')">
+              <p>View Code</p>
+            </button>
+          </div>
+        </div>
+
+        <!-- Project 6 -->
+        <div class="project-card">
+          <div class="project-header">
+            <div class="project-info">
+              <h2>National Proms Campaign</h2>
+              <h3>Video Production | Brand Design</h3>
+            </div>
+            <img
+              class="project-icon"
+              src="/assets/national-proms-logo.png"
+              alt="National Proms"
+            />
+          </div>
+          <p class="project-description">
+            Produced 50+ promotional videos and campaign content for a national
+            event series. Created cohesive branding through custom logo
+            animations, title sequences, and social media graphics. Delivered
+            high-quality multimedia content on tight deadlines while maintaining
+            consistent visual identity across all platforms.
+          </p>
+          <div class="project-tags">
+            <span class="project-tag">Video Editing</span>
+            <span class="project-tag">Motion Graphics</span>
+            <span class="project-tag">Branding</span>
+            <span class="project-tag">Social Media</span>
+          </div>
+          <div class="project-links">
+            <button
+              onclick="window.open('https://youtube.com/@Zee.ContentCreation')"
+            >
+              <p>View Portfolio</p>
+            </button>
+            <button onclick="window.open('https://nationalproms.com')">
+              <p>Campaign Info</p>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <p style="font-weight: 300">&copy; 2025 Zain Ahmad</p>
+    </footer>
+    <script src="/app.js"></script>
+  </body>
+</html>

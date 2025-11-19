@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Zain Ahmad - Projects</title>
+    <link rel="stylesheet" href="/styles.css" />
+    <link rel="icon" type="image/png" href="/assets/favicon.png" />
+  </head>
+  <body>
+    <video autoplay muted loop playsinline webkit-playsinline id="bg-video">
+      <source src="/assets/Background.webm" type="video/webm" />
+      Your browser does not support the video tag.
+    </video>
+    <nav>
+      <li style="font-weight: 900; font-size: 18px; list-style-type: none"><a href="/">ZAIN AHMAD</a></li>
+      <div class="hamburger" id="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <ul id="navMenu">
+        <li><a href="/">HOME</a></li>
+        <li><a href="/about/">ABOUT</a></li>
+        <li><a href="/coding-projects/">PROJECTS</a></li>
+        <li><a href="/blog/">BLOG</a></li>
+        <li><a href="/contact/">CONTACT</a></li>
+      </ul>
+    </nav>
+
+    <section class="projectsPage">
+      <div class="projectsPage-heading">
+        <h1>My Projects</h1>
+        <p>
+          A collection of my work spanning web development, UI/UX design, and
+          multimedia projects. Each project represents a unique challenge and
+          learning experience.
+        </p>
+        <h4>Displaying: Multimedia Projects</h4>
+      </div>
+
+      <div class="projectsPage-selection">
+        <button onclick="window.location.href='/coding-projects';">Coding</button>
+        <button onclick="window.location.href='/multimedia-projects';">Multimedia</button>
+      </div>
+
+      <div class="projectsPage-content">
+
+        <!-- Project 0 -->
+        <div class="project-card">
+          <div class="project-header">
+            <div class="project-info">
+              <h2 id="video-title">Mustafa Content Creator - Reels</h2>
+              <h3 id="video-subtitle">Instagram Reels | Video Editing</h3>
+            </div>
+          </div>
+          <p class="project-description" id="video-description">
+            Showcase of one of many instagram reels I created for Mustafa Syed. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Modi eaque, dolore eveniet exercitationem temporibus aliquam officiis, adipisci obcaecati consequuntur, ut nihil.
+          </p>
+          <div class="project-tags">
+            <span class="project-tag">Video-Editing</span>
+            <span class="project-tag">Adobe Premiere Pro</span>
+          </div>
+          
+          <div class="project-video-container">
+  <button class="carousel-arrow left" onclick="previousVideo()">‹</button>
+  
+  <div class="video-carousel" id="videoCarousel">
+    <!-- Video 1 -->
+    <div class="video-carousel-item active" data-index="1">
+      <video id="project-video-1" class="project-video project-video-9-16" muted>
+        <source src="/assets/Mustafa Reel - 10.mp4" type="video/mp4" />
+      </video>
+    </div>
+    
+    <!-- Video 2 -->
+    <div class="video-carousel-item hidden" data-index="2">
+      <video id="project-video-2" class="project-video project-video-9-16" muted>
+        <source src="/assets/Mustafa Reel - 8.mp4" type="video/mp4" />
+      </video>
+    </div>
+    
+    <!-- Video 3 -->
+    <div class="video-carousel-item hidden" data-index="3">
+      <video id="project-video-3" class="project-video project-video-16-9" muted>
+        <source src="/assets/KKC Classroom Logo Intro Animation.mp4" type="video/mp4" />
+      </video>
+    </div>
+    
+    <!-- Video 4 -->
+    <div class="video-carousel-item hidden" data-index="4">
+      <video id="project-video-4" class="project-video project-video-16-9" muted>
+        <source src="/assets/KKC Classroom Logo Outro Animation.mp4" type="video/mp4" />
+      </video>
+    </div>
+    
+    <!-- Video 5 -->
+    <div class="video-carousel-item hidden" data-index="5">
+      <video id="project-video-5" class="project-video project-video-9-16" muted>
+        <source src="/assets/Poppi AD.mp4" type="video/mp4" />
+      </video>
+    </div>
+    
+    <!-- Video 6 -->
+    <div class="video-carousel-item hidden" data-index="6">
+      <video id="project-video-6" class="project-video project-video-9-16" muted>
+        <source src="/assets/RTX 5090 FE Animation.mp4" type="video/mp4" />
+      </video>
+    </div>
+    
+    <!-- Video 7 -->
+    <div class="video-carousel-item hidden" data-index="7">
+      <video id="project-video-7" class="project-video project-video-1-1" muted>
+        <source src="/assets/ww.mp4" type="video/mp4" />
+      </video>
+    </div>
+  </div>
+  
+  <button class="carousel-arrow right" onclick="nextVideo()">›</button>
+</div>
+          
+          <div class="project-video-controls">
+            <!-- Time slider on top (full width) -->
+            <div class="video-time-container">
+              <input 
+                type="range" 
+                min="0" 
+                max="100" 
+                value="0" 
+                class="video-time-slider" 
+                id="timeSlider"
+                oninput="seekVideo(this.value)"
+              />
+            </div>
+            
+            <!-- Controls row below -->
+            <div class="video-controls-top">
+              <button class="video-play-button" onclick="togglePlayCurrent()">
+                ▶
+              </button>
+              
+              <span class="video-time-display" id="timeDisplay">0:00 / 0:00</span>
+              
+              <div class="video-volume-container">
+                <span class="video-volume-icon" onclick="toggleMuteCurrent()">🔊</span>
+                <input 
+                  type="range" 
+                  min="0" 
+                  max="100" 
+                  value="0" 
+                  class="video-volume-slider" 
+                  id="volumeSlider"
+                  oninput="changeVolumeCurrent(this.value)"
+                />
+              </div>
+            </div>
+          </div>
+          
+          <div class="project-links">
+            <button onclick="window.open('https://instagram.com/reel/DRLe-4MjXGs/')">
+              <p>View Source</p>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <footer>
+      <p style="font-weight: 300">&copy; 2025 Zain Ahmad</p>
+    </footer>
+    <script src="/app.js"></script>
+  </body>
+</html>
