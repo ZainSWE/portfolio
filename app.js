@@ -78,52 +78,45 @@ function initContactPage() {
 let currentVideoIndex = 0;
 const videoData = [
   {
-    title: "Mustafa Content Creator - Reel 1",
-    subtitle: "Instagram Reels | Video Editing",
-    description: "First showcase reel featuring dynamic transitions and engaging storytelling techniques. This piece demonstrates advanced color grading and motion graphics integration.",
-    src: "/assets/Mustafa Reel - 10.mp4",
+    title: "Mustafa Syed - Reel 1",
+    subtitle: "Instagram Reels | Video Editing | Adobe Premiere Pro",
+    src: "/assets/Mustafa Reel - 10.webm",
     thumbnailTime: 2
   },
   {
-    title: "Mustafa Content Creator - Reel 2",
-    subtitle: "Instagram Reels | Creative Direction",
-    description: "Second reel highlighting creative editing techniques and visual effects. Features smooth pacing and professional audio mixing for maximum engagement.",
-    src: "/assets/Mustafa Reel - 11.mp4",
+    title: "Mustafa Syed - Reel 2",
+    subtitle: "Instagram Reels | Video Editing | Adobe Premiere Pro",
+    src: "/assets/Mustafa Reel - 8.webm",
     thumbnailTime: 2
   },
   {
     title: "KKC Classroom - Logo Intro",
-    subtitle: "Motion Graphics | Brand Identity",
-    description: "Custom logo animation intro for KKC Classroom featuring smooth motion graphics and professional branding elements. Created to establish strong visual identity.",
-    src: "/assets/KKC Classroom Logo Intro Animation.mp4",
+    subtitle: "Motion Graphics | Brand Identity | Blender",
+    src: "/assets/KKC Classroom Logo Intro Animation.webm",
     thumbnailTime: 2
   },
   {
     title: "KKC Classroom - Logo Outro",
-    subtitle: "Motion Graphics | Brand Identity",
-    description: "Matching logo animation outro for KKC Classroom. Provides consistent branding with elegant fade-out transitions and professional finishing.",
-    src: "/assets/KKC Classroom Logo Outro Animation.mp4",
+    subtitle: "Motion Graphics | Brand Identity | Blender",
+    src: "/assets/KKC Classroom Logo Outro Animation.webm",
     thumbnailTime: 2
   },
   {
     title: "Poppi AD - Commercial",
-    subtitle: "Commercial Production | Video Editing",
-    description: "Professional commercial advertisement for Poppi brand. Features product showcasing, engaging visuals, and persuasive storytelling techniques.",
-    src: "/assets/Poppi AD.mp4",
+    subtitle: "Commercial Production | Video Editing | Blender | Adobe Premiere Pro",
+    src: "/assets/Poppi AD.webm",
     thumbnailTime: 2
   },
   {
     title: "RTX 5090 FE Animation",
-    subtitle: "3D Animation | Product Visualization",
-    description: "3D animated showcase of the RTX 5090 Founders Edition graphics card. Features realistic materials, lighting, and cinematic camera movements.",
-    src: "/assets/RTX 5090 FE Animation.mp4",
+    subtitle: "3D Animation | Product Visualization | Blender | Adobe Premiere Pro",
+    src: "/assets/RTX 5090 FE Animation.webm",
     thumbnailTime: 2
   },
   {
     title: "Walter White - Edit",
-    subtitle: "Music Edit",
-    description: "Comprehensive website demonstration showcasing user interface, interactions, and responsive design features across different screen sizes.",
-    src: "/assets/ww.mp4",
+    subtitle: "TV/Movie Edit | Adobe Premiere Pro",
+    src: "/assets/ww.webm",
     thumbnailTime: 2
   }
 ];
