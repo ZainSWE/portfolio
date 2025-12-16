@@ -64,16 +64,6 @@ function initContactPage() {
 let currentVideoIndex = 0;
 const videoData = [
   {
-    title: "Mustafa Syed - Reel 1",
-    subtitle: "Instagram Reels | Video Editing | Adobe Premiere Pro",
-    src: "/assets/Mustafa Reel - 10.webm"
-  },
-  {
-    title: "Mustafa Syed - Reel 2",
-    subtitle: "Instagram Reels | Video Editing | Adobe Premiere Pro",
-    src: "/assets/Mustafa Reel - 8.webm"
-  },
-  {
     title: "KKC Classroom - Logo Intro",
     subtitle: "Motion Graphics | Brand Identity | Blender",
     src: "/assets/KKC Classroom Logo Intro Animation.webm"
@@ -94,10 +84,45 @@ const videoData = [
     src: "/assets/RTX 5090 FE Animation.webm"
   },
   {
-    title: "Walter White - Edit",
-    subtitle: "TV/Movie Edit | Adobe Premiere Pro",
-    src: "/assets/ww.webm"
-  }
+    title: "Mustafa Syed - Reel 4",
+    subtitle: "Instagram Reels | Video Editing | Adobe Premiere Pro",
+    src: "/assets/Mustafa Reel - 4.webm"
+  },
+  {
+    title: "Mustafa Syed - Reel 5",
+    subtitle: "Instagram Reels | Video Editing | Adobe Premiere Pro",
+    src: "/assets/Mustafa Reel - 5.webm"
+  },
+  {
+    title: "Mustafa Syed - Reel 6",
+    subtitle: "Instagram Reels | Video Editing | Adobe Premiere Pro",
+    src: "/assets/Mustafa Reel - 6.webm"
+  },
+  {
+    title: "Mustafa Syed - Reel 7",
+    subtitle: "Instagram Reels | Video Editing | Adobe Premiere Pro",
+    src: "/assets/Mustafa Reel - 7.webm"
+  },
+  {
+    title: "Mustafa Syed - Reel 8",
+    subtitle: "Instagram Reels | Video Editing | Adobe Premiere Pro",
+    src: "/assets/Mustafa Reel - 8.webm"
+  },
+  {
+    title: "Mustafa Syed - Reel 10",
+    subtitle: "Instagram Reels | Video Editing | Adobe Premiere Pro",
+    src: "/assets/Mustafa Reel - 10.webm"
+  },
+  {
+    title: "Promfluence Intro Animation",
+    subtitle: "Motion Graphics | Brand Identity | Blender",
+    src: "/assets/Promfluence Intro Animation.webm"
+  },
+  {
+    title: "Rampage Rally Animation",
+    subtitle: "VFX | 3D Animation | #RampageRally | Blender",
+    src: "/assets/Rampage Rally Animation.webm"
+  },
 ];
 
 function updateCarousel() {
