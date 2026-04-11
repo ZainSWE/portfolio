@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zain Ahmad &mdash; UX/UI Designer &amp; Multimedia Specialist</title>
+    <meta name="description" content="Portfolio of Zain Ahmad. UX/UI Designer, Web Developer, 3D Artist. Computer Science at the University of Guelph.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Cursor (only visible on hover) -->
+    <div class="cursor" id="cursor"></div>
+
+    <!-- Intro Splash -->
+    <div class="intro" id="intro">
+        <div class="intro-word" id="intro-word"></div>
+    </div>
+
+    <!-- Page Transition (Fade only) -->
+    <div class="page-transition" id="page-transition"></div>
+
+    <!-- ===== SITE ===== -->
+    <div class="site" id="site">
+
+        <!-- Nav -->
+        <nav class="nav" id="nav">
+            <a href="#hero" class="nav__logo">ZAIN AHMAD</a>
+            <div class="nav__links">
+                <a href="#work">Work</a>
+                <a href="#design">Design</a>
+                <a href="#creative">Creative</a>
+                <a href="#about">About</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <div class="nav__actions">
+                <a href="https://www.linkedin.com/in/zainswe/" target="_blank" rel="noopener noreferrer" class="nav__social" aria-label="LinkedIn">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                </a>
+                <a href="https://github.com/zainswe" target="_blank" rel="noopener noreferrer" class="nav__social" aria-label="GitHub">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+                </a>
+                <a href="https://www.instagram.com/rift.cg/" target="_blank" rel="noopener noreferrer" class="nav__social" aria-label="Instagram">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+                </a>
+                <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+                    <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+                    <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                </button>
+                <button class="nav__burger" id="burger" aria-label="Menu"><span></span><span></span></button>
+            </div>
+        </nav>
+
+        <!-- Mobile Menu -->
+        <div class="mobile-menu" id="mobile-menu">
+            <a href="#work">Work</a>
+            <a href="#design">Design</a>
+            <a href="#creative">Creative</a>
+            <a href="#about">About</a>
+            <a href="#contact">Contact</a>
+        </div>
+
+        <!-- ===== HERO ===== -->
+        <section class="hero" id="hero">
+            <div class="hero__bg" id="hero-bg">
+                <video src="assets/media/Wallpaper.webm" autoplay loop muted playsinline class="hero__wallpaper" id="hero-wallpaper"></video>
+                <div class="hero__overlay"></div>
+            </div>
+            <div class="hero__content">
+                <h1 class="hero__title" id="hero-title">ZAIN AHMAD</h1>
+                <a href="https://www.instagram.com/p/DWf0gQ3CJf2/" target="_blank" rel="noopener noreferrer" id="hero-gojo-link"><img src="assets/media/gojo.png" alt="" class="hero__gojo" id="hero-gojo"></a>
+                <div class="gojo-tooltip" id="gojo-tooltip">Watch Animation</div>
+                <div class="hero__bottom">
+                    <div class="hero__info">
+                        <p class="hero__label">UX/UI Designer &amp; Multimedia Specialist</p>
+                        <p class="hero__sub">Designing experiences that feel effortless</p>
+                    </div>
+                    <div class="hero__cta">
+                        <a href="#work" class="btn btn--fill">View Work</a>
+                        <a href="#contact" class="btn btn--ghost">Get in Touch</a>
+                    </div>
+                </div>
+            </div>
+            <div class="hero__scroll" id="hero-scroll">
+                <span>Scroll</span>
+                <div class="hero__scroll-line"></div>
+            </div>
+        </section>
+
+        <!-- Marquee -->
+        <div class="marquee">
+            <div class="marquee__inner">
+                <span>UX DESIGN</span>
+                <span>UI DESIGN</span>
+                <span>WEB DEVELOPMENT</span>
+                <span>3D ANIMATION</span>
+                <span>MOTION GRAPHICS</span>
+                <span>VISUAL EFFECTS</span>
+                <span>VIDEO EDITING</span>
+                <span>PROTOTYPING</span>
+                <span>UX DESIGN</span>
+                <span>UI DESIGN</span>
+                <span>WEB DEVELOPMENT</span>
+                <span>3D ANIMATION</span>
+                <span>MOTION GRAPHICS</span>
+                <span>VISUAL EFFECTS</span>
+                <span>VIDEO EDITING</span>
+                <span>PROTOTYPING</span>
+            </div>
+        </div>
+
+        <!-- ===== SELECTED WORK (Horizontal Scroll) ===== -->
+        <section class="work" id="work">
+            <div class="container">
+                <span class="section-num reveal">01</span>
+                <h2 class="section-title reveal" data-delay="0.1">PROJECT SHOWCASE</h2>
+                <p class="section-subtitle reveal" data-delay="0.2">A selection of design and development projects, from concept to&nbsp;production.</p>
+            </div>
+            <div class="work__scroll" id="work-scroll">
+                <div class="work__sticky">
+                    <div class="work__track" id="work-track">
+
+                        <!-- AirPods 4 -->
+                        <a href="https://zainswe.github.io/airpods4/" target="_blank" rel="noopener noreferrer" class="work-card">
+                            <div class="work-card__visual" data-tilt>
+                                <div class="work-card__bg" style="background:linear-gradient(135deg,#000000 0%,#040a10 30%,#0c1e30 60%,#0e4a6a 100%)"></div>
+                                <span class="work-card__cta">View Project &#8599;</span>
+                                <div class="work-card__overlay"><div class="work-card__overlay-inner"><p class="work-card__overlay-desc">Interactive 3D product showcase built with Three.js and WebGL. Features dynamic scroll animations and an immersive spatial audio experience.</p></div></div>
+                            </div>
+                            <div class="work-card__info">
+                                <span class="work-card__num">01</span>
+                                <h3 class="work-card__title" data-text="AIRPODS 4">AIRPODS 4</h3>
+                                <p class="work-card__type">Product Showcase</p>
+                                <div class="work-card__tags"><span>Three.js</span><span>WebGL</span><span>UI Design</span></div>
+                            </div>
+                        </a>
+
+                        <!-- GPYOU -->
+                        <a href="https://github.com/ZainSWE/GPYOU" target="_blank" rel="noopener noreferrer" class="work-card">
+                            <div class="work-card__visual" data-tilt>
+                                <div class="work-card__bg" style="background:linear-gradient(135deg,#000000 0%,#030810 30%,#0a2030 60%,#06566a 100%)"></div>
+                                <div class="work-card__badge">Best UI Award</div>
+                                <span class="work-card__cta">View Project &#8599;</span>
+                                <div class="work-card__overlay"><div class="work-card__overlay-inner"><p class="work-card__overlay-desc">AI powered GPA calculator and academic planner. Won Best UI at GDSC Hacks 2025 with a clean, intuitive interface powered by Gemini API.</p></div></div>
+                            </div>
+                            <div class="work-card__info">
+                                <span class="work-card__num">02</span>
+                                <h3 class="work-card__title" data-text="GPYOU">GPYOU</h3>
+                                <p class="work-card__type">Best UI &mdash; GDSC Hacks 2025</p>
+                                <div class="work-card__tags"><span>Gemini API</span><span>UX/UI</span><span>Hackathon</span></div>
+                            </div>
+                        </a>
+
+                        <!-- RB21 F1 -->
+                        <a href="https://github.com/ZainSWE/RB21-F1-Car-Showcase" target="_blank" rel="noopener noreferrer" class="work-card">
+                            <div class="work-card__visual" data-tilt>
+                                <div class="work-card__bg" style="background:linear-gradient(135deg,#000000 0%,#040810 30%,#081828 60%,#084a60 100%)"></div>
+                                <span class="work-card__cta">View Project &#8599;</span>
+                                <div class="work-card__overlay"><div class="work-card__overlay-inner"><p class="work-card__overlay-desc">Digital experience featuring the Red Bull RB21 with cinematic scroll animations, interactive UI elements, and WebGL powered 3D&nbsp;visualization.</p></div></div>
+                            </div>
+                            <div class="work-card__info">
+                                <span class="work-card__num">03</span>
+                                <h3 class="work-card__title" data-text="RB21 F1 CAR">RB21 F1 CAR</h3>
+                                <p class="work-card__type">Digital Experience</p>
+                                <div class="work-card__tags"><span>Scroll Animations</span><span>Interactive UI</span><span>WebGL</span></div>
+                            </div>
+                        </a>
+
+                        <!-- G.SKILL -->
+                        <a href="https://github.com/ZainSWE/G.SKILL-RAM" target="_blank" rel="noopener noreferrer" class="work-card">
+                            <div class="work-card__visual" data-tilt>
+                                <div class="work-card__bg" style="background:linear-gradient(135deg,#000000 0%,#030a12 30%,#0a2838 60%,#0e5a70 100%)"></div>
+                                <span class="work-card__cta">View Project &#8599;</span>
+                                <div class="work-card__overlay"><div class="work-card__overlay-inner"><p class="work-card__overlay-desc">Product showcase for Trident Z RGB RAM featuring Three.js 3D rendering, dynamic lighting effects, and responsive product design.</p></div></div>
+                            </div>
+                            <div class="work-card__info">
+                                <span class="work-card__num">04</span>
+                                <h3 class="work-card__title" data-text="G.SKILL">G.SKILL</h3>
+                                <p class="work-card__type">Trident Z RGB</p>
+                                <div class="work-card__tags"><span>Three.js</span><span>3D</span><span>Product Design</span></div>
+                            </div>
+                        </a>
+
+                        <!-- Dummy Project 05 -->
+                        <a href="#" class="work-card">
+                            <div class="work-card__visual" data-tilt>
+                                <div class="work-card__bg" style="background:linear-gradient(135deg,#000000 0%,#020812 30%,#0c1a28 60%,#0a3a50 100%)"></div>
+                                <span class="work-card__cta">Coming Soon</span>
+                                <div class="work-card__overlay"><div class="work-card__overlay-inner"><p class="work-card__overlay-desc">Fintech dashboard concept with real time data visualization, clean information hierarchy, and a modern design system built in&nbsp;Figma.</p></div></div>
+                            </div>
+                            <div class="work-card__info">
+                                <span class="work-card__num">05</span>
+                                <h3 class="work-card__title" data-text="FINOVA">FINOVA</h3>
+                                <p class="work-card__type">Fintech Dashboard</p>
+                                <div class="work-card__tags"><span>React</span><span>Figma</span><span>Data Viz</span></div>
+                            </div>
+                        </a>
+
+                        <!-- Dummy Project 06 -->
+                        <a href="#" class="work-card">
+                            <div class="work-card__visual" data-tilt>
+                                <div class="work-card__bg" style="background:linear-gradient(135deg,#000000 0%,#030a14 30%,#081e2e 60%,#064858 100%)"></div>
+                                <span class="work-card__cta">Coming Soon</span>
+                                <div class="work-card__overlay"><div class="work-card__overlay-inner"><p class="work-card__overlay-desc">Wellness application designed with accessibility first principles. Calming UI, thoughtful micro interactions, and smooth motion design.</p></div></div>
+                            </div>
+                            <div class="work-card__info">
+                                <span class="work-card__num">06</span>
+                                <h3 class="work-card__title" data-text="SOLACE">SOLACE</h3>
+                                <p class="work-card__type">Wellness App</p>
+                                <div class="work-card__tags"><span>UI/UX</span><span>Prototyping</span><span>Motion</span></div>
+                            </div>
+                        </a>
+
+                        <!-- Dummy Project 07 -->
+                        <a href="#" class="work-card">
+                            <div class="work-card__visual" data-tilt>
+                                <div class="work-card__bg" style="background:linear-gradient(135deg,#000000 0%,#040a10 30%,#0a1c2a 60%,#0a3a4e 100%)"></div>
+                                <span class="work-card__cta">Coming Soon</span>
+                                <div class="work-card__overlay"><div class="work-card__overlay-inner"><p class="work-card__overlay-desc">Automotive brand concept combining 3D Unreal Engine renders with sleek UI design and cohesive visual branding.</p></div></div>
+                            </div>
+                            <div class="work-card__info">
+                                <span class="work-card__num">07</span>
+                                <h3 class="work-card__title" data-text="DRIFT AUTO">DRIFT AUTO</h3>
+                                <p class="work-card__type">Automotive Concept</p>
+                                <div class="work-card__tags"><span>3D</span><span>Unreal Engine</span><span>Branding</span></div>
+                            </div>
+                        </a>
+
+                        <!-- Dummy Project 08 -->
+                        <a href="#" class="work-card">
+                            <div class="work-card__visual" data-tilt>
+                                <div class="work-card__bg" style="background:linear-gradient(135deg,#000000 0%,#030810 30%,#081828 60%,#064a60 100%)"></div>
+                                <span class="work-card__cta">Coming Soon</span>
+                                <div class="work-card__overlay"><div class="work-card__overlay-inner"><p class="work-card__overlay-desc">AI assistant interface with a custom design system, intelligent conversation patterns, and Next.js powered interactions.</p></div></div>
+                            </div>
+                            <div class="work-card__info">
+                                <span class="work-card__num">08</span>
+                                <h3 class="work-card__title" data-text="ATLAS AI">ATLAS AI</h3>
+                                <p class="work-card__type">AI Assistant Interface</p>
+                                <div class="work-card__tags"><span>Next.js</span><span>AI/ML</span><span>Design System</span></div>
+                            </div>
+                        </a>
+
+                        <!-- Dummy Project 09 -->
+                        <a href="#" class="work-card">
+                            <div class="work-card__visual" data-tilt>
+                                <div class="work-card__bg" style="background:linear-gradient(135deg,#000000 0%,#040a10 30%,#0a1e30 60%,#085060 100%)"></div>
+                                <span class="work-card__cta">Coming Soon</span>
+                                <div class="work-card__overlay"><div class="work-card__overlay-inner"><p class="work-card__overlay-desc">Social platform concept featuring real time WebSocket communication, full stack architecture, and a polished adaptive UI.</p></div></div>
+                            </div>
+                            <div class="work-card__info">
+                                <span class="work-card__num">09</span>
+                                <h3 class="work-card__title" data-text="NEXUS">NEXUS</h3>
+                                <p class="work-card__type">Social Platform</p>
+                                <div class="work-card__tags"><span>Full Stack</span><span>UI Design</span><span>WebSocket</span></div>
+                            </div>
+                        </a>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+            <!-- Harvest Hands Case Study -->
+            <div class="case container">
+                <div class="case__header reveal">
+                    <div class="case__header-top">
+                        <span class="case__badge">Featured Case Study</span>
+                        <span class="case__course">CIS 2170 &mdash; Team of 5</span>
+                    </div>
+                    <h3 class="case__title--large">HARVEST HANDS</h3>
+                    <p class="case__tagline">Inventory management mobile application designed for food bank operations</p>
+                    <div class="case__meta">
+                        <div><span class="label">Role</span><span class="value">Lead UI Designer</span></div>
+                        <div><span class="label">Team</span><span class="value">5 Members</span></div>
+                        <div><span class="label">Duration</span><span class="value">Semester Project</span></div>
+                        <div><span class="label">Tools</span><span class="value">Figma</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Photo Album (Scroll-Driven Stacked Cards) -->
+            <div class="album" id="album">
+                <div class="album__sticky">
+                    <div class="album__slide active" data-index="0">
+                        <div class="album__text">
+                            <h4>THE CHALLENGE</h4>
+                            <p>Food banks need an efficient way to track inventory, manage item approvals, and handle real time notifications for stock levels. The existing process was manual and prone to errors, requiring a streamlined digital solution.</p>
+                        </div>
+                        <div class="album__photos">
+                            <div class="album__photo album__photo--back" style="background:#081820;transform:rotate(6deg)"></div>
+                            <div class="album__photo album__photo--mid" style="background:#0a2838;transform:rotate(-3deg)"></div>
+                            <div class="album__photo album__photo--front" style="background:linear-gradient(135deg,#041520,#0a3a50,#06b6d4);transform:rotate(2deg)">
+                                <span class="album__photo-label">Login Screen</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="album__slide" data-index="1">
+                        <div class="album__photos">
+                            <div class="album__photo album__photo--back" style="background:#081820;transform:rotate(-5deg)"></div>
+                            <div class="album__photo album__photo--mid" style="background:#0a2838;transform:rotate(4deg)"></div>
+                            <div class="album__photo album__photo--front" style="background:linear-gradient(135deg,#041520,#0c3a50,#0891b2);transform:rotate(-2deg)">
+                                <span class="album__photo-label">Dashboard</span>
+                            </div>
+                        </div>
+                        <div class="album__text">
+                            <h4>MY CONTRIBUTION</h4>
+                            <p>As lead UI designer, I designed the complete visual system: wireframes, all screens, the design system (dark theme with color coded status indicators), and ensured consistency across every user flow.</p>
+                        </div>
+                    </div>
+                    <div class="album__slide" data-index="2">
+                        <div class="album__text">
+                            <h4>DESIGN SYSTEM</h4>
+                            <p>Created a comprehensive dark theme design system with color coded status indicators, consistent typography, and reusable components that enabled the team to build screens rapidly while maintaining visual cohesion.</p>
+                        </div>
+                        <div class="album__photos">
+                            <div class="album__photo album__photo--back" style="background:#081820;transform:rotate(4deg)"></div>
+                            <div class="album__photo album__photo--mid" style="background:#0a2838;transform:rotate(-5deg)"></div>
+                            <div class="album__photo album__photo--front" style="background:linear-gradient(135deg,#020e18,#0a3850,#22d3ee);transform:rotate(3deg)">
+                                <span class="album__photo-label">Inventory List</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="album__slide" data-index="3">
+                        <div class="album__photos">
+                            <div class="album__photo album__photo--back" style="background:#081820;transform:rotate(-6deg)"></div>
+                            <div class="album__photo album__photo--mid" style="background:#0a2838;transform:rotate(3deg)"></div>
+                            <div class="album__photo album__photo--front" style="background:linear-gradient(135deg,#020a14,#083040,#06b6d4);transform:rotate(-3deg)">
+                                <span class="album__photo-label">Notifications</span>
+                            </div>
+                        </div>
+                        <div class="album__text">
+                            <h4>USER FLOWS</h4>
+                            <p>Mapped every user journey from login to checkout, ensuring intuitive navigation and minimal friction. Created detailed wireframes for approval workflows, stock alerts, and admin controls.</p>
+                        </div>
+                    </div>
+                    <div class="album__slide" data-index="4">
+                        <div class="album__text">
+                            <h4>ACCESSIBILITY</h4>
+                            <p>Implemented WCAG compliant color contrast ratios and touch targets. Designed responsive layouts that adapted seamlessly from mobile to tablet, prioritizing one handed usability for warehouse environments.</p>
+                        </div>
+                        <div class="album__photos">
+                            <div class="album__photo album__photo--back" style="background:#081a28;transform:rotate(5deg)"></div>
+                            <div class="album__photo album__photo--mid" style="background:#0c2e45;transform:rotate(-4deg)"></div>
+                            <div class="album__photo album__photo--front" style="background:linear-gradient(135deg,#041520,#0c4050,#06b6d4);transform:rotate(2deg)">
+                                <span class="album__photo-label">Stock Alerts</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="album__slide" data-index="5">
+                        <div class="album__photos">
+                            <div class="album__photo album__photo--back" style="background:#081820;transform:rotate(-5deg)"></div>
+                            <div class="album__photo album__photo--mid" style="background:#0c2e45;transform:rotate(4deg)"></div>
+                            <div class="album__photo album__photo--front" style="background:linear-gradient(135deg,#020812,#083848,#0891b2);transform:rotate(-2deg)">
+                                <span class="album__photo-label">Final Prototype</span>
+                            </div>
+                        </div>
+                        <div class="album__text">
+                            <h4>OUTCOME</h4>
+                            <p>Delivered a polished, fully interactive Figma prototype that streamlined food bank inventory workflows. The design reduced manual entry time and provided real time visibility into stock levels and approval statuses.</p>
+                        </div>
+                    </div>
+                    <div class="album__nav">
+                        <span class="album__dot active" data-index="0"></span>
+                        <span class="album__dot" data-index="1"></span>
+                        <span class="album__dot" data-index="2"></span>
+                        <span class="album__dot" data-index="3"></span>
+                        <span class="album__dot" data-index="4"></span>
+                        <span class="album__dot" data-index="5"></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- KKC Classroom -->
+            <div class="kkc container reveal">
+                <span class="section-num">UX</span>
+                <h3 class="case__title">KKC CLASSROOM</h3>
+                <p class="kkc__type">Platform Redesign</p>
+                <p class="kkc__desc">Led complete platform redesign for an ed tech company. Designed responsive prototypes in Figma, implemented with Next.js &amp; TailwindCSS.</p>
+                <div class="tags"><span>Next.js</span><span>Figma</span><span>TailwindCSS</span></div>
+                <span class="kkc__role">App Developer &mdash; Sep 2025 to Present</span>
+            </div>
+        </section>
+
+        <!-- ===== CREATIVE / RIFTCG ===== -->
+        <section class="creative has-banner" id="creative">
+            <!-- Section Banner (behind header, shows sky portion) -->
+            <div class="section-banner" id="banner-creative">
+                <video src="assets/media/Wallpaper.webm" autoplay loop muted playsinline></video>
+                <div class="section-banner__overlay"></div>
+            </div>
+
+            <div class="container">
+                <span class="section-num reveal">03</span>
+                <h2 class="section-title reveal" data-delay="0.1">CREATIVE WORK</h2>
+            </div>
+
+            <div class="creative__hero container">
+                <div class="creative__info reveal">
+                    <h3 class="creative__title">RIFT<span class="accent">CG</span></h3>
+                    <p class="creative__skills">3D Animation &bull; Motion Graphics &bull; Video Editing &bull; Visual Effects</p>
+                    <p class="creative__desc">With a decade of experience in editing and motion graphics, I bring cinematic quality to every project. From 3D logo animations to full campaign productions, content that captures attention.</p>
+                    <div class="creative__stat">
+                        <span class="counter" id="views-counter" data-target="3000000">0</span>
+                        <span class="counter-label">Views across platforms</span>
+                    </div>
+                    <div class="creative__links">
+                        <a href="https://www.instagram.com/rift.cg/" target="_blank" rel="noopener noreferrer" class="btn btn--fill">@rift.cg</a>
+                        <a href="https://www.youtube.com/@RiftCG" target="_blank" rel="noopener noreferrer" class="btn btn--ghost">YouTube</a>
+                        <a href="https://linktr.ee/riftcg" target="_blank" rel="noopener noreferrer" class="btn btn--ghost">Linktree</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3D Rotating Carousel -->
+            <div class="carousel3d" id="carousel3d">
+                <div class="carousel3d__scene" id="carousel3d-scene" data-lenis-prevent>
+                    <div class="carousel3d__ring" id="carousel3d-ring">
+                        <div class="carousel3d__card">
+                            <a href="https://www.youtube.com/@zain.create" target="_blank" rel="noopener noreferrer" class="carousel3d__face" style="background:linear-gradient(135deg,#041520 0%,#0a3a50 50%,#06b6d4 100%)">
+                                <span class="carousel3d__play">&#9654;</span>
+                                <span class="carousel3d__label">KKC Classroom Intro</span>
+                            </a>
+                        </div>
+                        <div class="carousel3d__card">
+                            <a href="https://www.youtube.com/@RiftCG" target="_blank" rel="noopener noreferrer" class="carousel3d__face" style="background:linear-gradient(135deg,#021018 0%,#0c4050 50%,#22d3ee 100%)">
+                                <span class="carousel3d__play">&#9654;</span>
+                                <span class="carousel3d__label">3D Logo Animation</span>
+                            </a>
+                        </div>
+                        <div class="carousel3d__card">
+                            <a href="https://www.youtube.com/@RiftCG" target="_blank" rel="noopener noreferrer" class="carousel3d__face" style="background:linear-gradient(135deg,#020a14 0%,#083040 50%,#0891b2 100%)">
+                                <span class="carousel3d__play">&#9654;</span>
+                                <span class="carousel3d__label">Motion Reel 2025</span>
+                            </a>
+                        </div>
+                        <div class="carousel3d__card">
+                            <a href="https://www.youtube.com/@zain.create" target="_blank" rel="noopener noreferrer" class="carousel3d__face" style="background:linear-gradient(135deg,#041018 0%,#0a3848 50%,#06b6d4 100%)">
+                                <span class="carousel3d__play">&#9654;</span>
+                                <span class="carousel3d__label">Campaign Highlight</span>
+                            </a>
+                        </div>
+                        <div class="carousel3d__card">
+                            <a href="https://www.youtube.com/@RiftCG" target="_blank" rel="noopener noreferrer" class="carousel3d__face" style="background:linear-gradient(135deg,#020812 0%,#082a40 50%,#0e7490 100%)">
+                                <span class="carousel3d__play">&#9654;</span>
+                                <span class="carousel3d__label">VFX Breakdown</span>
+                            </a>
+                        </div>
+                        <div class="carousel3d__card">
+                            <a href="https://www.youtube.com/@zain.create" target="_blank" rel="noopener noreferrer" class="carousel3d__face" style="background:linear-gradient(135deg,#030e18 0%,#0a3048 50%,#0891b2 100%)">
+                                <span class="carousel3d__play">&#9654;</span>
+                                <span class="carousel3d__label">Product Animation</span>
+                            </a>
+                        </div>
+                        <div class="carousel3d__card">
+                            <a href="https://www.youtube.com/@RiftCG" target="_blank" rel="noopener noreferrer" class="carousel3d__face" style="background:linear-gradient(135deg,#041218 0%,#083848 50%,#22d3ee 100%)">
+                                <span class="carousel3d__play">&#9654;</span>
+                                <span class="carousel3d__label">Brand Identity</span>
+                            </a>
+                        </div>
+                        <div class="carousel3d__card">
+                            <a href="https://www.youtube.com/@zain.create" target="_blank" rel="noopener noreferrer" class="carousel3d__face" style="background:linear-gradient(135deg,#021018 0%,#0a3850 50%,#06b6d4 100%)">
+                                <span class="carousel3d__play">&#9654;</span>
+                                <span class="carousel3d__label">Event Promo</span>
+                            </a>
+                        </div>
+                        <div class="carousel3d__card">
+                            <a href="https://www.youtube.com/@RiftCG" target="_blank" rel="noopener noreferrer" class="carousel3d__face" style="background:linear-gradient(135deg,#030a14 0%,#083040 50%,#0e7490 100%)">
+                                <span class="carousel3d__play">&#9654;</span>
+                                <span class="carousel3d__label">3D Walkthrough</span>
+                            </a>
+                        </div>
+                        <div class="carousel3d__card">
+                            <a href="https://www.youtube.com/@zain.create" target="_blank" rel="noopener noreferrer" class="carousel3d__face" style="background:linear-gradient(135deg,#020e1a 0%,#0c3a50 50%,#22d3ee 100%)">
+                                <span class="carousel3d__play">&#9654;</span>
+                                <span class="carousel3d__label">Social Campaign</span>
+                            </a>
+                        </div>
+                        <div class="carousel3d__card">
+                            <a href="https://www.youtube.com/@RiftCG" target="_blank" rel="noopener noreferrer" class="carousel3d__face" style="background:linear-gradient(135deg,#041018 0%,#0a3040 50%,#0891b2 100%)">
+                                <span class="carousel3d__play">&#9654;</span>
+                                <span class="carousel3d__label">Cinematic Edit</span>
+                            </a>
+                        </div>
+                        <div class="carousel3d__card">
+                            <a href="https://www.youtube.com/@zain.create" target="_blank" rel="noopener noreferrer" class="carousel3d__face" style="background:linear-gradient(135deg,#020814 0%,#083040 50%,#06b6d4 100%)">
+                                <span class="carousel3d__play">&#9654;</span>
+                                <span class="carousel3d__label">Logo Reveal</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== ABOUT ===== -->
+        <section class="about has-banner" id="about">
+            <!-- Section Banner (behind header, shows clouds portion) -->
+            <div class="section-banner" id="banner-about">
+                <video src="assets/media/Wallpaper.webm" autoplay loop muted playsinline></video>
+                <div class="section-banner__overlay"></div>
+            </div>
+
+            <div class="container">
+                <span class="section-num reveal">04</span>
+                <h2 class="section-title reveal" data-delay="0.1">ABOUT</h2>
+            </div>
+            <div class="about__hero container">
+                <h3 class="big-text reveal">THE PERSON</h3>
+                <h3 class="big-text reveal" data-delay="0.1">BEHIND THE</h3>
+                <h3 class="big-text reveal" data-delay="0.2">PIXELS.</h3>
+            </div>
+
+            <div class="about__grid container">
+                <div class="about__text reveal">
+                    <p class="about__lead">I'm a Computer Science student at the <strong>University of Guelph</strong> with an area of emphasis in <strong>User Experience</strong>.</p>
+                    <p>I design and develop interfaces that feel effortless, caring deeply about clarity, accessibility, and thoughtful design. My project GPYOU earned <strong>Best UI at GDSC Hacks 2025</strong>.</p>
+                    <p>Outside of UX, I run <strong>RiftCG</strong>, a creative brand where I produce 3D animations, motion graphics, and video content. With over a decade of editing experience, I bring cinematic thinking to every interface I&nbsp;design.</p>
+                    <div class="stack">
+                        <div class="stack__row">
+                            <span class="stack__label">Design</span>
+                            <div class="stack__items"><span>Figma</span><span>Photoshop</span><span>Illustrator</span></div>
+                        </div>
+                        <div class="stack__row">
+                            <span class="stack__label">Dev</span>
+                            <div class="stack__items"><span>HTML/CSS</span><span>JavaScript</span><span>React</span><span>Next.js</span><span>Three.js</span><span>TailwindCSS</span></div>
+                        </div>
+                        <div class="stack__row">
+                            <span class="stack__label">Creative</span>
+                            <div class="stack__items"><span>Blender</span><span>After Effects</span><span>Premiere Pro</span><span>Nuke</span><span>EmberGen</span><span>UE5</span></div>
+                        </div>
+                        <div class="stack__row">
+                            <span class="stack__label">Languages</span>
+                            <div class="stack__items"><span>Python</span><span>Java</span><span>C</span><span>JavaScript</span><span>R</span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="about__timeline reveal" data-delay="0.2">
+                    <h4>Experience</h4>
+                    <div class="timeline">
+                        <div class="timeline__item">
+                            <span class="timeline__date">Sep 2025 &mdash; Present</span>
+                            <h5>App Developer</h5>
+                            <span class="timeline__co">KKC Classroom</span>
+                            <p>Full platform redesign. Figma prototypes, responsive UX, Next.js &amp; TailwindCSS.</p>
+                        </div>
+                        <div class="timeline__item">
+                            <span class="timeline__date">Oct 2024 &mdash; May 2025</span>
+                            <h5>Multimedia Specialist</h5>
+                            <span class="timeline__co">KKC Classroom</span>
+                            <p>30+ course videos. 3D intro/outro. Sound design &amp; color grading.</p>
+                        </div>
+                        <div class="timeline__item">
+                            <span class="timeline__date">Contract</span>
+                            <h5>Multimedia Specialist</h5>
+                            <span class="timeline__co">National Proms</span>
+                            <p>50+ promotional videos. 3D logo animations. Social media campaigns.</p>
+                        </div>
+                    </div>
+                    <h4 class="mt-lg">Education</h4>
+                    <div class="timeline">
+                        <div class="timeline__item">
+                            <span class="timeline__date">2024 &mdash; 2028</span>
+                            <h5>B.Comp in Computer Science</h5>
+                            <span class="timeline__co">University of Guelph</span>
+                            <p>Area of Emphasis in User Experience</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== TESTIMONIALS + CONTACT (combined banner) ===== -->
+        <div class="combined-banner has-banner">
+            <div class="section-banner" id="banner-testimonials-contact">
+                <video src="assets/media/Wallpaper.webm" autoplay loop muted playsinline></video>
+                <div class="section-banner__overlay"></div>
+            </div>
+
+        <section class="testimonials" id="testimonials">
+
+            <div class="testimonials__bg">
+                <img src="signature.png" alt="" class="testimonials__signature" aria-hidden="true">
+            </div>
+            <div class="container">
+                <span class="section-num reveal">05</span>
+                <h2 class="section-title reveal" data-delay="0.1">KIND WORDS</h2>
+                <p class="testimonials__intro reveal" data-delay="0.2">From collaborators and clients who have experienced the work firsthand</p>
+            </div>
+
+            <!-- Testimonials Marquee (4 cards, seamless infinite scroll) -->
+            <div class="testimonials__marquee">
+                <div class="testimonials__track">
+                    <div class="testimonial">
+                        <p class="testimonial__quote">"Zain has an incredible eye for detail. His UI designs for our platform were polished, intuitive, and elevated the entire product experience."</p>
+                        <div class="testimonial__author">
+                            <div class="testimonial__avatar">K</div>
+                            <div>
+                                <span class="testimonial__name">KKC Classroom</span>
+                                <span class="testimonial__role">Platform Redesign</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial">
+                        <p class="testimonial__quote">"Working with Zain on GPYOU was a game changer. His design thinking and rapid prototyping skills helped us win Best UI at GDSC Hacks."</p>
+                        <div class="testimonial__author">
+                            <div class="testimonial__avatar">G</div>
+                            <div>
+                                <span class="testimonial__name">GDSC Hacks Team</span>
+                                <span class="testimonial__role">Hackathon Partner</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial">
+                        <p class="testimonial__quote">"The 3D animations and motion graphics Zain delivered exceeded every expectation. Professional, creative, and always on&nbsp;time."</p>
+                        <div class="testimonial__author">
+                            <div class="testimonial__avatar">N</div>
+                            <div>
+                                <span class="testimonial__name">National Proms</span>
+                                <span class="testimonial__role">Campaign Client</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial">
+                        <p class="testimonial__quote">"Zain brought both technical precision and artistic vision to our project. His ability to bridge design and development is&nbsp;rare."</p>
+                        <div class="testimonial__author">
+                            <div class="testimonial__avatar">T</div>
+                            <div>
+                                <span class="testimonial__name">Team Lead</span>
+                                <span class="testimonial__role">CIS 2170 Project</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Duplicates for seamless loop -->
+                    <div class="testimonial">
+                        <p class="testimonial__quote">"Zain has an incredible eye for detail. His UI designs for our platform were polished, intuitive, and elevated the entire product experience."</p>
+                        <div class="testimonial__author">
+                            <div class="testimonial__avatar">K</div>
+                            <div>
+                                <span class="testimonial__name">KKC Classroom</span>
+                                <span class="testimonial__role">Platform Redesign</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial">
+                        <p class="testimonial__quote">"Working with Zain on GPYOU was a game changer. His design thinking and rapid prototyping skills helped us win Best UI at GDSC Hacks."</p>
+                        <div class="testimonial__author">
+                            <div class="testimonial__avatar">G</div>
+                            <div>
+                                <span class="testimonial__name">GDSC Hacks Team</span>
+                                <span class="testimonial__role">Hackathon Partner</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial">
+                        <p class="testimonial__quote">"The 3D animations and motion graphics Zain delivered exceeded every expectation. Professional, creative, and always on&nbsp;time."</p>
+                        <div class="testimonial__author">
+                            <div class="testimonial__avatar">N</div>
+                            <div>
+                                <span class="testimonial__name">National Proms</span>
+                                <span class="testimonial__role">Campaign Client</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial">
+                        <p class="testimonial__quote">"Zain brought both technical precision and artistic vision to our project. His ability to bridge design and development is&nbsp;rare."</p>
+                        <div class="testimonial__author">
+                            <div class="testimonial__avatar">T</div>
+                            <div>
+                                <span class="testimonial__name">Team Lead</span>
+                                <span class="testimonial__role">CIS 2170 Project</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== CONTACT ===== -->
+        <section class="contact" id="contact">
+
+            <div class="container">
+                <h2 class="big-text reveal">LET'S BUILD</h2>
+                <h2 class="big-text reveal" data-delay="0.1">SOMETHING</h2>
+                <h2 class="big-text reveal" data-delay="0.2">INCREDIBLE.</h2>
+                <p class="contact__sub reveal" data-delay="0.3">Open to UX/UI design roles, freelance projects, and creative collaborations</p>
+                <div class="contact__grid reveal" data-delay="0.4">
+                    <a href="https://www.linkedin.com/in/zainswe/" target="_blank" rel="noopener noreferrer" class="contact__item">
+                        <span>LinkedIn</span><span class="arrow">&#8599;</span>
+                    </a>
+                    <a href="https://github.com/ZainSWE" target="_blank" rel="noopener noreferrer" class="contact__item">
+                        <span>GitHub</span><span class="arrow">&#8599;</span>
+                    </a>
+                    <a href="https://www.instagram.com/rift.cg/" target="_blank" rel="noopener noreferrer" class="contact__item">
+                        <span>Instagram</span><span class="arrow">&#8599;</span>
+                    </a>
+                    <a href="mailto:riftcg.animations@gmail.com" class="contact__item">
+                        <span>Email</span><span class="arrow">&#8599;</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+        </div><!-- /combined-banner -->
+
+        <!-- ===== FOOTER ===== -->
+        <footer class="footer">
+            <div class="footer__marquee">
+                <div class="footer__marquee-track">
+                    <span>ZAIN AHMAD</span><span>UX/UI DESIGNER</span><span>MULTIMEDIA SPECIALIST</span>
+                    <span>ZAIN AHMAD</span><span>UX/UI DESIGNER</span><span>MULTIMEDIA SPECIALIST</span>
+                    <span>ZAIN AHMAD</span><span>UX/UI DESIGNER</span><span>MULTIMEDIA SPECIALIST</span>
+                    <span>ZAIN AHMAD</span><span>UX/UI DESIGNER</span><span>MULTIMEDIA SPECIALIST</span>
+                </div>
+            </div>
+            <div class="footer__bottom">
+                <span>&copy; 2026 Zain Ahmad. All Rights Reserved.</span>
+            </div>
+        </footer>
+
+    </div>
+
+    <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
