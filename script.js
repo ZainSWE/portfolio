@@ -35,12 +35,12 @@
             heroTitle.addEventListener('mouseleave', function() { cursor.classList.remove('title-hover'); });
         }
 
-        /* Gojo inverted text cursor + tooltip follows cursor */
+        /* Gojo tooltip follows cursor (no inverted circle) */
         var gojoLink = document.getElementById('hero-gojo-link');
         var gojoTip = document.getElementById('gojo-tooltip');
         if (gojoLink && gojoTip) {
-            gojoLink.addEventListener('mouseenter', function() { cursor.classList.add('visible','title-hover'); gojoTip.classList.add('visible'); });
-            gojoLink.addEventListener('mouseleave', function() { cursor.classList.remove('title-hover'); gojoTip.classList.remove('visible'); });
+            gojoLink.addEventListener('mouseenter', function() { cursor.classList.add('visible'); gojoTip.classList.add('visible'); });
+            gojoLink.addEventListener('mouseleave', function() { cursor.classList.remove('visible'); gojoTip.classList.remove('visible'); });
             gojoLink.addEventListener('mousemove', function(e) {
                 gojoTip.style.left = e.clientX + 'px';
                 gojoTip.style.top = e.clientY + 'px';
@@ -116,12 +116,15 @@
         initCounter();
         initHeroParallax();
         initGojoParallax();
+        initGojoSequence();
         initHeroBlur();
         initCardTilt();
         initAlbumTilt();
         initSectionBannerBlur();
         initBadgeHover();
         initScrollTextCycle();
+        initBgWords();
+        initHeroTitleZoom();
     }
 
     /* ------ Scroll Text Language Cycle ------ */
@@ -251,6 +254,7 @@
                     /* Re-init GSAP animations after a frame so positions are correct */
                     requestAnimationFrame(function() {
                         initGSAPAnimations();
+                        initHeroTitleZoom();
                         transition.classList.remove('active');
                     });
                 }, 600);
@@ -411,7 +415,7 @@
         var cards = ring.querySelectorAll('.carousel3d__card');
         var n = cards.length;
         var theta = 360 / n;
-        var cardW = 340;
+        var cardW = 240;
         var radius = Math.round((cardW / 2) / Math.tan(Math.PI / n));
         cards.forEach(function(card, i) { card.style.transform = 'rotateY(' + (theta * i) + 'deg) translateZ(' + radius + 'px)'; });
 
@@ -551,13 +555,13 @@
         });
 
         function animate() {
-            t += 0.006;
+            t += 0.012;
             /* Lerp parallax for buttery smooth movement */
             smoothPX += (targetPX - smoothPX) * 0.04;
             smoothPY += (targetPY - smoothPY) * 0.04;
-            /* Multi-harmonic float — subtle organic sway */
-            var floatX = Math.sin(t * 0.6) * 2.5 + Math.sin(t * 1.2) * 1;
-            var floatY = Math.sin(t * 0.8) * 3 + Math.cos(t * 0.5) * 1.2;
+            /* Multi-harmonic float — noticeable organic sway */
+            var floatX = Math.sin(t * 0.6) * 5 + Math.sin(t * 1.2) * 2;
+            var floatY = Math.sin(t * 0.8) * 6 + Math.cos(t * 0.5) * 2.5;
             if (gojoReady) {
                 var tx = floatX + smoothPX;
                 var ty = floatY + smoothPY;
@@ -566,6 +570,67 @@
             requestAnimationFrame(animate);
         }
         requestAnimationFrame(animate);
+    }
+
+    /* ------ Gojo Interactive Image Sequence ------ */
+    function initGojoSequence() {
+        var img = document.getElementById('hero-gojo');
+        var link = document.getElementById('hero-gojo-link');
+        if (!img || !link) return;
+
+        var totalFrames = 49;
+        var frameDuration = 1000 / 30; /* ~30 fps */
+        var frames = [];
+        var currentFrame = 0;
+        var direction = 0; /* 0 = idle, 1 = forward, -1 = reverse */
+        var rafId = null;
+        var lastTime = 0;
+        var staticSrc = 'assets/media/lego-gojo/image (1).png';
+
+        /* Preload all frames */
+        for (var i = 1; i <= totalFrames; i++) {
+            var preload = new Image();
+            preload.src = 'assets/media/lego-gojo/image (' + i + ').png';
+            frames.push(preload);
+        }
+
+        function tick(timestamp) {
+            if (!lastTime) lastTime = timestamp;
+            var delta = timestamp - lastTime;
+            if (delta >= frameDuration) {
+                lastTime = timestamp;
+                currentFrame += direction;
+                if (direction === 1 && currentFrame >= totalFrames - 1) {
+                    currentFrame = totalFrames - 1;
+                    direction = 0;
+                    rafId = null;
+                    return;
+                }
+                if (direction === -1 && currentFrame <= 0) {
+                    currentFrame = 0;
+                    direction = 0;
+                    img.src = staticSrc;
+                    rafId = null;
+                    return;
+                }
+                img.src = frames[currentFrame].src;
+            }
+            rafId = requestAnimationFrame(tick);
+        }
+
+        function startAnimation(dir) {
+            direction = dir;
+            lastTime = 0;
+            if (!rafId) rafId = requestAnimationFrame(tick);
+        }
+
+        link.addEventListener('mouseenter', function() {
+            startAnimation(1);
+        });
+
+        link.addEventListener('mouseleave', function() {
+            startAnimation(-1);
+        });
     }
 
     /* ------ Hero Wallpaper Parallax ------ */
@@ -595,43 +660,90 @@
 
     /* ------ Album Tilt: Smooth zoom first, tilt only when fully zoomed ------ */
     function initAlbumTilt() {
-        document.querySelectorAll('.album__photos').forEach(function(container) {
-            var front = container.querySelector('.album__photo--front');
-            if (!front) return;
-            var origTransform = front.style.transform || '';
-            var isZoomed = false;
-            var zoomTimer = null;
+        var album = document.getElementById('album');
+        if (!album) return;
+        var lastActive = null;
+        var lastHandlers = {};
 
-            /* Default: only scale transitions (no transform transition during mousemove) */
-            front.style.transition = 'scale .5s cubic-bezier(0.22,1,0.36,1)';
+        function attachTiltToActiveSlide() {
+            // Remove previous listeners if any
+            if (lastActive && lastHandlers.mouseenter) {
+                lastActive.removeEventListener('mouseenter', lastHandlers.mouseenter);
+                lastActive.removeEventListener('mousemove', lastHandlers.mousemove);
+                lastActive.removeEventListener('mouseleave', lastHandlers.mouseleave);
+            }
+            var active = album.querySelector('.album__slide.active .album__photos');
+            if (active) {
+                var target = active.querySelector('.album__photo--front');
+                if (target) {
+                    let isZoomed = false;
+                    let zoomTimer = null;
+                    function getOrigTransform() {
+                        return target.getAttribute('data-orig-transform') || target.style.transform || '';
+                    }
+                    target.setAttribute('data-orig-transform', target.style.transform || '');
+                    target.style.transition = 'scale .5s cubic-bezier(0.22,1,0.36,1)';
+                    // Define handlers so we can remove them later
+                    const mouseenter = function() {
+                        target.style.scale = '1.06';
+                        zoomTimer = setTimeout(function() { isZoomed = true; }, 150);
+                    };
+                    const mousemove = function(e) {
+                        if (!isZoomed) return;
+                        var rect = active.getBoundingClientRect();
+                        var x = e.clientX - rect.left, y = e.clientY - rect.top;
+                        var rx = ((y - rect.height / 2) / (rect.height / 2)) * -8;
+                        var ry = ((x - rect.width / 2) / (rect.width / 2)) * 8;
+                        var orig = getOrigTransform();
+                        target.style.transform = orig + ' perspective(800px) rotateX(' + rx + 'deg) rotateY(' + ry + 'deg)';
+                    };
+                    const mouseleave = function() {
+                        clearTimeout(zoomTimer);
+                        isZoomed = false;
+                        var orig = getOrigTransform();
+                        target.style.transition = 'scale .5s cubic-bezier(0.22,1,0.36,1), transform .4s cubic-bezier(0.22,1,0.36,1)';
+                        target.style.transform = orig;
+                        target.style.scale = '1';
+                        setTimeout(function() {
+                            target.style.transition = 'scale .5s cubic-bezier(0.22,1,0.36,1)';
+                        }, 500);
+                    };
+                    active.addEventListener('mouseenter', mouseenter);
+                    active.addEventListener('mousemove', mousemove);
+                    active.addEventListener('mouseleave', mouseleave);
+                    lastActive = active;
+                    lastHandlers = { mouseenter, mousemove, mouseleave };
+                }
+            }
+        }
 
-            container.addEventListener('mouseenter', function() {
-                front.style.scale = '1.06';
-                /* Allow tilt after brief zoom-in start */
-                zoomTimer = setTimeout(function() { isZoomed = true; }, 150);
-            });
+        // Attach on load and every scroll
+        window.addEventListener('scroll', attachTiltToActiveSlide, { passive: true });
+        window.addEventListener('DOMContentLoaded', attachTiltToActiveSlide);
+        attachTiltToActiveSlide();
+    }
 
-            container.addEventListener('mousemove', function(e) {
-                if (!isZoomed) return;
-                var rect = container.getBoundingClientRect();
-                var x = e.clientX - rect.left, y = e.clientY - rect.top;
-                var rx = ((y - rect.height / 2) / (rect.height / 2)) * -8;
-                var ry = ((x - rect.width / 2) / (rect.width / 2)) * 8;
-                front.style.transform = origTransform + ' perspective(800px) rotateX(' + rx + 'deg) rotateY(' + ry + 'deg)';
-            });
+    /* ------ Giant Background Words (CSS animation - continuous, never stops) ------ */
+    function initBgWords() {
+        /* bg-words now use pure CSS @keyframes animation (always moving, never still) */
+        /* No GSAP scrub needed — CSS handles continuous left/right slide with delay on bottom row */
+    }
 
-            container.addEventListener('mouseleave', function() {
-                clearTimeout(zoomTimer);
-                isZoomed = false;
-                /* Smooth reset: add transform transition for the tilt unwinding */
-                front.style.transition = 'scale .5s cubic-bezier(0.22,1,0.36,1), transform .4s cubic-bezier(0.22,1,0.36,1)';
-                front.style.transform = origTransform;
-                front.style.scale = '1';
-                /* Reset transition after animation so mousemove tilt stays responsive */
-                setTimeout(function() {
-                    front.style.transition = 'scale .5s cubic-bezier(0.22,1,0.36,1)';
-                }, 500);
-            });
+    /* ------ Hero Title Zoom on Scroll ------ */
+    function initHeroTitleZoom() {
+        var heroTitle = document.getElementById('hero-title');
+        if (!heroTitle || typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+
+        gsap.to(heroTitle, {
+            scale: 1.8,
+            y: 120,
+            ease: 'none',
+            scrollTrigger: {
+                trigger: '.hero',
+                start: 'top top',
+                end: '80% top',
+                scrub: 0.3
+            }
         });
     }
 

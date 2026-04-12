@@ -9,7 +9,21 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body style="opacity:0;transition:opacity .3s;">
+</head>
+<script>
+// Remove FOUC (flash of unstyled content) after CSS loads
+window.addEventListener('DOMContentLoaded', function() {
+    function showBody() {
+        document.body.style.opacity = '1';
+    }
+    if (document.readyState === 'complete' || document.readyState === 'interactive') {
+        showBody();
+    } else {
+        window.addEventListener('load', showBody);
+    }
+});
+</script>
 
     <!-- Cursor (only visible on hover) -->
     <div class="cursor" id="cursor"></div>
@@ -30,7 +44,7 @@
             <a href="#hero" class="nav__logo">ZAIN AHMAD</a>
             <div class="nav__links">
                 <a href="#work">Work</a>
-                <a href="#design">Design</a>
+                <a href="#kkc">Latest</a>
                 <a href="#creative">Creative</a>
                 <a href="#about">About</a>
                 <a href="#contact">Contact</a>
@@ -56,7 +70,7 @@
         <!-- Mobile Menu -->
         <div class="mobile-menu" id="mobile-menu">
             <a href="#work">Work</a>
-            <a href="#design">Design</a>
+            <a href="#kkc">Latest</a>
             <a href="#creative">Creative</a>
             <a href="#about">About</a>
             <a href="#contact">Contact</a>
@@ -70,11 +84,11 @@
             </div>
             <div class="hero__content">
                 <h1 class="hero__title" id="hero-title">ZAIN AHMAD</h1>
-                <a href="https://www.instagram.com/p/DWf0gQ3CJf2/" target="_blank" rel="noopener noreferrer" id="hero-gojo-link"><img src="assets/media/gojo.png" alt="" class="hero__gojo" id="hero-gojo"></a>
+                <a href="https://www.instagram.com/p/DWf0gQ3CJf2/" target="_blank" rel="noopener noreferrer" id="hero-gojo-link"><img src="assets/media/lego-gojo/image (1).png" alt="" class="hero__gojo" id="hero-gojo"></a>
                 <div class="gojo-tooltip" id="gojo-tooltip">Watch Animation</div>
                 <div class="hero__bottom">
                     <div class="hero__info">
-                        <p class="hero__label">UX/UI Designer &amp; Multimedia Specialist</p>
+                        <p class="hero__label" id="hero-label">UX/UI Designer &amp; Multimedia Specialist<span class="hero__secret">Developer by day, Animator by Night</span></p>
                         <p class="hero__sub">Designing experiences that feel effortless</p>
                     </div>
                     <div class="hero__cta">
@@ -91,14 +105,9 @@
 
         <!-- Marquee -->
         <div class="marquee">
-            <div class="marquee__inner">
-                <span>UX DESIGN</span>
-                <span>UI DESIGN</span>
-                <span>WEB DEVELOPMENT</span>
-                <span>3D ANIMATION</span>
-                <span>MOTION GRAPHICS</span>
-                <span>VISUAL EFFECTS</span>
-                <span>VIDEO EDITING</span>
+            <div class="marquee__fade-left"></div>
+            <div class="marquee__fade-right"></div>
+            <div class="marquee__inner" data-duplicate=" PROTOTYPING   UX DESIGN   UI DESIGN   WEB DEVELOPMENT   3D ANIMATION   MOTION GRAPHICS   VISUAL EFFECTS   VIDEO EDITING ">
                 <span>PROTOTYPING</span>
                 <span>UX DESIGN</span>
                 <span>UI DESIGN</span>
@@ -107,12 +116,15 @@
                 <span>MOTION GRAPHICS</span>
                 <span>VISUAL EFFECTS</span>
                 <span>VIDEO EDITING</span>
-                <span>PROTOTYPING</span>
             </div>
         </div>
 
         <!-- ===== SELECTED WORK (Horizontal Scroll) ===== -->
         <section class="work" id="work">
+            <div class="bg-words" aria-hidden="true">
+                <span class="bg-word" data-dir="left">DEVELOPER</span>
+                <span class="bg-word" data-dir="right">DESIGNER</span>
+            </div>
             <div class="container">
                 <span class="section-num reveal">01</span>
                 <h2 class="section-title reveal" data-delay="0.1">PROJECT SHOWCASE</h2>
@@ -265,6 +277,10 @@
 
             <!-- Harvest Hands Case Study -->
             <div class="case container">
+                <div class="bg-words" aria-hidden="true">
+                    <span class="bg-word" data-dir="right">ARTIST</span>
+                    <span class="bg-word" data-dir="left">ANIMATOR</span>
+                </div>
                 <div class="case__header reveal">
                     <div class="case__header-top">
                         <span class="case__badge">Featured Case Study</span>
@@ -284,25 +300,27 @@
             <!-- Photo Album (Scroll-Driven Stacked Cards) -->
             <div class="album" id="album">
                 <div class="album__sticky">
+                    <div class="bg-words" aria-hidden="true">
+                        <span class="bg-word" data-dir="left">EDITOR</span>
+                        <span class="bg-word" data-dir="right">CREATOR</span>
+                    </div>
                     <div class="album__slide active" data-index="0">
                         <div class="album__text">
                             <h4>THE CHALLENGE</h4>
                             <p>Food banks need an efficient way to track inventory, manage item approvals, and handle real time notifications for stock levels. The existing process was manual and prone to errors, requiring a streamlined digital solution.</p>
                         </div>
                         <div class="album__photos">
-                            <div class="album__photo album__photo--back" style="background:#081820;transform:rotate(6deg)"></div>
-                            <div class="album__photo album__photo--mid" style="background:#0a2838;transform:rotate(-3deg)"></div>
-                            <div class="album__photo album__photo--front" style="background:linear-gradient(135deg,#041520,#0a3a50,#06b6d4);transform:rotate(2deg)">
-                                <span class="album__photo-label">Login Screen</span>
+                            <div class="album__photo album__photo--back" style="background:url('assets/media/harvest-hands/Log in.png') center/contain no-repeat, #081820;transform:rotate(6deg)"></div>
+                            <div class="album__photo album__photo--mid" style="background:url('assets/media/harvest-hands/Log in.png') center/contain no-repeat, #0a2838;transform:rotate(-3deg)"></div>
+                            <div class="album__photo album__photo--front" style="background:url('assets/media/harvest-hands/Log in.png') center/cover no-repeat;transform:rotate(2deg)">
                             </div>
                         </div>
                     </div>
                     <div class="album__slide" data-index="1">
                         <div class="album__photos">
-                            <div class="album__photo album__photo--back" style="background:#081820;transform:rotate(-5deg)"></div>
-                            <div class="album__photo album__photo--mid" style="background:#0a2838;transform:rotate(4deg)"></div>
-                            <div class="album__photo album__photo--front" style="background:linear-gradient(135deg,#041520,#0c3a50,#0891b2);transform:rotate(-2deg)">
-                                <span class="album__photo-label">Dashboard</span>
+                            <div class="album__photo album__photo--back" style="background:url('assets/media/harvest-hands/Home.png') center/contain no-repeat, #081820;transform:rotate(-5deg)"></div>
+                            <div class="album__photo album__photo--mid" style="background:url('assets/media/harvest-hands/Home.png') center/contain no-repeat, #0a2838;transform:rotate(4deg)"></div>
+                            <div class="album__photo album__photo--front" style="background:url('assets/media/harvest-hands/Home.png') center/cover no-repeat;transform:rotate(-2deg)">
                             </div>
                         </div>
                         <div class="album__text">
@@ -316,19 +334,17 @@
                             <p>Created a comprehensive dark theme design system with color coded status indicators, consistent typography, and reusable components that enabled the team to build screens rapidly while maintaining visual cohesion.</p>
                         </div>
                         <div class="album__photos">
-                            <div class="album__photo album__photo--back" style="background:#081820;transform:rotate(4deg)"></div>
-                            <div class="album__photo album__photo--mid" style="background:#0a2838;transform:rotate(-5deg)"></div>
-                            <div class="album__photo album__photo--front" style="background:linear-gradient(135deg,#020e18,#0a3850,#22d3ee);transform:rotate(3deg)">
-                                <span class="album__photo-label">Inventory List</span>
+                            <div class="album__photo album__photo--back" style="background:url('assets/media/harvest-hands/List.png') center/contain no-repeat, #081820;transform:rotate(4deg)"></div>
+                            <div class="album__photo album__photo--mid" style="background:url('assets/media/harvest-hands/List.png') center/contain no-repeat, #0a2838;transform:rotate(-5deg)"></div>
+                            <div class="album__photo album__photo--front" style="background:url('assets/media/harvest-hands/List.png') center/cover no-repeat;transform:rotate(3deg)">
                             </div>
                         </div>
                     </div>
                     <div class="album__slide" data-index="3">
                         <div class="album__photos">
-                            <div class="album__photo album__photo--back" style="background:#081820;transform:rotate(-6deg)"></div>
-                            <div class="album__photo album__photo--mid" style="background:#0a2838;transform:rotate(3deg)"></div>
-                            <div class="album__photo album__photo--front" style="background:linear-gradient(135deg,#020a14,#083040,#06b6d4);transform:rotate(-3deg)">
-                                <span class="album__photo-label">Notifications</span>
+                            <div class="album__photo album__photo--back" style="background:url('assets/media/harvest-hands/Notifications.png') center/contain no-repeat, #081820;transform:rotate(-6deg)"></div>
+                            <div class="album__photo album__photo--mid" style="background:url('assets/media/harvest-hands/Notifications.png') center/contain no-repeat, #0a2838;transform:rotate(3deg)"></div>
+                            <div class="album__photo album__photo--front" style="background:url('assets/media/harvest-hands/Notifications.png') center/cover no-repeat;transform:rotate(-3deg)">
                             </div>
                         </div>
                         <div class="album__text">
@@ -342,19 +358,17 @@
                             <p>Implemented WCAG compliant color contrast ratios and touch targets. Designed responsive layouts that adapted seamlessly from mobile to tablet, prioritizing one handed usability for warehouse environments.</p>
                         </div>
                         <div class="album__photos">
-                            <div class="album__photo album__photo--back" style="background:#081a28;transform:rotate(5deg)"></div>
-                            <div class="album__photo album__photo--mid" style="background:#0c2e45;transform:rotate(-4deg)"></div>
-                            <div class="album__photo album__photo--front" style="background:linear-gradient(135deg,#041520,#0c4050,#06b6d4);transform:rotate(2deg)">
-                                <span class="album__photo-label">Stock Alerts</span>
+                            <div class="album__photo album__photo--back" style="background:url('assets/media/harvest-hands/Item Details Approved Popup.png') center/contain no-repeat, #081a28;transform:rotate(5deg)"></div>
+                            <div class="album__photo album__photo--mid" style="background:url('assets/media/harvest-hands/Item Details Approved Popup.png') center/contain no-repeat, #0c2e45;transform:rotate(-4deg)"></div>
+                            <div class="album__photo album__photo--front" style="background:url('assets/media/harvest-hands/Item Details Approved Popup.png') center/cover no-repeat;transform:rotate(2deg)">
                             </div>
                         </div>
                     </div>
                     <div class="album__slide" data-index="5">
                         <div class="album__photos">
-                            <div class="album__photo album__photo--back" style="background:#081820;transform:rotate(-5deg)"></div>
-                            <div class="album__photo album__photo--mid" style="background:#0c2e45;transform:rotate(4deg)"></div>
-                            <div class="album__photo album__photo--front" style="background:linear-gradient(135deg,#020812,#083848,#0891b2);transform:rotate(-2deg)">
-                                <span class="album__photo-label">Final Prototype</span>
+                            <div class="album__photo album__photo--back" style="background:url('assets/media/harvest-hands/Item Does Not Exist.png') center/contain no-repeat, #081820;transform:rotate(-5deg)"></div>
+                            <div class="album__photo album__photo--mid" style="background:url('assets/media/harvest-hands/Item Does Not Exist.png') center/contain no-repeat, #0c2e45;transform:rotate(4deg)"></div>
+                            <div class="album__photo album__photo--front" style="background:url('assets/media/harvest-hands/Item Does Not Exist.png') center/cover no-repeat;transform:rotate(-2deg)">
                             </div>
                         </div>
                         <div class="album__text">
@@ -374,13 +388,33 @@
             </div>
 
             <!-- KKC Classroom -->
-            <div class="kkc container reveal">
-                <span class="section-num">UX</span>
-                <h3 class="case__title">KKC CLASSROOM</h3>
-                <p class="kkc__type">Platform Redesign</p>
-                <p class="kkc__desc">Led complete platform redesign for an ed tech company. Designed responsive prototypes in Figma, implemented with Next.js &amp; TailwindCSS.</p>
-                <div class="tags"><span>Next.js</span><span>Figma</span><span>TailwindCSS</span></div>
-                <span class="kkc__role">App Developer &mdash; Sep 2025 to Present</span>
+            <div class="kkc reveal" id="kkc">
+                <div class="kkc__layout">
+                    <div class="kkc__text">
+                        <span class="section-num">UX</span>
+                        <h3 class="case__title">KKC CLASSROOM</h3>
+                        <p class="kkc__type">Platform Redesign</p>
+                        <p class="kkc__desc">Led complete platform redesign for an ed tech company. Designed responsive prototypes in Figma, implemented with Next.js &amp; TailwindCSS.</p>
+                        <div class="tags"><span>Next.js</span><span>Figma</span><span>TailwindCSS</span></div>
+                        <span class="kkc__role">App Developer &mdash; Sep 2025 to Present</span>
+                    </div>
+                    <div class="kkc__gallery">
+                        <div class="kkc__gallery-track">
+                            <img src="assets/media/kkc-classroom/Login.png" alt="KKC Login">
+                            <img src="assets/media/kkc-classroom/Main Page.png" alt="KKC Main Page">
+                            <img src="assets/media/kkc-classroom/Navigation Bar.png" alt="KKC Navigation">
+                            <img src="assets/media/kkc-classroom/Exams.png" alt="KKC Exams">
+                            <img src="assets/media/kkc-classroom/Quiz.png" alt="KKC Quiz">
+                            <img src="assets/media/kkc-classroom/Settings.png" alt="KKC Settings">
+                            <img src="assets/media/kkc-classroom/Login.png" alt="KKC Login">
+                            <img src="assets/media/kkc-classroom/Main Page.png" alt="KKC Main Page">
+                            <img src="assets/media/kkc-classroom/Navigation Bar.png" alt="KKC Navigation">
+                            <img src="assets/media/kkc-classroom/Exams.png" alt="KKC Exams">
+                            <img src="assets/media/kkc-classroom/Quiz.png" alt="KKC Quiz">
+                            <img src="assets/media/kkc-classroom/Settings.png" alt="KKC Settings">
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -399,17 +433,21 @@
 
             <div class="creative__hero container">
                 <div class="creative__info reveal">
-                    <h3 class="creative__title">RIFT<span class="accent">CG</span></h3>
-                    <p class="creative__skills">3D Animation &bull; Motion Graphics &bull; Video Editing &bull; Visual Effects</p>
-                    <p class="creative__desc">With a decade of experience in editing and motion graphics, I bring cinematic quality to every project. From 3D logo animations to full campaign productions, content that captures attention.</p>
-                    <div class="creative__stat">
-                        <span class="counter" id="views-counter" data-target="3000000">0</span>
-                        <span class="counter-label">Views across platforms</span>
+                    <div class="creative__info-left">
+                        <h3 class="creative__title">RIFT<span class="accent">CG</span></h3>
+                        <p class="creative__skills">3D Animation &bull; Motion Graphics &bull; Video Editing &bull; Visual Effects</p>
+                        <p class="creative__desc">With a decade of experience in editing and motion graphics, I bring cinematic quality to every project. From 3D logo animations to full campaign productions, content that captures attention.</p>
                     </div>
-                    <div class="creative__links">
-                        <a href="https://www.instagram.com/rift.cg/" target="_blank" rel="noopener noreferrer" class="btn btn--fill">@rift.cg</a>
-                        <a href="https://www.youtube.com/@RiftCG" target="_blank" rel="noopener noreferrer" class="btn btn--ghost">YouTube</a>
-                        <a href="https://linktr.ee/riftcg" target="_blank" rel="noopener noreferrer" class="btn btn--ghost">Linktree</a>
+                    <div class="creative__info-right">
+                        <div class="creative__stat">
+                            <span class="counter" id="views-counter" data-target="3000000">0</span>
+                            <span class="counter-label">Views across platforms</span>
+                        </div>
+                        <div class="creative__links">
+                            <a href="https://www.instagram.com/rift.cg/" target="_blank" rel="noopener noreferrer" class="btn btn--fill">@rift.cg</a>
+                            <a href="https://www.youtube.com/@RiftCG" target="_blank" rel="noopener noreferrer" class="btn btn--ghost">YouTube</a>
+                            <a href="https://linktr.ee/riftcg" target="_blank" rel="noopener noreferrer" class="btn btn--ghost">Linktree</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -420,73 +458,73 @@
                     <div class="carousel3d__ring" id="carousel3d-ring">
                         <div class="carousel3d__card">
                             <a href="https://www.youtube.com/@zain.create" target="_blank" rel="noopener noreferrer" class="carousel3d__face" style="background:linear-gradient(135deg,#041520 0%,#0a3a50 50%,#06b6d4 100%)">
-                                <span class="carousel3d__play">&#9654;</span>
+                                <span class="carousel3d__play"><svg width="14" height="16" viewBox="0 0 14 16" fill="currentColor"><path d="M1.5 0.5L13 8L1.5 15.5V0.5Z"/></svg></span>
                                 <span class="carousel3d__label">KKC Classroom Intro</span>
                             </a>
                         </div>
                         <div class="carousel3d__card">
                             <a href="https://www.youtube.com/@RiftCG" target="_blank" rel="noopener noreferrer" class="carousel3d__face" style="background:linear-gradient(135deg,#021018 0%,#0c4050 50%,#22d3ee 100%)">
-                                <span class="carousel3d__play">&#9654;</span>
+                                <span class="carousel3d__play"><svg width="14" height="16" viewBox="0 0 14 16" fill="currentColor"><path d="M1.5 0.5L13 8L1.5 15.5V0.5Z"/></svg></span>
                                 <span class="carousel3d__label">3D Logo Animation</span>
                             </a>
                         </div>
                         <div class="carousel3d__card">
                             <a href="https://www.youtube.com/@RiftCG" target="_blank" rel="noopener noreferrer" class="carousel3d__face" style="background:linear-gradient(135deg,#020a14 0%,#083040 50%,#0891b2 100%)">
-                                <span class="carousel3d__play">&#9654;</span>
+                                <span class="carousel3d__play"><svg width="14" height="16" viewBox="0 0 14 16" fill="currentColor"><path d="M1.5 0.5L13 8L1.5 15.5V0.5Z"/></svg></span>
                                 <span class="carousel3d__label">Motion Reel 2025</span>
                             </a>
                         </div>
                         <div class="carousel3d__card">
                             <a href="https://www.youtube.com/@zain.create" target="_blank" rel="noopener noreferrer" class="carousel3d__face" style="background:linear-gradient(135deg,#041018 0%,#0a3848 50%,#06b6d4 100%)">
-                                <span class="carousel3d__play">&#9654;</span>
+                                <span class="carousel3d__play"><svg width="14" height="16" viewBox="0 0 14 16" fill="currentColor"><path d="M1.5 0.5L13 8L1.5 15.5V0.5Z"/></svg></span>
                                 <span class="carousel3d__label">Campaign Highlight</span>
                             </a>
                         </div>
                         <div class="carousel3d__card">
                             <a href="https://www.youtube.com/@RiftCG" target="_blank" rel="noopener noreferrer" class="carousel3d__face" style="background:linear-gradient(135deg,#020812 0%,#082a40 50%,#0e7490 100%)">
-                                <span class="carousel3d__play">&#9654;</span>
+                                <span class="carousel3d__play"><svg width="14" height="16" viewBox="0 0 14 16" fill="currentColor"><path d="M1.5 0.5L13 8L1.5 15.5V0.5Z"/></svg></span>
                                 <span class="carousel3d__label">VFX Breakdown</span>
                             </a>
                         </div>
                         <div class="carousel3d__card">
                             <a href="https://www.youtube.com/@zain.create" target="_blank" rel="noopener noreferrer" class="carousel3d__face" style="background:linear-gradient(135deg,#030e18 0%,#0a3048 50%,#0891b2 100%)">
-                                <span class="carousel3d__play">&#9654;</span>
+                                <span class="carousel3d__play"><svg width="14" height="16" viewBox="0 0 14 16" fill="currentColor"><path d="M1.5 0.5L13 8L1.5 15.5V0.5Z"/></svg></span>
                                 <span class="carousel3d__label">Product Animation</span>
                             </a>
                         </div>
                         <div class="carousel3d__card">
                             <a href="https://www.youtube.com/@RiftCG" target="_blank" rel="noopener noreferrer" class="carousel3d__face" style="background:linear-gradient(135deg,#041218 0%,#083848 50%,#22d3ee 100%)">
-                                <span class="carousel3d__play">&#9654;</span>
+                                <span class="carousel3d__play"><svg width="14" height="16" viewBox="0 0 14 16" fill="currentColor"><path d="M1.5 0.5L13 8L1.5 15.5V0.5Z"/></svg></span>
                                 <span class="carousel3d__label">Brand Identity</span>
                             </a>
                         </div>
                         <div class="carousel3d__card">
                             <a href="https://www.youtube.com/@zain.create" target="_blank" rel="noopener noreferrer" class="carousel3d__face" style="background:linear-gradient(135deg,#021018 0%,#0a3850 50%,#06b6d4 100%)">
-                                <span class="carousel3d__play">&#9654;</span>
+                                <span class="carousel3d__play"><svg width="14" height="16" viewBox="0 0 14 16" fill="currentColor"><path d="M1.5 0.5L13 8L1.5 15.5V0.5Z"/></svg></span>
                                 <span class="carousel3d__label">Event Promo</span>
                             </a>
                         </div>
                         <div class="carousel3d__card">
                             <a href="https://www.youtube.com/@RiftCG" target="_blank" rel="noopener noreferrer" class="carousel3d__face" style="background:linear-gradient(135deg,#030a14 0%,#083040 50%,#0e7490 100%)">
-                                <span class="carousel3d__play">&#9654;</span>
+                                <span class="carousel3d__play"><svg width="14" height="16" viewBox="0 0 14 16" fill="currentColor"><path d="M1.5 0.5L13 8L1.5 15.5V0.5Z"/></svg></span>
                                 <span class="carousel3d__label">3D Walkthrough</span>
                             </a>
                         </div>
                         <div class="carousel3d__card">
                             <a href="https://www.youtube.com/@zain.create" target="_blank" rel="noopener noreferrer" class="carousel3d__face" style="background:linear-gradient(135deg,#020e1a 0%,#0c3a50 50%,#22d3ee 100%)">
-                                <span class="carousel3d__play">&#9654;</span>
+                                <span class="carousel3d__play"><svg width="14" height="16" viewBox="0 0 14 16" fill="currentColor"><path d="M1.5 0.5L13 8L1.5 15.5V0.5Z"/></svg></span>
                                 <span class="carousel3d__label">Social Campaign</span>
                             </a>
                         </div>
                         <div class="carousel3d__card">
                             <a href="https://www.youtube.com/@RiftCG" target="_blank" rel="noopener noreferrer" class="carousel3d__face" style="background:linear-gradient(135deg,#041018 0%,#0a3040 50%,#0891b2 100%)">
-                                <span class="carousel3d__play">&#9654;</span>
+                                <span class="carousel3d__play"><svg width="14" height="16" viewBox="0 0 14 16" fill="currentColor"><path d="M1.5 0.5L13 8L1.5 15.5V0.5Z"/></svg></span>
                                 <span class="carousel3d__label">Cinematic Edit</span>
                             </a>
                         </div>
                         <div class="carousel3d__card">
                             <a href="https://www.youtube.com/@zain.create" target="_blank" rel="noopener noreferrer" class="carousel3d__face" style="background:linear-gradient(135deg,#020814 0%,#083040 50%,#06b6d4 100%)">
-                                <span class="carousel3d__play">&#9654;</span>
+                                <span class="carousel3d__play"><svg width="14" height="16" viewBox="0 0 14 16" fill="currentColor"><path d="M1.5 0.5L13 8L1.5 15.5V0.5Z"/></svg></span>
                                 <span class="carousel3d__label">Logo Reveal</span>
                             </a>
                         </div>
@@ -514,6 +552,7 @@
             </div>
 
             <div class="about__grid container">
+                <!-- Top Left: Text -->
                 <div class="about__text reveal">
                     <p class="about__lead">I'm a Computer Science student at the <strong>University of Guelph</strong> with an area of emphasis in <strong>User Experience</strong>.</p>
                     <p>I design and develop interfaces that feel effortless, caring deeply about clarity, accessibility, and thoughtful design. My project GPYOU earned <strong>Best UI at GDSC Hacks 2025</strong>.</p>
@@ -537,6 +576,32 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- Top Right: Square Glass Card -->
+                <div class="about__card-wrap reveal" data-delay="0.2">
+                    <div class="about-card" style="background:url('assets/media/me.png') center/cover no-repeat;">
+                        <div class="about-card__inner"></div>
+                        <div class="about-card__overlay">
+                            <div class="about-card__overlay-inner">
+                                <p class="about-card__overlay-desc">Hey It's me Zain!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bottom Left: Square Glass Card -->
+                <div class="about__card-wrap reveal" data-delay="0.1">
+                    <div class="about-card" style="background:url('assets/media/setup.jpg') center/cover no-repeat;">
+                        <div class="about-card__inner"></div>
+                        <div class="about-card__overlay">
+                            <div class="about-card__overlay-inner">
+                                <p class="about-card__overlay-desc">Where the magic happens</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bottom Right: Timeline -->
                 <div class="about__timeline reveal" data-delay="0.2">
                     <h4>Experience</h4>
                     <div class="timeline">
@@ -680,6 +745,10 @@
 
         <!-- ===== CONTACT ===== -->
         <section class="contact" id="contact">
+            <div class="bg-words" aria-hidden="true">
+                <span class="bg-word" data-dir="right">DEVELOPER</span>
+                <span class="bg-word" data-dir="left">CREATOR</span>
+            </div>
 
             <div class="container">
                 <h2 class="big-text reveal">LET'S BUILD</h2>
@@ -725,5 +794,14 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <script src="script.js"></script>
+    <script>
+    // Marquee seamless loop fix
+    window.addEventListener('DOMContentLoaded', function() {
+        if (typeof initMarquee === 'function') initMarquee();
+        window.addEventListener('resize', function() {
+            if (typeof initMarquee === 'function') initMarquee();
+        });
+    });
+    </script>
 </body>
 </html>
