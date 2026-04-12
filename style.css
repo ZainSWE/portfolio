@@ -1,3 +1,28 @@
+/* Project card thumbnail image fix */
+.work-card__img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+    pointer-events: none;
+    transition: opacity .3s;
+}
+.work-card__visual {
+    position: relative;
+    overflow: hidden;
+}
+.work-card__bg {
+    z-index: 0;
+}
+.work-card__overlay,
+.work-card__cta,
+.work-card__badge {
+    position: relative;
+    z-index: 2;
+}
 /* ============================================================
    ZAIN AHMAD - PORTFOLIO 2026 v6.9
    Dark + Light Mode - GSAP - Lenis - Apple Glassmorphism
@@ -150,10 +175,10 @@ button { border:none; background:none; color:inherit; cursor:pointer; font-famil
     backdrop-filter:blur(10px) saturate(1.2);
     -webkit-backdrop-filter:blur(10px) saturate(1.2);
     box-shadow: var(--glass-glow), var(--glass-shadow);
-    transition:background .3s, border-color .3s, transform .2s;
+    transition:background .3s, border-color .3s, color .3s;
     color:var(--text-muted);
 }
-.nav__social:hover { color:#fff; transform:scale(1.08); }
+.nav__social:hover { color:#fff; }
 .nav__social svg { width:16px; height:16px; }
 
 /* Theme Toggle (Apple Glass) */
@@ -235,7 +260,7 @@ button { border:none; background:none; color:inherit; cursor:pointer; font-famil
     opacity:0; transform:translateY(30px);
 }
 .hero__info { display:flex; flex-direction:column; gap:.5rem; }
-.hero__label { font-size:.8rem; font-weight:500; letter-spacing:.15em; text-transform:uppercase; color:rgba(228,240,246,0.7); position:relative; cursor:default; }
+.hero__label { font-size:.8rem; font-weight:500; margin-top: 2rem; letter-spacing:.15em; text-transform:uppercase; color:rgba(228,240,246,0.7); position:relative; cursor:default; }
 .hero__secret {
     position:absolute; top:0; left:0; right:0; bottom:0;
     font-size:inherit; font-weight:inherit; letter-spacing:inherit; text-transform:inherit;
@@ -287,10 +312,9 @@ button { border:none; background:none; color:inherit; cursor:pointer; font-famil
 .marquee { padding:1rem 0; border-top:1px solid var(--border); border-bottom:1px solid var(--border); overflow:hidden; background:var(--bg); position:relative; z-index:10; }
 .marquee__inner {
     display: flex;
-    gap: 3rem;
+    gap: 0;
     width: max-content;
-    min-width: 100%;
-    animation: marqueeScroll 30s linear infinite;
+    animation: marqueeScroll linear infinite;
     align-items: center;
 }
 .marquee__inner span {
@@ -301,23 +325,28 @@ button { border:none; background:none; color:inherit; cursor:pointer; font-famil
     text-transform: uppercase;
     color: var(--text-muted);
     white-space: nowrap;
-    margin-right: 3rem;
-}
-.marquee__inner span:last-child {
-    margin-right: 0;
+    padding: 0 2rem;
 }
 @keyframes marqueeScroll {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-20%); }
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
 }
 
 /* ---- Common ---- */
 .container { max-width:1200px; margin:0 auto; padding:0 clamp(1.5rem,4vw,3rem); }
 .section-num { display:block; font-family:var(--font-body); font-size:.75rem; font-weight:600; letter-spacing:.15em; color:var(--accent); margin-bottom:.75rem; text-transform:uppercase; }
-.section-title { font-family:var(--font-head); font-size:clamp(1.5rem,4vw,3rem); letter-spacing:.04em; margin-bottom:1rem; }
+.section-title {
+    font-family: var(--font-head);
+    font-size: clamp(2.5rem,6vw,5rem); /* Match KKC Classroom header size */
+    letter-spacing: .04em;
+    margin-bottom: 1rem;
+    font-weight: 700;
+    line-height: 1.1;
+}
 .section-subtitle { font-size:.95rem; color:var(--text-muted); max-width:560px; line-height:1.6; margin-bottom:2rem; }
 
-.big-text { font-family:var(--font-head); font-size:clamp(2rem,6vw,5.5rem); letter-spacing:.02em; line-height:1.05; }
+.big-text { font-family:var(--font-head); font-size:clamp(2.5rem,6vw,5rem); letter-spacing:.02em; line-height:1.05; }
+.big-text-out { font-family:var(--font-head-out); font-size:clamp(2rem,6vw,5.5rem); letter-spacing:.02em; line-height:1.05; }
 .accent { color:var(--accent); }
 .mt-lg { margin-top:3rem; }
 .tags { display:flex; flex-wrap:wrap; gap:.5rem; margin-top:1rem; }
@@ -413,11 +442,41 @@ button { border:none; background:none; color:inherit; cursor:pointer; font-famil
 .work__scroll { height:350vh; position:relative; }
 .work__sticky { position:sticky; top:0; height:100vh; display:flex; align-items:center; overflow:hidden; }
 .work__track { display:flex; gap:2rem; padding:0 clamp(1.5rem,4vw,3rem); will-change:transform; }
-.work-card { flex-shrink:0; width:clamp(300px,32vw,420px); display:flex; flex-direction:column; gap:1rem; text-decoration:none; cursor:pointer; }
+.work-card {
+    flex-shrink:0; width:clamp(600px,32vw,420px); display:flex; flex-direction:column; gap:1rem; text-decoration:none; cursor:pointer;
+    filter: grayscale(1);
+    transition: filter 0.5s ease, opacity 0.5s ease;
+    will-change: filter;
+    outline: 1px solid transparent;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+.work-dir {
+    align-items: flex-start;
+    height: 100%;
+}
+.work-dir-label {
+    font-family: var(--font-head);
+    font-size: clamp(12rem, 22vw, 20rem);
+    font-weight: 900;
+    color: var(--accent);
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    letter-spacing: 0.05em;
+    text-shadow: 0 4px 40px rgba(6,182,212,0.25);
+    margin-right: 2rem;
+    margin-top: 6rem;
+}
 
 /* Work Card Visual (Apple Glass border + glow) */
 .work-card__visual {
-    position:relative; aspect-ratio:4/5;
+    position:relative; aspect-ratio:4/3.5;
     border-radius:16px; overflow:hidden;
     border:none;
     background:rgba(255,255,255,0.06);
@@ -819,13 +878,11 @@ button { border:none; background:none; color:inherit; cursor:pointer; font-famil
 /* ---- Footer ---- */
 .footer { border-top:1px solid var(--border); }
 .footer__marquee { overflow:hidden; padding:1.5rem 0; }
-/* Footer Marquee: seamless infinite scroll, no skip */
 .footer__marquee-track {
     display: flex;
-    gap: 3rem;
+    gap: 0;
     width: max-content;
-    min-width: 100%;
-    animation: footerMarqueeScroll 20s linear infinite;
+    animation: footerMarqueeScroll linear infinite;
     align-items: center;
 }
 .footer__marquee-track span {
@@ -835,10 +892,11 @@ button { border:none; background:none; color:inherit; cursor:pointer; font-famil
     color: var(--text-muted);
     white-space: nowrap;
     opacity: 0.4;
-    margin-right: 3rem;
+    padding: 0 2rem;
 }
-.footer__marquee-track span:last-child {
-    margin-right: 0;
+@keyframes footerMarqueeScroll {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
 }
 @keyframes footerMarqueeScroll {
     0% { transform: translateX(0); }

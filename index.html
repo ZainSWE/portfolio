@@ -127,19 +127,24 @@ window.addEventListener('DOMContentLoaded', function() {
             </div>
             <div class="container">
                 <span class="section-num reveal">01</span>
-                <h2 class="section-title reveal" data-delay="0.1">PROJECT SHOWCASE</h2>
+                <h3 class="section-title reveal" data-delay="0.1">PROJECT SHOWCASE</h3>
                 <p class="section-subtitle reveal" data-delay="0.2">A selection of design and development projects, from concept to&nbsp;production.</p>
             </div>
             <div class="work__scroll" id="work-scroll">
                 <div class="work__sticky">
                     <div class="work__track" id="work-track">
+                        <!-- Modern Cyan Arrow (IKEA style) -->
+                        <div class="work-arrow" id="work-arrow" aria-hidden="true">
+                            <span class="work-dir-label">./</span>
+                        </div>
 
                         <!-- AirPods 4 -->
                         <a href="https://zainswe.github.io/airpods4/" target="_blank" rel="noopener noreferrer" class="work-card">
                             <div class="work-card__visual" data-tilt>
-                                <div class="work-card__bg" style="background:linear-gradient(135deg,#000000 0%,#040a10 30%,#0c1e30 60%,#0e4a6a 100%)"></div>
+                                <div class="work-card__bg" style="background:#040a10;"></div>
+                                <img class="work-card__img" src="assets/media/project-thumbnails/airpods-4.png" alt="AirPods 4 Thumbnail" />
                                 <span class="work-card__cta">View Project &#8599;</span>
-                                <div class="work-card__overlay"><div class="work-card__overlay-inner"><p class="work-card__overlay-desc">Interactive 3D product showcase built with Three.js and WebGL. Features dynamic scroll animations and an immersive spatial audio experience.</p></div></div>
+                                <div class="work-card__overlay"><div class="work-card__overlay-inner"><p class="work-card__overlay-desc">Interactive 3D product showcase built with Three.js and WebGL. Features dynamic scroll animations and a detailed 3D Airpods 4 model built in Blender.</p></div></div>
                             </div>
                             <div class="work-card__info">
                                 <span class="work-card__num">01</span>
@@ -150,12 +155,13 @@ window.addEventListener('DOMContentLoaded', function() {
                         </a>
 
                         <!-- GPYOU -->
-                        <a href="https://github.com/ZainSWE/GPYOU" target="_blank" rel="noopener noreferrer" class="work-card">
+                        <a href="https://zainswe.github.io/GPYOU/src/" target="_blank" rel="noopener noreferrer" class="work-card">
                             <div class="work-card__visual" data-tilt>
-                                <div class="work-card__bg" style="background:linear-gradient(135deg,#000000 0%,#030810 30%,#0a2030 60%,#06566a 100%)"></div>
+                                <div class="work-card__bg" style="background:#030810;"></div>
+                                <img class="work-card__img" src="assets/media/project-thumbnails/gpyou.png" alt="GPYOU Thumbnail" />
                                 <div class="work-card__badge">Best UI Award</div>
                                 <span class="work-card__cta">View Project &#8599;</span>
-                                <div class="work-card__overlay"><div class="work-card__overlay-inner"><p class="work-card__overlay-desc">AI powered GPA calculator and academic planner. Won Best UI at GDSC Hacks 2025 with a clean, intuitive interface powered by Gemini API.</p></div></div>
+                                <div class="work-card__overlay"><div class="work-card__overlay-inner"><p class="work-card__overlay-desc">3D Graphics Card recommender. Won Best UI at GDSC Hacks 2025 with a clean, intuitive interface powered by Gemini API.</p></div></div>
                             </div>
                             <div class="work-card__info">
                                 <span class="work-card__num">02</span>
@@ -168,7 +174,8 @@ window.addEventListener('DOMContentLoaded', function() {
                         <!-- RB21 F1 -->
                         <a href="https://github.com/ZainSWE/RB21-F1-Car-Showcase" target="_blank" rel="noopener noreferrer" class="work-card">
                             <div class="work-card__visual" data-tilt>
-                                <div class="work-card__bg" style="background:linear-gradient(135deg,#000000 0%,#040810 30%,#081828 60%,#084a60 100%)"></div>
+                                <div class="work-card__bg" style="background:#040810;"></div>
+                                <img class="work-card__img" src="assets/media/project-thumbnails/redbull.png" alt="RB21 F1 Thumbnail" />
                                 <span class="work-card__cta">View Project &#8599;</span>
                                 <div class="work-card__overlay"><div class="work-card__overlay-inner"><p class="work-card__overlay-desc">Digital experience featuring the Red Bull RB21 with cinematic scroll animations, interactive UI elements, and WebGL powered 3D&nbsp;visualization.</p></div></div>
                             </div>
@@ -181,9 +188,10 @@ window.addEventListener('DOMContentLoaded', function() {
                         </a>
 
                         <!-- G.SKILL -->
-                        <a href="https://github.com/ZainSWE/G.SKILL-RAM" target="_blank" rel="noopener noreferrer" class="work-card">
+                        <a href="https://zainswe.github.io/G.SKILL-RAM/" target="_blank" rel="noopener noreferrer" class="work-card">
                             <div class="work-card__visual" data-tilt>
-                                <div class="work-card__bg" style="background:linear-gradient(135deg,#000000 0%,#030a12 30%,#0a2838 60%,#0e5a70 100%)"></div>
+                                <div class="work-card__bg" style="background:#030a12;"></div>
+                                <img class="work-card__img" src="assets/media/project-thumbnails/g-skills.png" alt="G.SKILL Thumbnail" />
                                 <span class="work-card__cta">View Project &#8599;</span>
                                 <div class="work-card__overlay"><div class="work-card__overlay-inner"><p class="work-card__overlay-desc">Product showcase for Trident Z RGB RAM featuring Three.js 3D rendering, dynamic lighting effects, and responsive product design.</p></div></div>
                             </div>
@@ -196,17 +204,18 @@ window.addEventListener('DOMContentLoaded', function() {
                         </a>
 
                         <!-- Dummy Project 05 -->
-                        <a href="#" class="work-card">
+                        <a href="https://www.kkcclassroom.com/" target="_blank" rel="noopener noreferrer" class="work-card">
                             <div class="work-card__visual" data-tilt>
                                 <div class="work-card__bg" style="background:linear-gradient(135deg,#000000 0%,#020812 30%,#0c1a28 60%,#0a3a50 100%)"></div>
+                                <img class="work-card__img" src="assets/media/project-thumbnails/kkc-classroom.png" alt="KKC Classroom Thumbnail" />
                                 <span class="work-card__cta">Coming Soon</span>
-                                <div class="work-card__overlay"><div class="work-card__overlay-inner"><p class="work-card__overlay-desc">Fintech dashboard concept with real time data visualization, clean information hierarchy, and a modern design system built in&nbsp;Figma.</p></div></div>
+                                <div class="work-card__overlay"><div class="work-card__overlay-inner"><p class="work-card__overlay-desc">Comprehensive UI/UX mockup for an Ed-tech start-up, designed and prototyped in Figma. Features a modern dashboard, interactive classroom management tools, and a responsive design system tailored for both students and educators.</p></div></div>
                             </div>
                             <div class="work-card__info">
                                 <span class="work-card__num">05</span>
-                                <h3 class="work-card__title" data-text="FINOVA">FINOVA</h3>
+                                <h3 class="work-card__title" data-text="KKC CLASSROOM">KKC Classroom</h3>
                                 <p class="work-card__type">Fintech Dashboard</p>
-                                <div class="work-card__tags"><span>React</span><span>Figma</span><span>Data Viz</span></div>
+                                <div class="work-card__tags"><span>Next.js</span><span>Figma</span><span>UX/UI</span><span>Internship</span></div>
                             </div>
                         </a>
 
@@ -219,8 +228,8 @@ window.addEventListener('DOMContentLoaded', function() {
                             </div>
                             <div class="work-card__info">
                                 <span class="work-card__num">06</span>
-                                <h3 class="work-card__title" data-text="SOLACE">SOLACE</h3>
-                                <p class="work-card__type">Wellness App</p>
+                                <h3 class="work-card__title" data-text="CIS*2170 PROJECT">CIS*2170 Project</h3>
+                                <p class="work-card__type">Platform Mockup for Harvest Hands</p>
                                 <div class="work-card__tags"><span>UI/UX</span><span>Prototyping</span><span>Motion</span></div>
                             </div>
                         </a>
@@ -234,13 +243,13 @@ window.addEventListener('DOMContentLoaded', function() {
                             </div>
                             <div class="work-card__info">
                                 <span class="work-card__num">07</span>
-                                <h3 class="work-card__title" data-text="DRIFT AUTO">DRIFT AUTO</h3>
+                                <h3 class="work-card__title" data-text="CIS*1050 PROJECT">CIS*1050 Project</h3>
                                 <p class="work-card__type">Automotive Concept</p>
                                 <div class="work-card__tags"><span>3D</span><span>Unreal Engine</span><span>Branding</span></div>
                             </div>
                         </a>
 
-                        <!-- Dummy Project 08 -->
+                        <!-- Dummy Project 08 
                         <a href="#" class="work-card">
                             <div class="work-card__visual" data-tilt>
                                 <div class="work-card__bg" style="background:linear-gradient(135deg,#000000 0%,#030810 30%,#081828 60%,#064a60 100%)"></div>
@@ -255,7 +264,7 @@ window.addEventListener('DOMContentLoaded', function() {
                             </div>
                         </a>
 
-                        <!-- Dummy Project 09 -->
+                        
                         <a href="#" class="work-card">
                             <div class="work-card__visual" data-tilt>
                                 <div class="work-card__bg" style="background:linear-gradient(135deg,#000000 0%,#040a10 30%,#0a1e30 60%,#085060 100%)"></div>
@@ -268,7 +277,7 @@ window.addEventListener('DOMContentLoaded', function() {
                                 <p class="work-card__type">Social Platform</p>
                                 <div class="work-card__tags"><span>Full Stack</span><span>UI Design</span><span>WebSocket</span></div>
                             </div>
-                        </a>
+                        </a> -->
 
                     </div>
                 </div>
@@ -310,17 +319,17 @@ window.addEventListener('DOMContentLoaded', function() {
                             <p>Food banks need an efficient way to track inventory, manage item approvals, and handle real time notifications for stock levels. The existing process was manual and prone to errors, requiring a streamlined digital solution.</p>
                         </div>
                         <div class="album__photos">
-                            <div class="album__photo album__photo--back" style="background:url('assets/media/harvest-hands/Log in.png') center/contain no-repeat, #081820;transform:rotate(6deg)"></div>
-                            <div class="album__photo album__photo--mid" style="background:url('assets/media/harvest-hands/Log in.png') center/contain no-repeat, #0a2838;transform:rotate(-3deg)"></div>
-                            <div class="album__photo album__photo--front" style="background:url('assets/media/harvest-hands/Log in.png') center/cover no-repeat;transform:rotate(2deg)">
+                            <div class="album__photo album__photo--back" data-tilt style="background:url('assets/media/harvest-hands/Log in.png') center/contain no-repeat, #081820;transform:rotate(6deg)"></div>
+                            <div class="album__photo album__photo--mid" data-tilt style="background:url('assets/media/harvest-hands/Log in.png') center/contain no-repeat, #0a2838;transform:rotate(-3deg)"></div>
+                            <div class="album__photo album__photo--front" data-tilt style="background:url('assets/media/harvest-hands/Log in.png') center/cover no-repeat;transform:rotate(2deg)">
                             </div>
                         </div>
                     </div>
                     <div class="album__slide" data-index="1">
                         <div class="album__photos">
-                            <div class="album__photo album__photo--back" style="background:url('assets/media/harvest-hands/Home.png') center/contain no-repeat, #081820;transform:rotate(-5deg)"></div>
-                            <div class="album__photo album__photo--mid" style="background:url('assets/media/harvest-hands/Home.png') center/contain no-repeat, #0a2838;transform:rotate(4deg)"></div>
-                            <div class="album__photo album__photo--front" style="background:url('assets/media/harvest-hands/Home.png') center/cover no-repeat;transform:rotate(-2deg)">
+                            <div class="album__photo album__photo--back" data-tilt style="background:url('assets/media/harvest-hands/Home.png') center/contain no-repeat, #081820;transform:rotate(-5deg)"></div>
+                            <div class="album__photo album__photo--mid" data-tilt style="background:url('assets/media/harvest-hands/Home.png') center/contain no-repeat, #0a2838;transform:rotate(4deg)"></div>
+                            <div class="album__photo album__photo--front" data-tilt style="background:url('assets/media/harvest-hands/Home.png') center/cover no-repeat;transform:rotate(-2deg)">
                             </div>
                         </div>
                         <div class="album__text">
@@ -334,17 +343,17 @@ window.addEventListener('DOMContentLoaded', function() {
                             <p>Created a comprehensive dark theme design system with color coded status indicators, consistent typography, and reusable components that enabled the team to build screens rapidly while maintaining visual cohesion.</p>
                         </div>
                         <div class="album__photos">
-                            <div class="album__photo album__photo--back" style="background:url('assets/media/harvest-hands/List.png') center/contain no-repeat, #081820;transform:rotate(4deg)"></div>
-                            <div class="album__photo album__photo--mid" style="background:url('assets/media/harvest-hands/List.png') center/contain no-repeat, #0a2838;transform:rotate(-5deg)"></div>
-                            <div class="album__photo album__photo--front" style="background:url('assets/media/harvest-hands/List.png') center/cover no-repeat;transform:rotate(3deg)">
+                            <div class="album__photo album__photo--back" data-tilt style="background:url('assets/media/harvest-hands/List.png') center/contain no-repeat, #081820;transform:rotate(4deg)"></div>
+                            <div class="album__photo album__photo--mid" data-tilt style="background:url('assets/media/harvest-hands/List.png') center/contain no-repeat, #0a2838;transform:rotate(-5deg)"></div>
+                            <div class="album__photo album__photo--front" data-tilt style="background:url('assets/media/harvest-hands/List.png') center/cover no-repeat;transform:rotate(3deg)">
                             </div>
                         </div>
                     </div>
                     <div class="album__slide" data-index="3">
                         <div class="album__photos">
-                            <div class="album__photo album__photo--back" style="background:url('assets/media/harvest-hands/Notifications.png') center/contain no-repeat, #081820;transform:rotate(-6deg)"></div>
-                            <div class="album__photo album__photo--mid" style="background:url('assets/media/harvest-hands/Notifications.png') center/contain no-repeat, #0a2838;transform:rotate(3deg)"></div>
-                            <div class="album__photo album__photo--front" style="background:url('assets/media/harvest-hands/Notifications.png') center/cover no-repeat;transform:rotate(-3deg)">
+                            <div class="album__photo album__photo--back" data-tilt style="background:url('assets/media/harvest-hands/Notifications.png') center/contain no-repeat, #081820;transform:rotate(-6deg)"></div>
+                            <div class="album__photo album__photo--mid" data-tilt style="background:url('assets/media/harvest-hands/Notifications.png') center/contain no-repeat, #0a2838;transform:rotate(3deg)"></div>
+                            <div class="album__photo album__photo--front" data-tilt style="background:url('assets/media/harvest-hands/Notifications.png') center/cover no-repeat;transform:rotate(-3deg)">
                             </div>
                         </div>
                         <div class="album__text">
@@ -358,17 +367,17 @@ window.addEventListener('DOMContentLoaded', function() {
                             <p>Implemented WCAG compliant color contrast ratios and touch targets. Designed responsive layouts that adapted seamlessly from mobile to tablet, prioritizing one handed usability for warehouse environments.</p>
                         </div>
                         <div class="album__photos">
-                            <div class="album__photo album__photo--back" style="background:url('assets/media/harvest-hands/Item Details Approved Popup.png') center/contain no-repeat, #081a28;transform:rotate(5deg)"></div>
-                            <div class="album__photo album__photo--mid" style="background:url('assets/media/harvest-hands/Item Details Approved Popup.png') center/contain no-repeat, #0c2e45;transform:rotate(-4deg)"></div>
-                            <div class="album__photo album__photo--front" style="background:url('assets/media/harvest-hands/Item Details Approved Popup.png') center/cover no-repeat;transform:rotate(2deg)">
+                            <div class="album__photo album__photo--back" data-tilt style="background:url('assets/media/harvest-hands/Item Details Approved Popup.png') center/contain no-repeat, #081a28;transform:rotate(5deg)"></div>
+                            <div class="album__photo album__photo--mid" data-tilt style="background:url('assets/media/harvest-hands/Item Details Approved Popup.png') center/contain no-repeat, #0c2e45;transform:rotate(-4deg)"></div>
+                            <div class="album__photo album__photo--front" data-tilt style="background:url('assets/media/harvest-hands/Item Details Approved Popup.png') center/cover no-repeat;transform:rotate(2deg)">
                             </div>
                         </div>
                     </div>
                     <div class="album__slide" data-index="5">
                         <div class="album__photos">
-                            <div class="album__photo album__photo--back" style="background:url('assets/media/harvest-hands/Item Does Not Exist.png') center/contain no-repeat, #081820;transform:rotate(-5deg)"></div>
-                            <div class="album__photo album__photo--mid" style="background:url('assets/media/harvest-hands/Item Does Not Exist.png') center/contain no-repeat, #0c2e45;transform:rotate(4deg)"></div>
-                            <div class="album__photo album__photo--front" style="background:url('assets/media/harvest-hands/Item Does Not Exist.png') center/cover no-repeat;transform:rotate(-2deg)">
+                            <div class="album__photo album__photo--back" data-tilt style="background:url('assets/media/harvest-hands/Item Does Not Exist.png') center/contain no-repeat, #081820;transform:rotate(-5deg)"></div>
+                            <div class="album__photo album__photo--mid" data-tilt style="background:url('assets/media/harvest-hands/Item Does Not Exist.png') center/contain no-repeat, #0c2e45;transform:rotate(4deg)"></div>
+                            <div class="album__photo album__photo--front" data-tilt style="background:url('assets/media/harvest-hands/Item Does Not Exist.png') center/cover no-repeat;transform:rotate(-2deg)">
                             </div>
                         </div>
                         <div class="album__text">
@@ -579,7 +588,7 @@ window.addEventListener('DOMContentLoaded', function() {
 
                 <!-- Top Right: Square Glass Card -->
                 <div class="about__card-wrap reveal" data-delay="0.2">
-                    <div class="about-card" style="background:url('assets/media/me.png') center/cover no-repeat;">
+                    <div class="about-card" data-tilt style="background:url('assets/media/me.png') center/cover no-repeat;">
                         <div class="about-card__inner"></div>
                         <div class="about-card__overlay">
                             <div class="about-card__overlay-inner">
@@ -591,7 +600,7 @@ window.addEventListener('DOMContentLoaded', function() {
 
                 <!-- Bottom Left: Square Glass Card -->
                 <div class="about__card-wrap reveal" data-delay="0.1">
-                    <div class="about-card" style="background:url('assets/media/setup.jpg') center/cover no-repeat;">
+                    <div class="about-card" data-tilt style="background:url('assets/media/setup.jpg') center/cover no-repeat;">
                         <div class="about-card__inner"></div>
                         <div class="about-card__overlay">
                             <div class="about-card__overlay-inner">
@@ -752,7 +761,7 @@ window.addEventListener('DOMContentLoaded', function() {
 
             <div class="container">
                 <h2 class="big-text reveal">LET'S BUILD</h2>
-                <h2 class="big-text reveal" data-delay="0.1">SOMETHING</h2>
+                <h2 class="big-text-out reveal" data-delay="0.1">SOMETHING</h2>
                 <h2 class="big-text reveal" data-delay="0.2">INCREDIBLE.</h2>
                 <p class="contact__sub reveal" data-delay="0.3">Open to UX/UI design roles, freelance projects, and creative collaborations</p>
                 <div class="contact__grid reveal" data-delay="0.4">
@@ -794,14 +803,5 @@ window.addEventListener('DOMContentLoaded', function() {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <script src="script.js"></script>
-    <script>
-    // Marquee seamless loop fix
-    window.addEventListener('DOMContentLoaded', function() {
-        if (typeof initMarquee === 'function') initMarquee();
-        window.addEventListener('resize', function() {
-            if (typeof initMarquee === 'function') initMarquee();
-        });
-    });
-    </script>
 </body>
 </html>
