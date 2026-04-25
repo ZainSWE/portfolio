@@ -402,53 +402,25 @@
         if (!section || !track) return;
         var initialOffset = window.innerWidth * 0.18;
 
-    function updateCardGrayscale() {
-        var cards = Array.from(document.querySelectorAll('.work-card'));
+        function onScroll() {
+            var rect = section.getBoundingClientRect();
+            var sectionH = section.offsetHeight - window.innerHeight;
+            var progress = Math.min(Math.max(-rect.top / sectionH, 0), 1);
+            var maxShift = track.scrollWidth - window.innerWidth + initialOffset;
 
-        // Find leftmost card that isn't mostly cut off
-        var activeIdx = -1;
-        for (var i = 0; i < cards.length; i++) {
-            var rect = cards[i].getBoundingClientRect();
-            if (rect.left > -rect.width * 0.4) {
-                activeIdx = i;
-                break;
-            }
+            // rightOffset mirrors what initialOffset does on the left side in the original.
+            // It pushes the starting position further left so AirPods begins centered,
+            // and increases total travel distance so the scroll feels longer.
+            // Tweak the 0.37 multiplier: higher = card more to the left at start.
+            var rightOffset = window.innerWidth * 0.2   ;
+
+            var x = (progress - 1) * (maxShift + rightOffset);
+            track.style.transform = 'translateX(' + Math.round(x) + 'px)';
         }
 
-        cards.forEach(function(card, i) {
-            var rect = card.getBoundingClientRect();
-            var cutOff = Math.max(5, -rect.left);
-            var cutOffRatio = Math.min(cutOff / (rect.width * 0.4), 1);
-
-            if (i === activeIdx) {
-                // Active card: full colour
-                card.style.filter = 'grayscale(0) brightness(1)';
-                card.style.opacity = '1';
-            } else if (rect.left < 0) {
-                // Being cut off on the left: fade to grey
-                card.style.filter = 'grayscale(' + cutOffRatio + ') brightness(' + (1 - cutOffRatio * 0.2) + ')';
-                card.style.opacity = String(1 - cutOffRatio * 0.4);
-            } else {
-                // Cards to the right: greyed out
-                card.style.filter = 'grayscale(1) brightness(0.8)';
-                card.style.opacity = '0.6';
-            }
-        });
+        window.addEventListener('scroll', onScroll, { passive: true });
+        onScroll();
     }
-
-    function onScroll() {
-        var rect = section.getBoundingClientRect();
-        var sectionH = section.offsetHeight - window.innerHeight;
-        var progress = Math.min(Math.max(-rect.top / sectionH, 0), 1);
-        var maxShift = track.scrollWidth - window.innerWidth + initialOffset;
-        var offset = initialOffset * (1 - progress);
-        track.style.transform = 'translateX(' + Math.round(offset - progress * maxShift) + 'px)';
-        updateCardGrayscale();
-    }
-
-    window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
-}
 
     /* ------ Text Hover ------ */
     function initTextHover() {
