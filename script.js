@@ -671,6 +671,7 @@
         var rafId = null;
         var lastTime = 0;
         var staticSrc = 'assets/media/lego-gojo/image (1).webp';
+        var isTouchDevice = !window.matchMedia('(hover: hover)').matches;
 
         /* Preload all frames */
         for (var i = 1; i <= totalFrames; i++) {
@@ -679,7 +680,21 @@
             frames.push(preload);
         }
 
-        function tick(timestamp) {
+        var loopDirection = 1;
+        function tickLoop(timestamp) {
+            if (!lastTime) lastTime = timestamp;
+            var delta = timestamp - lastTime;
+            if (delta >= frameDuration) {
+                lastTime = timestamp;
+                currentFrame += loopDirection;
+                if (currentFrame >= totalFrames - 1) { currentFrame = totalFrames - 1; loopDirection = -1; }
+                else if (currentFrame <= 0) { currentFrame = 0; loopDirection = 1; }
+                img.src = frames[currentFrame].src;
+            }
+            rafId = requestAnimationFrame(tickLoop);
+        }
+
+        function tickInteractive(timestamp) {
             if (!lastTime) lastTime = timestamp;
             var delta = timestamp - lastTime;
             if (delta >= frameDuration) {
@@ -700,22 +715,27 @@
                 }
                 img.src = frames[currentFrame].src;
             }
-            rafId = requestAnimationFrame(tick);
+            rafId = requestAnimationFrame(tickInteractive);
         }
 
         function startAnimation(dir) {
             direction = dir;
             lastTime = 0;
-            if (!rafId) rafId = requestAnimationFrame(tick);
+            if (!rafId) rafId = requestAnimationFrame(tickInteractive);
         }
 
-        link.addEventListener('mouseenter', function() {
-            startAnimation(1);
-        });
-
-        link.addEventListener('mouseleave', function() {
-            startAnimation(-1);
-        });
+        if (isTouchDevice) {
+            /* Mobile: auto-loop through all frames continuously */
+            rafId = requestAnimationFrame(tickLoop);
+        } else {
+            /* Desktop: play forward on hover, reverse on leave */
+            link.addEventListener('mouseenter', function() {
+                startAnimation(1);
+            });
+            link.addEventListener('mouseleave', function() {
+                startAnimation(-1);
+            });
+        }
     }
 
     /* ------ Hero Wallpaper Parallax ------ */

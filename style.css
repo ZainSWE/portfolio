@@ -237,7 +237,7 @@ button { border:none; background:none; color:inherit; cursor:pointer; font-famil
     overflow:visible;
 }
 .hero__gojo {
-    height:clamp(280px,50vh,620px); width:auto;
+    height:clamp(420px,55vh,720px); width:auto; max-width:100%;
     pointer-events:none; user-select:none; -webkit-user-select:none;
     filter:drop-shadow(0 10px 50px rgba(0,0,0,0.5));
     -webkit-user-drag:none;
@@ -938,7 +938,7 @@ button { border:none; background:none; color:inherit; cursor:pointer; font-famil
 @media (max-width:768px) {
     .work-card { width:clamp(360px,80vw,440px); }
     .hero__title { font-size:clamp(2.5rem,12vw,5rem); white-space:normal; transform:translateY(60px) scale(0.95); }
-    .hero__gojo { height:clamp(200px,38vh,300px); }
+    .hero__gojo { height:clamp(220px,42vh,340px); width:auto; max-width:90vw; }
     .hero__bottom { flex-direction:column; align-items:center; text-align:center; }
     .hero__cta { justify-content:center; }
     .hero__scroll { font-size:1.8rem; }
@@ -965,6 +965,7 @@ button { border:none; background:none; color:inherit; cursor:pointer; font-famil
 }
 @media (max-width:480px) {
     .hero__title { font-size:clamp(2rem,13vw,1rem); display: flex; align-items: center; justify-content: center; text-align: center; text-wrap: wrap;}
+    .hero__gojo { height:clamp(200px,40vh,280px); max-width:85vw; }
     .hero__scroll { font-size:1.4rem; }
     .testimonial { width:260px; }
     .album__photos { width:160px; aspect-ratio:9/19.5; }
