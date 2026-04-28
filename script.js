@@ -670,12 +670,12 @@
         var direction = 0; /* 0 = idle, 1 = forward, -1 = reverse */
         var rafId = null;
         var lastTime = 0;
-        var staticSrc = 'assets/media/lego-gojo/image (1).png';
+        var staticSrc = 'assets/media/lego-gojo/image (1).webp';
 
         /* Preload all frames */
         for (var i = 1; i <= totalFrames; i++) {
             var preload = new Image();
-            preload.src = 'assets/media/lego-gojo/image (' + i + ').png';
+            preload.src = 'assets/media/lego-gojo/image (' + i + ').webp';
             frames.push(preload);
         }
 
