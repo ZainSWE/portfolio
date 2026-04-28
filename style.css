@@ -1185,3 +1185,59 @@ button { border:none; background:none; color:inherit; cursor:pointer; font-famil
         height: 22px;
     }
 }
+/* ============================================================
+   PERFORMANCE: Disable expensive backdrop-filter on touch/mobile.
+   backdrop-filter: blur() is one of the most GPU-intensive CSS
+   properties and causes severe frame drops on integrated graphics
+   and mobile GPUs. Replace with solid opaque fallbacks.
+   ============================================================ */
+@media (hover: none) {
+    /* Kill backdrop-filter on all glassmorphism elements */
+    .nav,
+    .nav__social,
+    .theme-toggle,
+    .btn--ghost,
+    .tags span,
+    .work-card__visual,
+    .work-card__cta,
+    .work-card__overlay-inner,
+    .work-card__tags span,
+    .about-card__overlay-inner,
+    .tools__pill,
+    .testimonial,
+    .contact__item,
+    .gojo-tooltip,
+    .album__photo-label,
+    .case__badge,
+    .hero__secret,
+    .featured-card {
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+    }
+
+    /* Solid fallbacks so elements remain legible */
+    .nav                      { background: rgba(4, 10, 16, 0.96); }
+    [data-theme="light"] .nav { background: rgba(240, 246, 248, 0.97); }
+    .work-card__overlay-inner { background: rgba(4, 10, 16, 0.92); }
+    .testimonial              { background: rgba(10, 20, 28, 0.92); border-color: rgba(255,255,255,0.08); }
+    .contact__item            { background: rgba(10, 20, 28, 0.92); }
+    .tools__pill              { background: rgba(10, 20, 28, 0.88); }
+    .btn--ghost               { background: rgba(10, 20, 28, 0.85); }
+    .about-card__overlay-inner { background: rgba(4, 10, 16, 0.90); }
+    .featured-card            { background: rgba(10, 20, 28, 0.88); }
+
+    /* Reduce parallax/animation weight on touch screens */
+    .bg-word { animation-duration: 30s; } /* slow down — saves repaints */
+}
+
+/* Respect user preference for reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    .bg-word,
+    .marquee__inner,
+    .footer__marquee-track,
+    .testimonials__track,
+    .kkc__gallery-track,
+    .hero__scroll-line {
+        animation-play-state: paused !important;
+    }
+}

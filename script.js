@@ -2,61 +2,113 @@
    ZAIN AHMAD - PORTFOLIO 2026 v6.9
    Lenis - GSAP - Apple Glassmorphism - Smooth Album Tilt
    Section Video Banners - Idle Gojo Float
+   PERF: Merged 5 RAF loops → 1 masterTick | Lazy Gojo frames
+         Lazy banner videos | Touch guards on blur/parallax
    ============================================================ */
 
 (function () {
     'use strict';
 
-    /* ------ Global state ------ */
+    const isTouch = !window.matchMedia('(hover: hover)').matches;
+
+    /* ------ Global mouse position ------ */
     let mouseX = 0, mouseY = 0;
     var gojoReady = false;
     document.addEventListener('mousemove', function(e) { mouseX = e.clientX; mouseY = e.clientY; });
 
+    /* ============================================================
+       MASTER RAF — one shared loop replaces 4 separate ones:
+       cursor smoothing, spotlight glow, hero blur lerp, gojo float.
+       Each init function just sets the shared variables below.
+    ============================================================ */
+
+    // Cursor
+    let _cursor = null, _cursorDX = 0, _cursorDY = 0;
+
+    // Spotlight (hover-only)
+    let _spotlight = null, _spCX = 0, _spCY = 0;
+
+    // Hero blur lerp (hover-only)
+    let _wallpaper = null, _heroOverlay = null;
+    let _blurCur = 0, _blurTgt = 0, _opCur = 0.4, _opTgt = 0.4;
+
+    // Gojo float (hover-only)
+    let _gojoLink = null, _gojoT = 0;
+    let _gojoSPX = 0, _gojoSPY = 0, _gojoTPX = 0, _gojoTPY = 0;
+
+    (function masterTick() {
+        // Cursor lerp
+        if (_cursor) {
+            _cursorDX += (mouseX - _cursorDX) * 0.15;
+            _cursorDY += (mouseY - _cursorDY) * 0.15;
+            _cursor.style.left = _cursorDX + 'px';
+            _cursor.style.top = _cursorDY + 'px';
+        }
+        // Spotlight lerp
+        if (_spotlight) {
+            _spCX += (mouseX - _spCX) * 0.08;
+            _spCY += (mouseY - _spCY) * 0.08;
+            _spotlight.style.background =
+                'radial-gradient(600px circle at ' + _spCX + 'px ' + _spCY + 'px, rgba(6,182,212,0.06), transparent 70%)';
+        }
+        // Hero blur lerp
+        if (_wallpaper) {
+            _blurCur += (_blurTgt - _blurCur) * 0.08;
+            _opCur  += (_opTgt  - _opCur)  * 0.08;
+            _wallpaper.style.filter = 'blur(' + _blurCur.toFixed(1) + 'px)';
+            if (_heroOverlay) _heroOverlay.style.background = 'rgba(4,10,16,' + _opCur.toFixed(3) + ')';
+        }
+        // Gojo idle float + mouse parallax
+        if (_gojoLink && gojoReady) {
+            _gojoT += 0.012;
+            _gojoSPX += (_gojoTPX - _gojoSPX) * 0.04;
+            _gojoSPY += (_gojoTPY - _gojoSPY) * 0.04;
+            var fx = Math.sin(_gojoT * 0.6) * 5 + Math.sin(_gojoT * 1.2) * 2;
+            var fy = Math.sin(_gojoT * 0.8) * 6 + Math.cos(_gojoT * 0.5) * 2.5;
+            _gojoLink.style.transform =
+                'translate(calc(-50% + ' + (fx + _gojoSPX).toFixed(2) + 'px), calc(-55% + ' + (fy + _gojoSPY).toFixed(2) + 'px))';
+        }
+        requestAnimationFrame(masterTick);
+    })();
+
     /* ------ Cursor ------ */
-    const cursor = document.getElementById('cursor');
-    if (cursor && window.matchMedia('(hover: hover)').matches) {
-        let dx = 0, dy = 0;
-        (function moveCursor() {
-            dx += (mouseX - dx) * 0.15;
-            dy += (mouseY - dy) * 0.15;
-            cursor.style.left = dx + 'px';
-            cursor.style.top = dy + 'px';
-            requestAnimationFrame(moveCursor);
-        })();
+    function initCursor() {
+        var cursor = document.getElementById('cursor');
+        if (!cursor || isTouch) return;
+        _cursor = cursor; // register with masterTick
+
         document.querySelectorAll('a, button, .work-card, .carousel3d__face, .album__dot, .testimonial').forEach(function(el) {
             el.addEventListener('mouseenter', function() { cursor.classList.add('visible'); });
             el.addEventListener('mouseleave', function() { cursor.classList.remove('visible'); });
         });
 
-        /* Title magnify cursor */
         var heroTitle = document.getElementById('hero-title');
         if (heroTitle) {
-            heroTitle.addEventListener('mouseenter', function() { cursor.classList.add('visible','title-hover'); });
+            heroTitle.addEventListener('mouseenter', function() { cursor.classList.add('visible', 'title-hover'); });
             heroTitle.addEventListener('mouseleave', function() { cursor.classList.remove('title-hover'); });
         }
 
-        /* Gojo tooltip follows cursor (no inverted circle) */
         var gojoLink = document.getElementById('hero-gojo-link');
-        var gojoTip = document.getElementById('gojo-tooltip');
+        var gojoTip  = document.getElementById('gojo-tooltip');
         if (gojoLink && gojoTip) {
             gojoLink.addEventListener('mouseenter', function() { cursor.classList.add('visible'); gojoTip.classList.add('visible'); });
             gojoLink.addEventListener('mouseleave', function() { cursor.classList.remove('visible'); gojoTip.classList.remove('visible'); });
             gojoLink.addEventListener('mousemove', function(e) {
                 gojoTip.style.left = e.clientX + 'px';
-                gojoTip.style.top = e.clientY + 'px';
+                gojoTip.style.top  = e.clientY + 'px';
             });
         }
     }
 
     /* ------ Intro ------ */
-    var introEl = document.getElementById('intro');
+    var introEl   = document.getElementById('intro');
     var introWord = document.getElementById('intro-word');
     var greetings = [
-        { text: 'Hello', lang: 'en' },
-        { text: 'Bonjour', lang: 'fr' },
-        { text: 'Hola', lang: 'es' },
+        { text: 'Hello',      lang: 'en' },
+        { text: 'Bonjour',    lang: 'fr' },
+        { text: 'Hola',       lang: 'es' },
         { text: '\u3053\u3093\u306b\u3061\u306f', lang: 'ja' },
-        { text: 'Hallo', lang: 'de' },
+        { text: 'Hallo',      lang: 'de' },
         { text: '\u0633\u0644\u0627\u0645', lang: 'ps' },
     ];
 
@@ -106,9 +158,10 @@
     /* ------ Site Init ------ */
     function initSite() {
         initLenis();
+        initCursor();
         initThemeToggle();
         initNav();
-        initMarquee(); 
+        initMarquee();
         initGSAPAnimations();
         initHorizontalScroll();
         initTextHover();
@@ -122,13 +175,14 @@
         initCardTilt();
         initAlbumTilt();
         initSectionBannerBlur();
+        initLazyVideos();       // NEW: lazy-load banner videos
         initBadgeHover();
         initScrollTextCycle();
         initBgWords();
         initHeroTitleZoom();
         initMagneticButtons();
         initSpotlight();
-        initParallaxLayers();
+        if (!isTouch) initParallaxLayers();  // skip parallax scrub on touch — causes jank
         initWorkCardEntrance();
         initHeroTitleSplit();
         initClipPathReveal();
@@ -136,9 +190,9 @@
 
     function initMarquee() {
         [
-            { inner: document.querySelector('.marquee__inner'),         speed: 80  },
-            { inner: document.querySelector('.footer__marquee-track'),  speed: 60  },
-            { inner: document.querySelector('.testimonials__track'),    speed: 50  }
+            { inner: document.querySelector('.marquee__inner'),        speed: 80 },
+            { inner: document.querySelector('.footer__marquee-track'), speed: 60 },
+            { inner: document.querySelector('.testimonials__track'),   speed: 50 }
         ].forEach(function(m) {
             if (!m.inner) return;
             m.inner.querySelectorAll('.marquee__clone').forEach(function(el) { el.remove(); });
@@ -162,11 +216,11 @@
         var scrollEl = document.querySelector('.hero__scroll span');
         if (!scrollEl) return;
         var scrollWords = [
-            { text: 'Scroll', dur: 4000 },
-            { text: 'Défiler', dur: 2000 },
-            { text: 'Desplazar', dur: 2000 },
+            { text: 'Scroll',     dur: 4000 },
+            { text: 'Défiler',    dur: 2000 },
+            { text: 'Desplazar',  dur: 2000 },
             { text: 'スクロール', dur: 2000 },
-            { text: 'Scrollen', dur: 2000 },
+            { text: 'Scrollen',   dur: 2000 },
             { text: '\u0633\u06A9\u0631\u0648\u0644', dur: 2000 }
         ];
         var si = 0;
@@ -183,17 +237,14 @@
         setTimeout(cycleScroll, scrollWords[0].dur);
     }
 
-    /* ------ Badge Hover (slide out then back in on top of overlay) ------ */
+    /* ------ Badge Hover ------ */
     function initBadgeHover() {
         document.querySelectorAll('.work-card').forEach(function(card) {
             var badge = card.querySelector('.work-card__badge');
             if (!badge) return;
             card.addEventListener('mouseenter', function() {
                 badge.classList.remove('work-card__badge--return');
-                /* After overlay slides up (~650ms), slide badge back in on top */
-                setTimeout(function() {
-                    badge.classList.add('work-card__badge--return');
-                }, 550);
+                setTimeout(function() { badge.classList.add('work-card__badge--return'); }, 550);
             });
             card.addEventListener('mouseleave', function() {
                 badge.classList.remove('work-card__badge--return');
@@ -203,14 +254,13 @@
 
     /* ------ Theme Toggle ------ */
     function initThemeToggle() {
-        var btn = document.getElementById('theme-toggle');
+        var btn  = document.getElementById('theme-toggle');
         var html = document.documentElement;
         var saved = localStorage.getItem('theme');
         if (saved) html.setAttribute('data-theme', saved);
         if (btn) {
             btn.addEventListener('click', function() {
-                var current = html.getAttribute('data-theme');
-                var next = current === 'dark' ? 'light' : 'dark';
+                var next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
                 html.setAttribute('data-theme', next);
                 localStorage.setItem('theme', next);
             });
@@ -253,13 +303,9 @@
                 e.preventDefault();
                 transition.classList.add('active');
                 setTimeout(function() {
-                    /* Reset all ScrollTrigger-driven animations so they replay */
                     if (typeof ScrollTrigger !== 'undefined') {
-                        ScrollTrigger.getAll().forEach(function(st) {
-                            st.kill();
-                        });
+                        ScrollTrigger.getAll().forEach(function(st) { st.kill(); });
                     }
-                    /* Reset reveal elements */
                     document.querySelectorAll('.reveal').forEach(function(el) {
                         el.style.opacity = ''; el.style.transform = '';
                         el.classList.remove('visible');
@@ -281,7 +327,6 @@
                     });
                     if (lenis) lenis.scrollTo(target, { immediate: true });
                     else target.scrollIntoView({ behavior: 'instant' });
-                    /* Re-init GSAP animations after a frame so positions are correct */
                     requestAnimationFrame(function() {
                         initGSAPAnimations();
                         initHeroTitleZoom();
@@ -297,20 +342,17 @@
         if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') { initScrollReveals(); return; }
         gsap.registerPlugin(ScrollTrigger);
 
-        /* Hero title: gsap.set() ensures from values apply synchronously (no flash) */
         var heroTitle = document.getElementById('hero-title');
         if (heroTitle) {
             gsap.set(heroTitle, { opacity: 0, y: 60, scale: 0.95 });
             gsap.to(heroTitle, { opacity: 1, y: 0, scale: 1, duration: 1.2, ease: 'power3.out', delay: 0.1 });
         }
 
-        /* Hero bottom */
         gsap.set('.hero__bottom', { opacity: 0, y: 30 });
         gsap.to('.hero__bottom', { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out', delay: 0.5 });
         gsap.set('.hero__scroll', { opacity: 0 });
         gsap.to('.hero__scroll', { opacity: 1, duration: 0.6, delay: 0.8 });
 
-        /* Gojo: use xPercent/yPercent for centering so GSAP doesn't conflict with CSS */
         var gojoLink = document.getElementById('hero-gojo-link');
         if (gojoLink) {
             gsap.set(gojoLink, { opacity: 0, xPercent: -50, yPercent: -55, y: 80, scale: 0.9 });
@@ -321,7 +363,6 @@
             });
         }
 
-        /* Reveals */
         document.querySelectorAll('.reveal').forEach(function(el) {
             var delay = parseFloat(el.dataset.delay) || 0;
             gsap.fromTo(el, { opacity: 0, y: 40 }, {
@@ -330,7 +371,6 @@
             });
         });
 
-        /* Big text stagger */
         document.querySelectorAll('.design__hero, .about__hero, .contact .container').forEach(function(container) {
             var texts = container.querySelectorAll('.big-text, .design__headline');
             if (!texts.length) return;
@@ -342,7 +382,6 @@
             });
         });
 
-        /* Section numbers */
         document.querySelectorAll('.section-num').forEach(function(el) {
             gsap.fromTo(el, { opacity: 0, x: -30 }, {
                 opacity: 1, x: 0, duration: 0.6, ease: 'power2.out',
@@ -350,7 +389,6 @@
             });
         });
 
-        /* Work cards */
         document.querySelectorAll('.work-card').forEach(function(card, i) {
             gsap.fromTo(card, { opacity: 0, y: 30 }, {
                 opacity: 1, y: 0, duration: 0.6, delay: i * 0.05, ease: 'power2.out',
@@ -358,12 +396,6 @@
             });
         });
 
-        
-        /* Album text: slide from left+bottom, staggered h4 vs p
-           Uses CSS transitions instead of GSAP to avoid conflicts with scroll-driven toggling */
-        /* (handled purely in CSS via .album__text h4/p transition-delay) */
-
-        /* Tools */
         document.querySelectorAll('.tools__pill').forEach(function(s, i) {
             gsap.fromTo(s, { opacity: 0, y: 15, scale: 0.95 }, {
                 opacity: 1, y: 0, scale: 1, duration: 0.4, delay: i * 0.03, ease: 'power2.out',
@@ -371,7 +403,6 @@
             });
         });
 
-        /* Timeline, contact, marquee */
         document.querySelectorAll('.timeline__item').forEach(function(item, i) {
             gsap.fromTo(item, { opacity: 0, x: -20 }, { opacity: 1, x: 0, duration: 0.5, delay: i * 0.08, ease: 'power2.out', scrollTrigger: { trigger: item, start: 'top 85%', once: true } });
         });
@@ -399,7 +430,7 @@
     /* ------ Horizontal Scroll ------ */
     function initHorizontalScroll() {
         var section = document.getElementById('work-scroll');
-        var track = document.getElementById('work-track');
+        var track   = document.getElementById('work-track');
         if (!section || !track) return;
         var initialOffset = window.innerWidth * 0.18;
 
@@ -408,13 +439,7 @@
             var sectionH = section.offsetHeight - window.innerHeight;
             var progress = Math.min(Math.max(-rect.top / sectionH, 0), 1);
             var maxShift = track.scrollWidth - window.innerWidth + initialOffset;
-
-            // rightOffset mirrors what initialOffset does on the left side in the original.
-            // It pushes the starting position further left so AirPods begins centered,
-            // and increases total travel distance so the scroll feels longer.
-            // Tweak the 0.37 multiplier: higher = card more to the left at start.
-            var rightOffset = window.innerWidth * 0.2   ;
-
+            var rightOffset = window.innerWidth * 0.2;
             var x = (progress - 1) * (maxShift + rightOffset);
             track.style.transform = 'translateX(' + Math.round(x) + 'px)';
         }
@@ -461,13 +486,12 @@
         cards.forEach(function(card, i) { card.style.transform = 'rotateY(' + (theta * i) + 'deg) translateZ(' + radius + 'px)'; });
 
         var angle = 0, targetAngle = 0, speed = 0.04, isHovering = false;
-        function render() {
+        (function render() {
             if (!isHovering) targetAngle -= speed;
             angle += (targetAngle - angle) * 0.04;
             ring.style.transform = 'rotateY(' + angle + 'deg)';
             requestAnimationFrame(render);
-        }
-        requestAnimationFrame(render);
+        })();
 
         var scene = document.getElementById('carousel3d-scene');
         scene.addEventListener('mouseenter', function() { isHovering = true; });
@@ -482,21 +506,18 @@
             setTimeout(function() { scrollCooldown = false; }, 400);
         }, { passive: false });
 
-        /* Touch swipe — drag to spin */
-        var touchStartX = 0;
-        var touchLastX = 0;
+        var touchStartX = 0, touchLastX = 0;
         scene.addEventListener('touchstart', function(e) {
             touchStartX = e.touches[0].clientX;
-            touchLastX = touchStartX;
-            isHovering = true;
+            touchLastX  = touchStartX;
+            isHovering  = true;
         }, { passive: true });
         scene.addEventListener('touchmove', function(e) {
             var deltaX = e.touches[0].clientX - touchLastX;
             touchLastX = e.touches[0].clientX;
-            targetAngle += deltaX * 0.4; /* sensitivity: 1px swipe = 0.4deg rotation */
+            targetAngle += deltaX * 0.4;
         }, { passive: true });
         scene.addEventListener('touchend', function() {
-            /* Resume auto-rotate after a short pause */
             setTimeout(function() { isHovering = false; }, 1200);
         }, { passive: true });
     }
@@ -506,16 +527,16 @@
         var album = document.getElementById('album');
         if (!album) return;
         var slides = album.querySelectorAll('.album__slide');
-        var dots = album.querySelectorAll('.album__dot');
+        var dots   = album.querySelectorAll('.album__dot');
         var totalSlides = slides.length;
-
         var lastIdx = 0;
+
         function clearFlipClasses(slide) {
             slide.classList.remove('flip-in-forward', 'flip-in-backward', 'flip-out-forward', 'flip-out-backward');
         }
 
         function updateAlbum() {
-            var rect = album.getBoundingClientRect();
+            var rect   = album.getBoundingClientRect();
             var albumH = album.offsetHeight - window.innerHeight;
             var progress = Math.min(Math.max(-rect.top / albumH, 0), 1);
             var idx = Math.min(Math.floor(progress * totalSlides), totalSlides - 1);
@@ -524,50 +545,31 @@
                 dots.forEach(function(dot, i) { dot.classList.toggle('active', i === idx); });
                 return;
             }
-
-            var forward = idx > lastIdx;
-            var outClass = forward ? 'flip-out-forward' : 'flip-out-backward';
-            var inClass = forward ? 'flip-in-forward' : 'flip-in-backward';
-
-            // Remove flip classes from all slides
+            var forward  = idx > lastIdx;
+            var outClass = forward ? 'flip-out-forward'  : 'flip-out-backward';
+            var inClass  = forward ? 'flip-in-forward'   : 'flip-in-backward';
             slides.forEach(clearFlipClasses);
-
-            // Outgoing slide
-            if (slides[lastIdx]) {
-                slides[lastIdx].classList.remove('active');
-                slides[lastIdx].classList.add(outClass);
-            }
-            // Incoming slide
-            if (slides[idx]) {
-                slides[idx].classList.add(inClass);
-                slides[idx].classList.add('active');
-            }
+            if (slides[lastIdx]) { slides[lastIdx].classList.remove('active'); slides[lastIdx].classList.add(outClass); }
+            if (slides[idx])     { slides[idx].classList.add(inClass); slides[idx].classList.add('active'); }
             dots.forEach(function(dot, i) { dot.classList.toggle('active', i === idx); });
-
-            // Remove flip classes after animation
-
             setTimeout(function() {
                 if (slides[lastIdx]) clearFlipClasses(slides[lastIdx]);
-                if (slides[idx]) clearFlipClasses(slides[idx]);
-
-                // Reset transform on .album__photo--front for both outgoing and incoming slides
+                if (slides[idx])     clearFlipClasses(slides[idx]);
                 [slides[lastIdx], slides[idx]].forEach(function(slide) {
                     if (!slide) return;
                     var front = slide.querySelector('.album__photo--front');
-                    if (front) {
-                        front.style.transform = '';
-                    }
+                    if (front) front.style.transform = '';
                 });
             }, 950);
-
             lastIdx = idx;
         }
+
         window.addEventListener('scroll', updateAlbum, { passive: true });
         updateAlbum();
 
         dots.forEach(function(dot) {
             dot.addEventListener('click', function() {
-                var idx = parseInt(dot.dataset.index, 10);
+                var idx    = parseInt(dot.dataset.index, 10);
                 var albumH = album.offsetHeight - window.innerHeight;
                 var targetScroll = album.offsetTop + (idx / totalSlides) * albumH;
                 if (lenis) lenis.scrollTo(targetScroll, { duration: 1.2 });
@@ -580,7 +582,7 @@
     function initCounter() {
         var counter = document.getElementById('views-counter');
         if (!counter) return;
-        var target = parseInt(counter.dataset.target, 10);
+        var target   = parseInt(counter.dataset.target, 10);
         var animated = false;
         var obs = new IntersectionObserver(function(entries) {
             if (entries[0].isIntersecting && !animated) {
@@ -589,8 +591,10 @@
                 function tick(now) {
                     var progress = Math.min((now - start) / duration, 1);
                     var ease = 1 - Math.pow(1 - progress, 3);
-                    var val = Math.round(ease * target);
-                    counter.textContent = val >= 1000000 ? (val / 1000000).toFixed(1) + 'M+' : val >= 1000 ? Math.round(val / 1000) + 'K+' : val;
+                    var val  = Math.round(ease * target);
+                    counter.textContent = val >= 1000000 ? (val / 1000000).toFixed(1) + 'M+'
+                                        : val >= 1000    ? Math.round(val / 1000) + 'K+'
+                                        : val;
                     if (progress < 1) requestAnimationFrame(tick);
                 }
                 requestAnimationFrame(tick);
@@ -600,103 +604,109 @@
         obs.observe(counter);
     }
 
-    /* ------ Hero Blur on Scroll (smooth RAF lerp) ------ */
+    /* ------ Hero Blur on Scroll (now feeds into masterTick) ------ */
     function initHeroBlur() {
-        if (!window.matchMedia('(hover: hover)').matches) return; /* skip on touch — blur filter too expensive */
-        var wallpaper = document.getElementById('hero-wallpaper');
-        var overlay = document.querySelector('.hero__overlay');
-        if (!wallpaper) return;
-        var currentBlur = 0, targetBlur = 0;
-        var currentOpacity = 0.4, targetOpacity = 0.4;
-        wallpaper.style.willChange = 'filter';
+        if (isTouch) return; // blur filter too expensive on mobile GPUs
+        _wallpaper   = document.getElementById('hero-wallpaper');
+        _heroOverlay = document.querySelector('.hero__overlay');
+        if (!_wallpaper) return;
+        _wallpaper.style.willChange = 'filter';
 
         window.addEventListener('scroll', function() {
-            var scrollY = window.scrollY;
-            var vh = window.innerHeight;
-            var progress = Math.min(scrollY / (vh * 0.6), 1);
-            targetBlur = progress * 12;
-            targetOpacity = 0.4 + progress * 0.4;
+            var progress = Math.min(window.scrollY / (window.innerHeight * 0.6), 1);
+            _blurTgt = progress * 12;
+            _opTgt   = 0.4 + progress * 0.4;
         }, { passive: true });
-
-        function smooth() {
-            currentBlur += (targetBlur - currentBlur) * 0.08;
-            currentOpacity += (targetOpacity - currentOpacity) * 0.08;
-            wallpaper.style.filter = 'blur(' + currentBlur.toFixed(1) + 'px)';
-            if (overlay) overlay.style.background = 'rgba(4,10,16,' + currentOpacity.toFixed(3) + ')';
-            requestAnimationFrame(smooth);
-        }
-        requestAnimationFrame(smooth);
     }
 
     /* ------ Section Banner Blur on Scroll ------ */
     function initSectionBannerBlur() {
+        if (isTouch) return; // skip on touch — blur filter too expensive
         var banners = document.querySelectorAll('.section-banner');
         if (!banners.length) return;
         window.addEventListener('scroll', function() {
             banners.forEach(function(banner) {
-                var rect = banner.getBoundingClientRect();
-                var vh = window.innerHeight;
-                /* Blur increases as top of banner passes above viewport center */
-                var progress = Math.min(Math.max(-rect.top / (vh * 0.5), 0), 1);
-                var video = banner.querySelector('video');
+                var rect     = banner.getBoundingClientRect();
+                var progress = Math.min(Math.max(-rect.top / (window.innerHeight * 0.5), 0), 1);
+                var video    = banner.querySelector('video');
                 if (video) video.style.filter = 'blur(' + (progress * 14) + 'px)';
             });
         }, { passive: true });
     }
 
-    /* ------ Gojo Idle Float + Mouse Parallax (smooth lerp) ------ */
-    function initGojoParallax() {
-        var gojo = document.getElementById('hero-gojo-link');
-        if (!gojo) return;
-        var t = 0;
-        var targetPX = 0, targetPY = 0;
-        var smoothPX = 0, smoothPY = 0;
+    /* ------ Lazy-load banner videos via IntersectionObserver ------ */
+    function initLazyVideos() {
+        // Banner videos use data-src to defer loading until near viewport.
+        // The hero video (#hero-wallpaper) has src set directly and is NOT deferred.
+        var lazyVideos = document.querySelectorAll('.section-banner video[data-src]');
+        if (!lazyVideos.length) return;
 
-        document.addEventListener('mousemove', function() {
-            var cx = window.innerWidth / 2;
-            var cy = window.innerHeight / 2;
-            targetPX = ((mouseX - cx) / cx) * 5;
-            targetPY = ((mouseY - cy) / cy) * 3;
-        });
+        var obs = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    var video = entry.target;
+                    video.src = video.dataset.src;
+                    video.load();
+                    obs.unobserve(video);
+                }
+            });
+        }, { rootMargin: '200px 0px' }); // start loading 200px before viewport
 
-        function animate() {
-            t += 0.012;
-            /* Lerp parallax for buttery smooth movement */
-            smoothPX += (targetPX - smoothPX) * 0.04;
-            smoothPY += (targetPY - smoothPY) * 0.04;
-            /* Multi-harmonic float — noticeable organic sway */
-            var floatX = Math.sin(t * 0.6) * 5 + Math.sin(t * 1.2) * 2;
-            var floatY = Math.sin(t * 0.8) * 6 + Math.cos(t * 0.5) * 2.5;
-            if (gojoReady) {
-                var tx = floatX + smoothPX;
-                var ty = floatY + smoothPY;
-                gojo.style.transform = 'translate(calc(-50% + ' + tx + 'px), calc(-55% + ' + ty + 'px))';
-            }
-            requestAnimationFrame(animate);
-        }
-        requestAnimationFrame(animate);
+        lazyVideos.forEach(function(v) { obs.observe(v); });
     }
 
-    /* ------ Gojo Interactive Image Sequence ------ */
+    /* ------ Gojo Idle Float + Mouse Parallax (feeds into masterTick) ------ */
+    function initGojoParallax() {
+        var gojo = document.getElementById('hero-gojo-link');
+        if (!gojo || isTouch) return;
+        _gojoLink = gojo; // register with masterTick
+
+        document.addEventListener('mousemove', function() {
+            var cx = window.innerWidth  / 2;
+            var cy = window.innerHeight / 2;
+            _gojoTPX = ((mouseX - cx) / cx) * 5;
+            _gojoTPY = ((mouseY - cy) / cy) * 3;
+        });
+    }
+
+    /* ============================================================
+       Gojo Interactive Image Sequence
+       FIX: frames are now preloaded lazily on FIRST hover,
+       not eagerly at page init (was loading ~4.4 MB upfront).
+    ============================================================ */
     function initGojoSequence() {
-        var img = document.getElementById('hero-gojo');
+        var img  = document.getElementById('hero-gojo');
         var link = document.getElementById('hero-gojo-link');
         if (!img || !link) return;
 
-        var totalFrames = 49;
-        var frameDuration = 1000 / 30; /* ~30 fps */
-        var frames = [];
+        var totalFrames  = 49;
+        var frameDuration = 1000 / 30; // ~30 fps
+        var frames       = [];
         var currentFrame = 0;
-        var direction = 0; /* 0 = idle, 1 = forward, -1 = reverse */
-        var rafId = null;
-        var lastTime = 0;
-        var staticSrc = 'assets/media/lego-gojo/image (1).webp';
+        var direction    = 0;  // 0 = idle, 1 = forward, -1 = reverse
+        var rafId        = null;
+        var lastTime     = 0;
+        var staticSrc    = 'assets/media/lego-gojo/image (1).webp';
+        var preloaded    = false;
+        var preloading   = false;
 
-        /* Preload all frames */
-        for (var i = 1; i <= totalFrames; i++) {
-            var preload = new Image();
-            preload.src = 'assets/media/lego-gojo/image (' + i + ').webp';
-            frames.push(preload);
+        /* Preload all frames on demand (first hover) */
+        function preloadFrames(callback) {
+            if (preloaded) { callback(); return; }
+            if (preloading) return; // already in progress, do nothing — animation starts once done
+            preloading = true;
+            var loaded = 0;
+            for (var i = 1; i <= totalFrames; i++) {
+                var preloadImg = new Image();
+                preloadImg.onload = function() {
+                    if (++loaded === totalFrames) {
+                        preloaded = true;
+                        callback();
+                    }
+                };
+                preloadImg.src = 'assets/media/lego-gojo/image (' + i + ').webp';
+                frames.push(preloadImg);
+            }
         }
 
         function tick(timestamp) {
@@ -707,16 +717,13 @@
                 currentFrame += direction;
                 if (direction === 1 && currentFrame >= totalFrames - 1) {
                     currentFrame = totalFrames - 1;
-                    direction = 0;
-                    rafId = null;
-                    return;
+                    direction = 0; rafId = null; return;
                 }
                 if (direction === -1 && currentFrame <= 0) {
                     currentFrame = 0;
                     direction = 0;
                     img.src = staticSrc;
-                    rafId = null;
-                    return;
+                    rafId = null; return;
                 }
                 img.src = frames[currentFrame].src;
             }
@@ -725,22 +732,28 @@
 
         function startAnimation(dir) {
             direction = dir;
-            lastTime = 0;
+            lastTime  = 0;
             if (!rafId) rafId = requestAnimationFrame(tick);
         }
 
         link.addEventListener('mouseenter', function() {
-            startAnimation(1);
+            preloadFrames(function() { startAnimation(1); });
+        });
+        link.addEventListener('mouseleave', function() {
+            if (preloaded) startAnimation(-1);
         });
 
-        link.addEventListener('mouseleave', function() {
-            startAnimation(-1);
-        });
+        // Touch: tap to play forward, tap again to reverse
+        link.addEventListener('touchstart', function() {
+            preloadFrames(function() {
+                startAnimation(direction === 1 ? -1 : 1);
+            });
+        }, { passive: true });
     }
 
     /* ------ Hero Wallpaper Parallax ------ */
     function initHeroParallax() {
-        if (!window.matchMedia('(hover: hover)').matches) return; /* skip on touch — causes scroll jank */
+        if (isTouch) return;
         var wallpaper = document.getElementById('hero-wallpaper');
         if (!wallpaper) return;
         window.addEventListener('scroll', function() {
@@ -752,10 +765,10 @@
     function initCardTilt() {
         document.querySelectorAll('[data-tilt]').forEach(function(el) {
             el.addEventListener('mousemove', function(e) {
-                var rect = el.getBoundingClientRect();
-                var x = e.clientX - rect.left, y = e.clientY - rect.top;
+                var rect    = el.getBoundingClientRect();
+                var x       = e.clientX - rect.left, y = e.clientY - rect.top;
                 var rotateX = ((y - rect.height / 2) / (rect.height / 2)) * -6;
-                var rotateY = ((x - rect.width / 2) / (rect.width / 2)) * 6;
+                var rotateY = ((x - rect.width  / 2) / (rect.width  / 2)) *  6;
                 el.style.transform = 'perspective(800px) rotateX(' + rotateX + 'deg) rotateY(' + rotateY + 'deg) scale3d(1.03,1.03,1.03)';
             });
             el.addEventListener('mouseleave', function() {
@@ -764,32 +777,28 @@
         });
     }
 
-    /* ------ Album Tilt: Smooth zoom first, tilt only when fully zoomed ------ */
+    /* ------ Album Tilt ------ */
     function initAlbumTilt() {
         var album = document.getElementById('album');
         if (!album) return;
-        var lastActive = null;
-        var lastHandlers = {};
+        var lastActive = null, lastHandlers = {};
 
         function attachTiltToActiveSlide() {
-            // Remove previous listeners if any
             if (lastActive && lastHandlers.mouseenter) {
                 lastActive.removeEventListener('mouseenter', lastHandlers.mouseenter);
-                lastActive.removeEventListener('mousemove', lastHandlers.mousemove);
+                lastActive.removeEventListener('mousemove',  lastHandlers.mousemove);
                 lastActive.removeEventListener('mouseleave', lastHandlers.mouseleave);
             }
             var active = album.querySelector('.album__slide.active .album__photos');
             if (active) {
                 var target = active.querySelector('.album__photo--front');
                 if (target) {
-                    let isZoomed = false;
-                    let zoomTimer = null;
+                    let isZoomed = false, zoomTimer = null;
                     function getOrigTransform() {
                         return target.getAttribute('data-orig-transform') || target.style.transform || '';
                     }
                     target.setAttribute('data-orig-transform', target.style.transform || '');
                     target.style.transition = 'scale .5s cubic-bezier(0.22,1,0.36,1)';
-                    // Define handlers so we can remove them later
                     const mouseenter = function() {
                         target.style.scale = '1.06';
                         zoomTimer = setTimeout(function() { isZoomed = true; }, 150);
@@ -799,68 +808,53 @@
                         var rect = active.getBoundingClientRect();
                         var x = e.clientX - rect.left, y = e.clientY - rect.top;
                         var rx = ((y - rect.height / 2) / (rect.height / 2)) * -8;
-                        var ry = ((x - rect.width / 2) / (rect.width / 2)) * 8;
-                        var orig = getOrigTransform();
-                        target.style.transform = orig + ' perspective(800px) rotateX(' + rx + 'deg) rotateY(' + ry + 'deg)';
+                        var ry = ((x - rect.width  / 2) / (rect.width  / 2)) *  8;
+                        target.style.transform = getOrigTransform() + ' perspective(800px) rotateX(' + rx + 'deg) rotateY(' + ry + 'deg)';
                     };
                     const mouseleave = function() {
                         clearTimeout(zoomTimer);
                         isZoomed = false;
-                        var orig = getOrigTransform();
                         target.style.transition = 'scale .5s cubic-bezier(0.22,1,0.36,1), transform .4s cubic-bezier(0.22,1,0.36,1)';
-                        target.style.transform = orig;
+                        target.style.transform = getOrigTransform();
                         target.style.scale = '1';
-                        setTimeout(function() {
-                            target.style.transition = 'scale .5s cubic-bezier(0.22,1,0.36,1)';
-                        }, 500);
+                        setTimeout(function() { target.style.transition = 'scale .5s cubic-bezier(0.22,1,0.36,1)'; }, 500);
                     };
                     active.addEventListener('mouseenter', mouseenter);
-                    active.addEventListener('mousemove', mousemove);
+                    active.addEventListener('mousemove',  mousemove);
                     active.addEventListener('mouseleave', mouseleave);
-                    lastActive = active;
+                    lastActive   = active;
                     lastHandlers = { mouseenter, mousemove, mouseleave };
                 }
             }
         }
 
-        // Attach on load and every scroll
         window.addEventListener('scroll', attachTiltToActiveSlide, { passive: true });
         window.addEventListener('DOMContentLoaded', attachTiltToActiveSlide);
         attachTiltToActiveSlide();
     }
 
-    /* ------ Giant Background Words (CSS animation - continuous, never stops) ------ */
-    function initBgWords() {
-        /* bg-words now use pure CSS @keyframes animation (always moving, never still) */
-        /* No GSAP scrub needed — CSS handles continuous left/right slide with delay on bottom row */
-    }
+    /* ------ Giant Background Words (CSS only, no JS needed) ------ */
+    function initBgWords() { /* handled by CSS @keyframes */ }
 
     /* ------ Hero Title Zoom on Scroll ------ */
     function initHeroTitleZoom() {
-        if (!window.matchMedia('(hover: hover)').matches) return; /* skip on touch — scrub causes choppy title */
+        if (isTouch) return;
         var heroTitle = document.getElementById('hero-title');
         if (!heroTitle || typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
-
         gsap.to(heroTitle, {
-            scale: 1.8,
-            y: 120,
-            ease: 'none',
-            scrollTrigger: {
-                trigger: '.hero',
-                start: 'top top',
-                end: '80% top',
-                scrub: 0.3
-            }
+            scale: 1.8, y: 120, ease: 'none',
+            scrollTrigger: { trigger: '.hero', start: 'top top', end: '80% top', scrub: 0.3 }
         });
     }
 
     /* ------ Magnetic Buttons ------ */
     function initMagneticButtons() {
+        if (isTouch) return;
         document.querySelectorAll('.btn, .nav__social, .theme-toggle').forEach(function(btn) {
             btn.addEventListener('mousemove', function(e) {
                 var rect = btn.getBoundingClientRect();
-                var x = e.clientX - rect.left - rect.width / 2;
-                var y = e.clientY - rect.top - rect.height / 2;
+                var x = e.clientX - rect.left - rect.width  / 2;
+                var y = e.clientY - rect.top  - rect.height / 2;
                 gsap.to(btn, { x: x * 0.35, y: y * 0.35, duration: 0.4, ease: 'power2.out' });
             });
             btn.addEventListener('mouseleave', function() {
@@ -869,96 +863,39 @@
         });
     }
 
-    /* ------ Mouse Spotlight Glow ------ */
+    /* ------ Mouse Spotlight Glow (feeds into masterTick) ------ */
     function initSpotlight() {
+        if (isTouch) return;
         var spotlight = document.createElement('div');
         spotlight.style.cssText = [
             'position:fixed', 'inset:0', 'z-index:1', 'pointer-events:none',
             'background:radial-gradient(600px circle at 0px 0px,rgba(6,182,212,0.06),transparent 70%)',
-            'transition:background 0.1s', 'will-change:background'
+            'will-change:background'
         ].join(';');
         document.body.appendChild(spotlight);
-        var tx = 0, ty = 0, cx = 0, cy = 0;
-        document.addEventListener('mousemove', function(e) { tx = e.clientX; ty = e.clientY; });
-        (function tick() {
-            cx += (tx - cx) * 0.08;
-            cy += (ty - cy) * 0.08;
-            spotlight.style.background =
-                'radial-gradient(600px circle at ' + cx + 'px ' + cy + 'px, rgba(6,182,212,0.06), transparent 70%)';
-            requestAnimationFrame(tick);
-        })();
+        _spotlight = spotlight; // register with masterTick
     }
 
-    /* ------ Parallax Depth Layers on Scroll ------ */
+    /* ------ Parallax Depth Layers on Scroll (desktop only) ------ */
     function initParallaxLayers() {
+        // Guard is in initSite(): only called when !isTouch
         if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
 
-        /* Section titles drift upward faster than scroll */
         gsap.utils.toArray('.section-title, .case__title--large').forEach(function(el) {
-            gsap.to(el, {
-                y: -60,
-                ease: 'none',
-                scrollTrigger: {
-                    trigger: el,
-                    start: 'top bottom',
-                    end: 'bottom top',
-                    scrub: 1.5
-                }
-            });
+            gsap.to(el, { y: -60, ease: 'none', scrollTrigger: { trigger: el, start: 'top bottom', end: 'bottom top', scrub: 1.5 } });
         });
 
-        /* Big text moves at different rates for depth */
         gsap.utils.toArray('.big-text').forEach(function(el, i) {
-            gsap.to(el, {
-                y: i % 2 === 0 ? -80 : -40,
-                ease: 'none',
-                scrollTrigger: {
-                    trigger: el.closest('section') || el.parentElement,
-                    start: 'top bottom',
-                    end: 'bottom top',
-                    scrub: 2
-                }
-            });
+            gsap.to(el, { y: i % 2 === 0 ? -80 : -40, ease: 'none', scrollTrigger: { trigger: el.closest('section') || el.parentElement, start: 'top bottom', end: 'bottom top', scrub: 2 } });
         });
 
-        /* About cards drift at opposing rates */
         var aboutCards = gsap.utils.toArray('.about-card');
         aboutCards.forEach(function(card, i) {
-            gsap.to(card, {
-                y: i % 2 === 0 ? -50 : 50,
-                ease: 'none',
-                scrollTrigger: {
-                    trigger: '.about__grid',
-                    start: 'top bottom',
-                    end: 'bottom top',
-                    scrub: 2
-                }
-            });
+            gsap.to(card, { y: i % 2 === 0 ? -50 : 50, ease: 'none', scrollTrigger: { trigger: '.about__grid', start: 'top bottom', end: 'bottom top', scrub: 2 } });
         });
 
-        /* Creative stat counter floats */
-        gsap.to('.creative__stat', {
-            y: -40,
-            ease: 'none',
-            scrollTrigger: {
-                trigger: '.creative',
-                start: 'top bottom',
-                end: 'bottom top',
-                scrub: 1.8
-            }
-        });
-
-        /* KKC text block drifts opposite to gallery */
-        gsap.to('.kkc__text', {
-            y: -30,
-            ease: 'none',
-            scrollTrigger: {
-                trigger: '.kkc',
-                start: 'top bottom',
-                end: 'bottom top',
-                scrub: 1.5
-            }
-        });
+        gsap.to('.creative__stat', { y: -40, ease: 'none', scrollTrigger: { trigger: '.creative', start: 'top bottom', end: 'bottom top', scrub: 1.8 } });
+        gsap.to('.kkc__text',      { y: -30, ease: 'none', scrollTrigger: { trigger: '.kkc',      start: 'top bottom', end: 'bottom top', scrub: 1.5 } });
     }
 
     /* ------ Work Card Entrance: Perspective Flip ------ */
@@ -972,13 +909,7 @@
                 start: 'top 80%',
                 once: true,
                 onEnter: function() {
-                    gsap.to(card, {
-                        opacity: 1,
-                        rotateY: 0,
-                        duration: 0.9,
-                        delay: i * 0.1,
-                        ease: 'power3.out'
-                    });
+                    gsap.to(card, { opacity: 1, rotateY: 0, duration: 0.9, delay: i * 0.1, ease: 'power3.out' });
                 }
             });
         });
@@ -990,28 +921,21 @@
         if (!title || typeof gsap === 'undefined') return;
         var text = title.textContent;
         title.innerHTML = '';
-        title.style.opacity = '1';
+        title.style.opacity  = '1';
         title.style.transform = 'none';
 
-        text.split('').forEach(function(ch, i) {
+        text.split('').forEach(function(ch) {
             var span = document.createElement('span');
             span.textContent = ch === ' ' ? '\u00A0' : ch;
-            span.style.cssText = [
-                'display:inline-block',
-                'will-change:transform,opacity,filter'
-            ].join(';');
+            span.style.cssText = 'display:inline-block;will-change:transform,opacity,filter';
             title.appendChild(span);
         });
 
         var chars = Array.from(title.querySelectorAll('span'));
         gsap.set(chars, { opacity: 0, y: 80, rotateX: -90, filter: 'blur(12px)', transformOrigin: 'bottom center', transformPerspective: 600 });
         gsap.to(chars, {
-            opacity: 1,
-            y: 0,
-            rotateX: 0,
-            filter: 'blur(0px)',
-            duration: 0.9,
-            ease: 'power3.out',
+            opacity: 1, y: 0, rotateX: 0, filter: 'blur(0px)',
+            duration: 0.9, ease: 'power3.out',
             stagger: { amount: 0.6, from: 'start' },
             delay: 0.2
         });
@@ -1020,41 +944,24 @@
     /* ------ Clip-Path Section Wipe Reveal ------ */
     function initClipPathReveal() {
         if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
-
-        /* Only target elements NOT already handled by initGSAPAnimations */
         var targets = [
-            '.section-title',
-            '.case__title--large',
-            '.creative__title',
-            '.case__tagline',
-            '.kkc__desc',
-            '.about__lead'
+            '.section-title', '.case__title--large', '.creative__title',
+            '.case__tagline', '.kkc__desc', '.about__lead'
         ].join(',');
 
         gsap.utils.toArray(targets).forEach(function(el) {
             if (el.closest('.hero')) return;
-
-            /* Force visibility so GSAP opacity reveal doesn't hide it */
-            el.style.opacity = '1';
+            el.style.opacity  = '1';
             el.style.transform = 'none';
             el.classList.remove('reveal');
-
             gsap.fromTo(el,
                 { clipPath: 'inset(0 100% 0 0)' },
-                {
-                    clipPath: 'inset(0 0% 0 0)',
-                    duration: 1.1,
-                    ease: 'power3.inOut',
-                    scrollTrigger: {
-                        trigger: el,
-                        start: 'top 88%',
-                        once: true
-                    }
-                }
+                { clipPath: 'inset(0 0% 0 0)', duration: 1.1, ease: 'power3.inOut',
+                  scrollTrigger: { trigger: el, start: 'top 88%', once: true } }
             );
         });
     }
-    
+
     /* ------ Start ------ */
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', runIntro);
