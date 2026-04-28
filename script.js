@@ -463,9 +463,14 @@
         var cards = ring.querySelectorAll('.carousel3d__card');
         var n = cards.length;
         var theta = 360 / n;
-        var cardW = 240;
+
+        /* Smaller card width on mobile so ring radius is tight enough to touch */
+        var cardW = isMobile ? 110 : 240;
         var radius = Math.round((cardW / 2) / Math.tan(Math.PI / n));
-        cards.forEach(function(card, i) { card.style.transform = 'rotateY(' + (theta * i) + 'deg) translateZ(' + radius + 'px)'; });
+
+        cards.forEach(function(card, i) {
+            card.style.transform = 'rotateY(' + (theta * i) + 'deg) translateZ(' + radius + 'px)';
+        });
 
         var angle = 0, targetAngle = 0, speed = 0.04, isHovering = false;
         function render() {
@@ -477,6 +482,8 @@
         requestAnimationFrame(render);
 
         var scene = document.getElementById('carousel3d-scene');
+
+        /* Desktop: hover to pause + scroll wheel to snap */
         scene.addEventListener('mouseenter', function() { isHovering = true; });
         scene.addEventListener('mouseleave', function() { isHovering = false; });
         var scrollCooldown = false;
@@ -488,6 +495,51 @@
             targetAngle += e.deltaY > 0 ? -theta : theta;
             setTimeout(function() { scrollCooldown = false; }, 400);
         }, { passive: false });
+
+        /* Mobile: horizontal swipe to rotate, vertical scroll still works */
+        var touchStartX = 0, touchLastX = 0, touchStartY = 0;
+        var touchVelocity = 0, isSwiping = false, swipeAxis = null;
+
+        scene.addEventListener('touchstart', function(e) {
+            touchStartX = e.touches[0].clientX;
+            touchLastX  = touchStartX;
+            touchStartY = e.touches[0].clientY;
+            touchVelocity = 0;
+            swipeAxis = null;
+            isSwiping = false;
+        }, { passive: true });
+
+        scene.addEventListener('touchmove', function(e) {
+            var dx = e.touches[0].clientX - touchLastX;
+            var dy = e.touches[0].clientY - touchStartY;
+
+            /* Lock swipe axis on first significant movement */
+            if (!swipeAxis) {
+                if (Math.abs(e.touches[0].clientX - touchStartX) > 8 ||
+                    Math.abs(dy) > 8) {
+                    swipeAxis = Math.abs(e.touches[0].clientX - touchStartX) > Math.abs(dy)
+                        ? 'horizontal' : 'vertical';
+                }
+            }
+
+            if (swipeAxis === 'horizontal') {
+                isSwiping = true;
+                isHovering = true;
+                touchVelocity = dx;
+                touchLastX = e.touches[0].clientX;
+                targetAngle += dx * 0.55;
+            }
+        }, { passive: true });
+
+        scene.addEventListener('touchend', function() {
+            if (isSwiping) {
+                /* Fling: carry momentum based on last velocity */
+                targetAngle += touchVelocity * 3.5;
+            }
+            isHovering = false;
+            isSwiping = false;
+            swipeAxis = null;
+        }, { passive: true });
     }
 
     /* ------ Photo Album ------ */
