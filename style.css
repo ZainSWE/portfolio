@@ -106,7 +106,7 @@ html.lenis, html.lenis body { height:auto; }
 .lenis.lenis-smooth { scroll-behavior:auto !important; }
 .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior:contain; }
 body {
-    font-family:var(--font-body); color:var(--text); overflow-x:hidden; -webkit-font-smoothing:antialiased;
+    font-family:var(--font-body); color:var(--text); overflow-x:clip; -webkit-font-smoothing:antialiased;
     background-color:#010103;
     background-image:
         radial-gradient(ellipse 80% 50% at 30% 10%, rgba(6,182,212,0.07) 0%, transparent 50%),
@@ -160,7 +160,7 @@ button { border:none; background:none; color:inherit; cursor:pointer; font-famil
     transition: transform .4s var(--ease), background .3s;
 }
 .nav.hidden { transform:translateY(-100%); }
-.nav__logo { font-family:var(--font-head); font-size:.85rem; letter-spacing:.12em; }
+.nav__logo { font-family:'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif; font-size:1rem; font-weight:500; letter-spacing:.06em; text-transform:uppercase; }
 .nav__logo span { color:var(--accent); display:none; }
 .nav__links { display:flex; gap:2rem; }
 .nav__links a { font-size:.85rem; font-weight:500; letter-spacing:.04em; text-transform:uppercase; color:rgba(228,240,246,0.85); transition:color .3s; }
@@ -207,9 +207,9 @@ button { border:none; background:none; color:inherit; cursor:pointer; font-famil
 .nav__burger.open span:last-child { transform:translateY(-4px) rotate(-45deg); }
 
 /* Mobile menu */
-.mobile-menu { position:fixed; inset:0; z-index:4999; background:var(--bg); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:1.5rem; opacity:0; pointer-events:none; transition:opacity .4s var(--ease); }
+.mobile-menu { position:fixed; inset:0; z-index:4999; background:var(--bg); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:1.1rem; opacity:0; pointer-events:none; transition:opacity .4s var(--ease); }
 .mobile-menu.open { opacity:1; pointer-events:all; }
-.mobile-menu a { font-family:var(--font-body); font-size:clamp(1.1rem,5vw,1.5rem); font-weight:500; letter-spacing:.08em; text-transform:uppercase; color:var(--text-muted); transition:color .3s; }
+.mobile-menu a { font-family:'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif; font-size:clamp(.9rem,3.2vw,1.1rem); font-weight:500; letter-spacing:.1em; text-transform:uppercase; color:var(--text-muted); transition:color .3s; }
 .mobile-menu a:hover { color:var(--text); }
 
 /* ---- Hero ---- */
@@ -232,6 +232,16 @@ button { border:none; background:none; color:inherit; cursor:pointer; font-famil
     z-index:5; cursor:pointer;
     will-change:transform;
     opacity:0;
+}
+/* Bottom-fade on Gojo so text/buttons above legs stay readable on mobile */
+#hero-gojo-link::after {
+    content:'';
+    position:absolute;
+    bottom:0; left:0; right:0;
+    height:52%;
+    background:linear-gradient(to top, rgba(1,2,8,0.88) 0%, rgba(1,2,8,0.4) 55%, transparent 100%);
+    pointer-events:none;
+    z-index:2;
 }
 .hero__gojo {
     height:clamp(361px,58.9vh,665px); width:auto;
@@ -284,7 +294,7 @@ button { border:none; background:none; color:inherit; cursor:pointer; font-famil
     position:absolute; bottom:2.5rem; left:50%; transform:translateX(-50%);
     display:flex; flex-direction:column; align-items:center; gap:.75rem;
     color:rgba(228,240,246,0.45); font-family:var(--font-sub);
-    font-size:2.8rem; font-weight:700; letter-spacing:.06em; text-transform:uppercase;
+    font-size:.65rem; font-weight:600; letter-spacing:.18em; text-transform:uppercase;
     z-index:4; opacity:0;
 }
 .hero__scroll-line { width:2px; height:50px; background:var(--accent); animation:scrollLine 1.5s var(--ease) infinite; }
@@ -382,9 +392,6 @@ button { border:none; background:none; color:inherit; cursor:pointer; font-famil
     overflow:hidden; z-index:0;
     pointer-events:none;
 }
-/* Ensure video and overlay never capture touch events (Safari ignores inherited pointer-events on media) */
-.section-banner video,
-.section-banner__overlay { pointer-events:none; }
 .section-banner video {
     width:100%; height:100%;
     object-fit:cover;
@@ -394,8 +401,7 @@ button { border:none; background:none; color:inherit; cursor:pointer; font-famil
     position:absolute; inset:0;
     background:linear-gradient(180deg,
         rgba(1,1,3,0.3) 0%,
-        rgba(1,1,3,0.55) 38%,
-        var(--bg) 92%,
+        rgba(1,1,3,0.55) 40%,
         var(--bg) 100%
     );
     z-index:1;
@@ -692,15 +698,14 @@ button { border:none; background:none; color:inherit; cursor:pointer; font-famil
 .creative__skills { font-size:.85rem; color:var(--text-muted); letter-spacing:.04em; margin-bottom:1.5rem; }
 .creative__desc { font-size:clamp(.95rem,1.3vw,1.1rem); color:var(--text-muted); line-height:1.7; max-width:600px; font-weight:300; margin-bottom:2rem; }
 .creative__stat { display:flex; align-items:baseline; gap:.75rem; }
-.creative__stat { display:flex; align-items:baseline; gap:.75rem; flex-wrap:nowrap; }
 .counter { font-family:var(--font-head); font-size:clamp(5rem,10vw,10rem); letter-spacing:.02em; line-height:1; background:linear-gradient(135deg,var(--accent),#3c8297); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
 .counter-label { font-size:.85rem; color:var(--text-muted); white-space:nowrap; }
+.creative__stat { display:flex; align-items:baseline; gap:.75rem; flex-wrap:nowrap; }
 .creative__links { display:flex; flex-wrap:wrap; gap:.75rem; }
 
 /* ---- 3D Carousel ---- */
 .carousel3d { padding:4rem 0; overflow:visible; }
-.carousel3d__scene { perspective:1000px; width:100%; max-width:1400px; margin:0 auto; height:220px; display:flex; align-items:center; justify-content:center; touch-action:pan-y; cursor:grab; }
-.carousel3d__scene:active { cursor:grabbing; }
+.carousel3d__scene { perspective:1000px; width:100%; max-width:1400px; margin:0 auto; height:220px; display:flex; align-items:center; justify-content:center; }
 .carousel3d__ring { position:relative; width:240px; height:135px; transform-style:preserve-3d; }
 .carousel3d__card { position:absolute; width:240px; height:135px; transform-style:preserve-3d; padding:0 8px; }
 .carousel3d__face {
@@ -955,18 +960,13 @@ button { border:none; background:none; color:inherit; cursor:pointer; font-famil
     .kkc__gallery-track img { height:220px; }
     .creative__info { flex-direction:column; }
     .creative__info-right { align-items:flex-start; }
-    /* Stack counter label below number so it's never cut off */
-    .creative__stat { flex-direction:column; align-items:flex-start; gap:.25rem; }
-    .counter { font-size:clamp(3.5rem,14vw,6rem); }
-    .counter-label { font-size:.8rem; }
     .contact__grid { grid-template-columns:1fr; }
     .footer__bottom { flex-direction:column; gap:.5rem; align-items:center; text-align:center; }
     .tools__pill { font-size:.72rem; padding:.4rem .8rem; }
     .testimonial { width:280px; }
-    /* Carousel: smaller ring to match JS cardW:110 */
-    .carousel3d__scene { height:130px; }
-    .carousel3d__ring { width:110px; height:62px; }
-    .carousel3d__card { width:110px; height:62px; }
+    .carousel3d__scene { height:150px; }
+    .carousel3d__ring { width:160px; height:90px; }
+    .carousel3d__card { width:160px; height:90px; }
     .section-banner { height:clamp(200px,30vw,350px); }
 }
 @media (max-width:480px) {
@@ -1208,13 +1208,5 @@ button { border:none; background:none; color:inherit; cursor:pointer; font-famil
     .mobile-menu         { backdrop-filter: none; -webkit-backdrop-filter: none; }
     .work-card__visual   { backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
     .tags span,
-    .tools__pill,
-    .contact__item,
-    .testimonial         { backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
-
-    /* Section banner video blur — too heavy on mobile */
-    .section-banner video { filter: none !important; will-change: auto; }
-
-    /* Hero title safe wrapping */
-    .hero__title { white-space: normal; overflow-wrap: break-word; }
+    .featured-meta .tag { backdrop-filter: none; -webkit-backdrop-filter: none; }
 }
