@@ -10,6 +10,8 @@
     /* ------ Global state ------ */
     let mouseX = 0, mouseY = 0;
     var gojoReady = false;
+    /* Touch / pointer detection — used throughout to skip hover-only features */
+    var isMobile = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
     document.addEventListener('mousemove', function(e) { mouseX = e.clientX; mouseY = e.clientY; });
 
     /* ------ Cursor ------ */
@@ -91,6 +93,8 @@
     /* ------ Lenis ------ */
     var lenis;
     function initLenis() {
+        /* On touch devices, native scroll is smoother — skip Lenis entirely */
+        if (isMobile) return;
         if (typeof Lenis === 'undefined') return;
         lenis = new Lenis({ duration: 1.2, easing: function(t) { return Math.min(1, 1.001 - Math.pow(2, -10 * t)); }, touchMultiplier: 2, infinite: false });
         if (typeof gsap !== 'undefined') {
@@ -119,18 +123,21 @@
         initGojoParallax();
         initGojoSequence();
         initHeroBlur();
-        initCardTilt();
-        initAlbumTilt();
+        /* Hover-only and heavy mouse-tracking features: desktop only */
+        if (!isMobile) {
+            initCardTilt();
+            initAlbumTilt();
+            initMagneticButtons();
+            initSpotlight();
+            initHeroTitleZoom();
+            initHeroTitleSplit();
+            initParallaxLayers();
+        }
         initSectionBannerBlur();
         initBadgeHover();
         initScrollTextCycle();
         initBgWords();
-        initHeroTitleZoom();
-        initMagneticButtons();
-        initSpotlight();
-        initParallaxLayers();
         initWorkCardEntrance();
-        initHeroTitleSplit();
         initClipPathReveal();
     }
 
@@ -296,11 +303,11 @@
         if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') { initScrollReveals(); return; }
         gsap.registerPlugin(ScrollTrigger);
 
-        /* Hero title: gsap.set() ensures from values apply synchronously (no flash) */
+        /* Hero title: simplified on mobile (skip per-char split blur effects) */
         var heroTitle = document.getElementById('hero-title');
         if (heroTitle) {
-            gsap.set(heroTitle, { opacity: 0, y: 60, scale: 0.95 });
-            gsap.to(heroTitle, { opacity: 1, y: 0, scale: 1, duration: 1.2, ease: 'power3.out', delay: 0.1 });
+            gsap.set(heroTitle, { opacity: 0, y: isMobile ? 30 : 60, scale: isMobile ? 1 : 0.95 });
+            gsap.to(heroTitle, { opacity: 1, y: 0, scale: 1, duration: isMobile ? 0.8 : 1.2, ease: 'power3.out', delay: 0.1 });
         }
 
         /* Hero bottom */
@@ -320,12 +327,12 @@
             });
         }
 
-        /* Reveals */
+        /* Reveals — use shorter distance on mobile */
         document.querySelectorAll('.reveal').forEach(function(el) {
             var delay = parseFloat(el.dataset.delay) || 0;
-            gsap.fromTo(el, { opacity: 0, y: 40 }, {
+            gsap.fromTo(el, { opacity: 0, y: isMobile ? 20 : 40 }, {
                 opacity: 1, y: 0, duration: 0.8, delay: delay, ease: 'power2.out',
-                scrollTrigger: { trigger: el, start: 'top 85%', once: true }
+                scrollTrigger: { trigger: el, start: 'top 90%', once: true }
             });
         });
 
@@ -334,9 +341,10 @@
             var texts = container.querySelectorAll('.big-text, .design__headline');
             if (!texts.length) return;
             texts.forEach(function(t, i) {
-                gsap.fromTo(t, { opacity: 0, y: 50, skewY: 2 }, {
+                /* On mobile: simple fade-up only, no skew (prevents collision) */
+                gsap.fromTo(t, { opacity: 0, y: isMobile ? 20 : 50, skewY: isMobile ? 0 : 2 }, {
                     opacity: 1, y: 0, skewY: 0, duration: 0.9, delay: i * 0.12, ease: 'power3.out',
-                    scrollTrigger: { trigger: container, start: 'top 80%', once: true }
+                    scrollTrigger: { trigger: container, start: 'top 85%', once: true }
                 });
             });
         });
@@ -610,6 +618,8 @@
 
     /* ------ Section Banner Blur on Scroll ------ */
     function initSectionBannerBlur() {
+        /* Skip on mobile — CSS already sets filter:none, and JS blur is costly */
+        if (isMobile) return;
         var banners = document.querySelectorAll('.section-banner');
         if (!banners.length) return;
         window.addEventListener('scroll', function() {
@@ -632,21 +642,25 @@
         var targetPX = 0, targetPY = 0;
         var smoothPX = 0, smoothPY = 0;
 
-        document.addEventListener('mousemove', function() {
-            var cx = window.innerWidth / 2;
-            var cy = window.innerHeight / 2;
-            targetPX = ((mouseX - cx) / cx) * 5;
-            targetPY = ((mouseY - cy) / cy) * 3;
-        });
+        /* Mouse parallax only on desktop */
+        if (!isMobile) {
+            document.addEventListener('mousemove', function() {
+                var cx = window.innerWidth / 2;
+                var cy = window.innerHeight / 2;
+                targetPX = ((mouseX - cx) / cx) * 5;
+                targetPY = ((mouseY - cy) / cy) * 3;
+            });
+        }
 
         function animate() {
             t += 0.012;
             /* Lerp parallax for buttery smooth movement */
             smoothPX += (targetPX - smoothPX) * 0.04;
             smoothPY += (targetPY - smoothPY) * 0.04;
-            /* Multi-harmonic float — noticeable organic sway */
-            var floatX = Math.sin(t * 0.6) * 5 + Math.sin(t * 1.2) * 2;
-            var floatY = Math.sin(t * 0.8) * 6 + Math.cos(t * 0.5) * 2.5;
+            /* Multi-harmonic float — gentle on mobile, full on desktop */
+            var floatAmp = isMobile ? 3 : 5;
+            var floatX = Math.sin(t * 0.6) * floatAmp + Math.sin(t * 1.2) * (isMobile ? 1 : 2);
+            var floatY = Math.sin(t * 0.8) * (isMobile ? 4 : 6) + Math.cos(t * 0.5) * (isMobile ? 1.5 : 2.5);
             if (gojoReady) {
                 var tx = floatX + smoothPX;
                 var ty = floatY + smoothPY;
@@ -709,13 +723,39 @@
             if (!rafId) rafId = requestAnimationFrame(tick);
         }
 
-        link.addEventListener('mouseenter', function() {
-            startAnimation(1);
-        });
+        if (isMobile) {
+            /* On mobile: auto-loop forward then reverse continuously, no hover needed */
+            var mobileDir = 1;
+            var mobileLastTime = 0;
+            function mobileTick(timestamp) {
+                if (!mobileLastTime) mobileLastTime = timestamp;
+                var delta = timestamp - mobileLastTime;
+                if (delta >= frameDuration) {
+                    mobileLastTime = timestamp;
+                    currentFrame += mobileDir;
+                    if (currentFrame >= totalFrames - 1) {
+                        currentFrame = totalFrames - 1;
+                        mobileDir = -1;
+                    } else if (currentFrame <= 0) {
+                        currentFrame = 0;
+                        mobileDir = 1;
+                    }
+                    img.src = frames[currentFrame] ? frames[currentFrame].src : staticSrc;
+                }
+                requestAnimationFrame(mobileTick);
+            }
+            /* Wait for frames to preload a bit before starting loop */
+            setTimeout(function() { requestAnimationFrame(mobileTick); }, 800);
+        } else {
+            /* Desktop: hover-triggered forward/reverse */
+            link.addEventListener('mouseenter', function() {
+                startAnimation(1);
+            });
 
-        link.addEventListener('mouseleave', function() {
-            startAnimation(-1);
-        });
+            link.addEventListener('mouseleave', function() {
+                startAnimation(-1);
+            });
+        }
     }
 
     /* ------ Hero Wallpaper Parallax ------ */
@@ -939,27 +979,42 @@
         });
     }
 
-    /* ------ Work Card Entrance: Perspective Flip ------ */
+    /* ------ Work Card Entrance: Perspective Flip (desktop) / Simple Fade (mobile) ------ */
     function initWorkCardEntrance() {
         if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
         var cards = gsap.utils.toArray('.work-card');
-        gsap.set(cards, { opacity: 0, rotateY: 25, transformOrigin: 'left center', transformPerspective: 1000 });
-        cards.forEach(function(card, i) {
-            ScrollTrigger.create({
-                trigger: '.work__sticky',
-                start: 'top 80%',
-                once: true,
-                onEnter: function() {
-                    gsap.to(card, {
-                        opacity: 1,
-                        rotateY: 0,
-                        duration: 0.9,
-                        delay: i * 0.1,
-                        ease: 'power3.out'
-                    });
-                }
+        if (isMobile) {
+            /* Simple fade-up on mobile — 3D transforms are laggy on low-powered GPUs */
+            gsap.set(cards, { opacity: 0, y: 30 });
+            cards.forEach(function(card, i) {
+                ScrollTrigger.create({
+                    trigger: card,
+                    start: 'top 90%',
+                    once: true,
+                    onEnter: function() {
+                        gsap.to(card, { opacity: 1, y: 0, duration: 0.6, delay: i * 0.06, ease: 'power2.out' });
+                    }
+                });
             });
-        });
+        } else {
+            gsap.set(cards, { opacity: 0, rotateY: 25, transformOrigin: 'left center', transformPerspective: 1000 });
+            cards.forEach(function(card, i) {
+                ScrollTrigger.create({
+                    trigger: '.work__sticky',
+                    start: 'top 80%',
+                    once: true,
+                    onEnter: function() {
+                        gsap.to(card, {
+                            opacity: 1,
+                            rotateY: 0,
+                            duration: 0.9,
+                            delay: i * 0.1,
+                            ease: 'power3.out'
+                        });
+                    }
+                });
+            });
+        }
     }
 
     /* ------ Staggered Hero Title Character Split ------ */
@@ -1017,19 +1072,36 @@
             el.style.transform = 'none';
             el.classList.remove('reveal');
 
-            gsap.fromTo(el,
-                { clipPath: 'inset(0 100% 0 0)' },
-                {
-                    clipPath: 'inset(0 0% 0 0)',
-                    duration: 1.1,
-                    ease: 'power3.inOut',
-                    scrollTrigger: {
-                        trigger: el,
-                        start: 'top 88%',
-                        once: true
+            if (isMobile) {
+                /* Clip-path is expensive on mobile — use simple fade-up instead */
+                gsap.fromTo(el,
+                    { opacity: 0, y: 20 },
+                    {
+                        opacity: 1, y: 0,
+                        duration: 0.7,
+                        ease: 'power2.out',
+                        scrollTrigger: {
+                            trigger: el,
+                            start: 'top 90%',
+                            once: true
+                        }
                     }
-                }
-            );
+                );
+            } else {
+                gsap.fromTo(el,
+                    { clipPath: 'inset(0 100% 0 0)' },
+                    {
+                        clipPath: 'inset(0 0% 0 0)',
+                        duration: 1.1,
+                        ease: 'power3.inOut',
+                        scrollTrigger: {
+                            trigger: el,
+                            start: 'top 88%',
+                            once: true
+                        }
+                    }
+                );
+            }
         });
     }
     

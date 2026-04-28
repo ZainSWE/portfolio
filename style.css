@@ -129,6 +129,7 @@ body::before { display:none; }
 }
 a { color:inherit; text-decoration:none; }
 img, video { display:block; max-width:100%; }
+img { -webkit-user-select:none; user-select:none; -webkit-user-drag:none; }
 button { border:none; background:none; color:inherit; cursor:pointer; font-family:inherit; }
 ::selection { background:var(--accent); color:#fff; }
 
@@ -206,9 +207,9 @@ button { border:none; background:none; color:inherit; cursor:pointer; font-famil
 .nav__burger.open span:last-child { transform:translateY(-4px) rotate(-45deg); }
 
 /* Mobile menu */
-.mobile-menu { position:fixed; inset:0; z-index:4999; background:var(--bg); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2rem; opacity:0; pointer-events:none; transition:opacity .4s var(--ease); }
+.mobile-menu { position:fixed; inset:0; z-index:4999; background:var(--bg); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:1.5rem; opacity:0; pointer-events:none; transition:opacity .4s var(--ease); }
 .mobile-menu.open { opacity:1; pointer-events:all; }
-.mobile-menu a { font-family:var(--font-head); font-size:clamp(1.5rem,5vw,3rem); letter-spacing:.04em; text-transform:uppercase; color:var(--text-muted); transition:color .3s; }
+.mobile-menu a { font-family:var(--font-body); font-size:clamp(1.1rem,5vw,1.5rem); font-weight:500; letter-spacing:.08em; text-transform:uppercase; color:var(--text-muted); transition:color .3s; }
 .mobile-menu a:hover { color:var(--text); }
 
 /* ---- Hero ---- */
@@ -932,6 +933,8 @@ button { border:none; background:none; color:inherit; cursor:pointer; font-famil
     .work-card { width:clamp(260px,70vw,340px); }
     .hero__title { font-size:clamp(2.5rem,12vw,5rem); white-space:normal; transform:translateY(60px) scale(0.95); }
     .hero__gojo { height:clamp(209px,36.1vh,332px); }
+    /* Gojo sits behind "ZAIN AHMAD" text on mobile — hover gimmick replaced by auto-loop */
+    #hero-gojo-link { z-index:3; }
     .hero__bottom { flex-direction:column; align-items:center; text-align:center; }
     .hero__cta { justify-content:center; }
     .hero__scroll { font-size:1.8rem; }
@@ -1136,4 +1139,72 @@ button { border:none; background:none; color:inherit; cursor:pointer; font-famil
         width: 22px;
         height: 22px;
     }
+}
+/* ============================================================
+   MOBILE / TOUCH OVERRIDES
+   ============================================================ */
+
+/* Touch devices: remove hover-dependent states */
+@media (hover: none) {
+    /* Work card overlay — always show description at bottom */
+    .work-card__overlay-inner {
+        transform: none !important;
+        background: linear-gradient(to top, rgba(4,10,16,0.80) 0%, transparent 65%);
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        align-items: flex-end;
+        padding-bottom: 1.25rem;
+    }
+    .work-card__overlay-desc { font-size: .78rem; line-height: 1.5; max-width: 100%; }
+    .work-card__cta { opacity: 1 !important; transform: none !important; }
+    .work-card:hover .work-card__badge { transform: none !important; opacity: 1 !important; }
+    .work-card:hover .work-card__bg { transform: none !important; filter: none !important; }
+    .tools__pill:hover { transform: none; background: var(--glass); border-color: var(--glass-border); }
+    .media-wrapper:hover { transform: none; }
+    .media-wrapper:hover .media-overlay { opacity: 0; }
+    .nav__social:hover { color: var(--text-muted); }
+    .theme-toggle:hover { border-color: var(--glass-border); }
+    .gojo-tooltip { display: none !important; }
+}
+
+/* CTA section + general mobile layout stability */
+@media (max-width: 768px) {
+    /* Prevent parallax-driven big-text from colliding with each other */
+    .contact .big-text,
+    .contact .big-text-out {
+        position: relative;
+        z-index: 1;
+        line-height: 1.0;
+        margin-bottom: .1em;
+        will-change: auto;
+        /* hard reset any GSAP-applied translate */
+        transform: none !important;
+    }
+    /* Contain bg-words behind contact text */
+    .contact { overflow: hidden; }
+    .contact .container { position: relative; z-index: 2; }
+    .contact .bg-words { z-index: 0; }
+
+    /* All parallax-shifted elements: reset on mobile */
+    .section-title   { transform: none !important; }
+    .case__title--large { transform: none !important; }
+    .big-text        { transform: none !important; }
+    .about-card      { transform: none !important; }
+    .creative__stat  { transform: none !important; }
+    .kkc__text       { transform: none !important; }
+
+    /* Reduce heavy backdrop-filter count on mobile */
+    .nav                 { backdrop-filter: blur(16px) saturate(1.4); -webkit-backdrop-filter: blur(16px) saturate(1.4); }
+    .mobile-menu         { backdrop-filter: none; -webkit-backdrop-filter: none; }
+    .work-card__visual   { backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
+    .tags span,
+    .tools__pill,
+    .contact__item,
+    .testimonial         { backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
+
+    /* Section banner video blur — too heavy on mobile */
+    .section-banner video { filter: none !important; will-change: auto; }
+
+    /* Hero title safe wrapping */
+    .hero__title { white-space: normal; overflow-wrap: break-word; }
 }
