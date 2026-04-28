@@ -478,25 +478,30 @@
     /* ------ 3D Carousel ------ */
     function init3DCarousel() {
         var ring = document.getElementById('carousel3d-ring');
-        if (!ring) return;
+        var scene = document.getElementById('carousel3d-scene');
+        if (!ring || !scene) return;
         var cards = ring.querySelectorAll('.carousel3d__card');
         var n = cards.length;
         var theta = 360 / n;
 
-        /* Larger card width on mobile so it fills most of the screen */
-        var cardW = isMobile ? Math.round(window.innerWidth * 0.78) : 240;
+        /* Mobile: large card = 85% of screen width so edge cards peek in from sides */
+        var cardW = isMobile ? Math.round(window.innerWidth * 0.85) : 240;
         var cardH = isMobile ? Math.round(cardW * 9 / 16) : 135;
+        /* Radius computed from card width so adjacent cards naturally sit at the viewport edges */
         var radius = Math.round((cardW / 2) / Math.tan(Math.PI / n));
 
-        /* On mobile apply computed card size directly to ring + cards */
+        /* Apply card sizes and scene height dynamically */
+        ring.style.width = cardW + 'px';
+        ring.style.height = cardH + 'px';
+        scene.style.height = (cardH + 60) + 'px';
+        cards.forEach(function(card) {
+            card.style.width = cardW + 'px';
+            card.style.height = cardH + 'px';
+        });
+
+        /* Mobile: tighten perspective so adjacent cards are more visible */
         if (isMobile) {
-            ring.style.width = cardW + 'px';
-            ring.style.height = cardH + 'px';
-            scene.style.height = (cardH + 40) + 'px';
-            cards.forEach(function(card) {
-                card.style.width = cardW + 'px';
-                card.style.height = cardH + 'px';
-            });
+            scene.style.perspective = Math.round(radius * 1.8) + 'px';
         }
 
         cards.forEach(function(card, i) {
@@ -511,8 +516,6 @@
             requestAnimationFrame(render);
         }
         requestAnimationFrame(render);
-
-        var scene = document.getElementById('carousel3d-scene');
 
         /* Desktop: hover to pause + scroll wheel to snap */
         scene.addEventListener('mouseenter', function() { isHovering = true; });
@@ -668,7 +671,7 @@
                 requestAnimationFrame(tick);
                 obs.unobserve(counter);
             }
-        }, { threshold: 0.5 });
+        }, { threshold: 0.1, rootMargin: '0px 0px -20px 0px' });
         obs.observe(counter);
     }
 
