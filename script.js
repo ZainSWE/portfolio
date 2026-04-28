@@ -480,6 +480,24 @@
             targetAngle += e.deltaY > 0 ? -theta : theta;
             setTimeout(function() { scrollCooldown = false; }, 400);
         }, { passive: false });
+
+        /* Touch swipe — drag to spin */
+        var touchStartX = 0;
+        var touchLastX = 0;
+        scene.addEventListener('touchstart', function(e) {
+            touchStartX = e.touches[0].clientX;
+            touchLastX = touchStartX;
+            isHovering = true;
+        }, { passive: true });
+        scene.addEventListener('touchmove', function(e) {
+            var deltaX = e.touches[0].clientX - touchLastX;
+            touchLastX = e.touches[0].clientX;
+            targetAngle += deltaX * 0.4; /* sensitivity: 1px swipe = 0.4deg rotation */
+        }, { passive: true });
+        scene.addEventListener('touchend', function() {
+            /* Resume auto-rotate after a short pause */
+            setTimeout(function() { isHovering = false; }, 1200);
+        }, { passive: true });
     }
 
     /* ------ Photo Album ------ */
@@ -583,6 +601,7 @@
 
     /* ------ Hero Blur on Scroll (smooth RAF lerp) ------ */
     function initHeroBlur() {
+        if (!window.matchMedia('(hover: hover)').matches) return; /* skip on touch — blur filter too expensive */
         var wallpaper = document.getElementById('hero-wallpaper');
         var overlay = document.querySelector('.hero__overlay');
         if (!wallpaper) return;
@@ -671,7 +690,6 @@
         var rafId = null;
         var lastTime = 0;
         var staticSrc = 'assets/media/lego-gojo/image (1).webp';
-        var isTouchDevice = !window.matchMedia('(hover: hover)').matches;
 
         /* Preload all frames */
         for (var i = 1; i <= totalFrames; i++) {
@@ -680,21 +698,7 @@
             frames.push(preload);
         }
 
-        var loopDirection = 1;
-        function tickLoop(timestamp) {
-            if (!lastTime) lastTime = timestamp;
-            var delta = timestamp - lastTime;
-            if (delta >= frameDuration) {
-                lastTime = timestamp;
-                currentFrame += loopDirection;
-                if (currentFrame >= totalFrames - 1) { currentFrame = totalFrames - 1; loopDirection = -1; }
-                else if (currentFrame <= 0) { currentFrame = 0; loopDirection = 1; }
-                img.src = frames[currentFrame].src;
-            }
-            rafId = requestAnimationFrame(tickLoop);
-        }
-
-        function tickInteractive(timestamp) {
+        function tick(timestamp) {
             if (!lastTime) lastTime = timestamp;
             var delta = timestamp - lastTime;
             if (delta >= frameDuration) {
@@ -715,31 +719,27 @@
                 }
                 img.src = frames[currentFrame].src;
             }
-            rafId = requestAnimationFrame(tickInteractive);
+            rafId = requestAnimationFrame(tick);
         }
 
         function startAnimation(dir) {
             direction = dir;
             lastTime = 0;
-            if (!rafId) rafId = requestAnimationFrame(tickInteractive);
+            if (!rafId) rafId = requestAnimationFrame(tick);
         }
 
-        if (isTouchDevice) {
-            /* Mobile: auto-loop through all frames continuously */
-            rafId = requestAnimationFrame(tickLoop);
-        } else {
-            /* Desktop: play forward on hover, reverse on leave */
-            link.addEventListener('mouseenter', function() {
-                startAnimation(1);
-            });
-            link.addEventListener('mouseleave', function() {
-                startAnimation(-1);
-            });
-        }
+        link.addEventListener('mouseenter', function() {
+            startAnimation(1);
+        });
+
+        link.addEventListener('mouseleave', function() {
+            startAnimation(-1);
+        });
     }
 
     /* ------ Hero Wallpaper Parallax ------ */
     function initHeroParallax() {
+        if (!window.matchMedia('(hover: hover)').matches) return; /* skip on touch — causes scroll jank */
         var wallpaper = document.getElementById('hero-wallpaper');
         if (!wallpaper) return;
         window.addEventListener('scroll', function() {
@@ -836,6 +836,7 @@
 
     /* ------ Hero Title Zoom on Scroll ------ */
     function initHeroTitleZoom() {
+        if (!window.matchMedia('(hover: hover)').matches) return; /* skip on touch — scrub causes choppy title */
         var heroTitle = document.getElementById('hero-title');
         if (!heroTitle || typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
 
