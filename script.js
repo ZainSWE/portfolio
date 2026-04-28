@@ -110,6 +110,25 @@
     /* ------ Site Init ------ */
     function initSite() {
         initLenis();
+        /* Prevent horizontal swipe/scroll on mobile — only allow pan-y */
+        if (isMobile) {
+            var touchStartX = 0, touchStartY = 0, axisLocked = false, isHoriz = false;
+            document.addEventListener('touchstart', function(e) {
+                touchStartX = e.touches[0].clientX;
+                touchStartY = e.touches[0].clientY;
+                axisLocked = false; isHoriz = false;
+            }, { passive: true });
+            document.addEventListener('touchmove', function(e) {
+                if (!axisLocked) {
+                    var dx = Math.abs(e.touches[0].clientX - touchStartX);
+                    var dy = Math.abs(e.touches[0].clientY - touchStartY);
+                    if (dx > 6 || dy > 6) { axisLocked = true; isHoriz = dx > dy; }
+                }
+                /* Block ALL horizontal page scrolling — carousel JS rotation still works
+                   because preventDefault stops browser scroll, not JS event listeners */
+                if (isHoriz) { e.preventDefault(); }
+            }, { passive: false });
+        }
         initThemeToggle();
         initNav();
         initMarquee(); 
@@ -464,9 +483,21 @@
         var n = cards.length;
         var theta = 360 / n;
 
-        /* Smaller card width on mobile so ring radius is tight enough to touch */
-        var cardW = isMobile ? 110 : 240;
+        /* Larger card width on mobile so it fills most of the screen */
+        var cardW = isMobile ? Math.round(window.innerWidth * 0.78) : 240;
+        var cardH = isMobile ? Math.round(cardW * 9 / 16) : 135;
         var radius = Math.round((cardW / 2) / Math.tan(Math.PI / n));
+
+        /* On mobile apply computed card size directly to ring + cards */
+        if (isMobile) {
+            ring.style.width = cardW + 'px';
+            ring.style.height = cardH + 'px';
+            scene.style.height = (cardH + 40) + 'px';
+            cards.forEach(function(card) {
+                card.style.width = cardW + 'px';
+                card.style.height = cardH + 'px';
+            });
+        }
 
         cards.forEach(function(card, i) {
             card.style.transform = 'rotateY(' + (theta * i) + 'deg) translateZ(' + radius + 'px)';
