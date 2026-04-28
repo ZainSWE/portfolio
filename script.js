@@ -10,8 +10,6 @@
     /* ------ Global state ------ */
     let mouseX = 0, mouseY = 0;
     var gojoReady = false;
-    /* Touch / pointer detection — used throughout to skip hover-only features */
-    var isMobile = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
     document.addEventListener('mousemove', function(e) { mouseX = e.clientX; mouseY = e.clientY; });
 
     /* ------ Cursor ------ */
@@ -93,8 +91,6 @@
     /* ------ Lenis ------ */
     var lenis;
     function initLenis() {
-        /* On touch devices, native scroll is smoother — skip Lenis entirely */
-        if (isMobile) return;
         if (typeof Lenis === 'undefined') return;
         lenis = new Lenis({ duration: 1.2, easing: function(t) { return Math.min(1, 1.001 - Math.pow(2, -10 * t)); }, touchMultiplier: 2, infinite: false });
         if (typeof gsap !== 'undefined') {
@@ -110,25 +106,6 @@
     /* ------ Site Init ------ */
     function initSite() {
         initLenis();
-        /* Prevent horizontal swipe/scroll on mobile — only allow pan-y */
-        if (isMobile) {
-            var touchStartX = 0, touchStartY = 0, axisLocked = false, isHoriz = false;
-            document.addEventListener('touchstart', function(e) {
-                touchStartX = e.touches[0].clientX;
-                touchStartY = e.touches[0].clientY;
-                axisLocked = false; isHoriz = false;
-            }, { passive: true });
-            document.addEventListener('touchmove', function(e) {
-                if (!axisLocked) {
-                    var dx = Math.abs(e.touches[0].clientX - touchStartX);
-                    var dy = Math.abs(e.touches[0].clientY - touchStartY);
-                    if (dx > 6 || dy > 6) { axisLocked = true; isHoriz = dx > dy; }
-                }
-                /* Block ALL horizontal page scrolling — carousel JS rotation still works
-                   because preventDefault stops browser scroll, not JS event listeners */
-                if (isHoriz) { e.preventDefault(); }
-            }, { passive: false });
-        }
         initThemeToggle();
         initNav();
         initMarquee(); 
@@ -142,21 +119,18 @@
         initGojoParallax();
         initGojoSequence();
         initHeroBlur();
-        /* Hover-only and heavy mouse-tracking features: desktop only */
-        if (!isMobile) {
-            initCardTilt();
-            initAlbumTilt();
-            initMagneticButtons();
-            initSpotlight();
-            initHeroTitleZoom();
-            initHeroTitleSplit();
-            initParallaxLayers();
-        }
+        initCardTilt();
+        initAlbumTilt();
         initSectionBannerBlur();
         initBadgeHover();
         initScrollTextCycle();
         initBgWords();
+        initHeroTitleZoom();
+        initMagneticButtons();
+        initSpotlight();
+        initParallaxLayers();
         initWorkCardEntrance();
+        initHeroTitleSplit();
         initClipPathReveal();
     }
 
@@ -322,11 +296,11 @@
         if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') { initScrollReveals(); return; }
         gsap.registerPlugin(ScrollTrigger);
 
-        /* Hero title: simplified on mobile (skip per-char split blur effects) */
+        /* Hero title: gsap.set() ensures from values apply synchronously (no flash) */
         var heroTitle = document.getElementById('hero-title');
         if (heroTitle) {
-            gsap.set(heroTitle, { opacity: 0, y: isMobile ? 30 : 60, scale: isMobile ? 1 : 0.95 });
-            gsap.to(heroTitle, { opacity: 1, y: 0, scale: 1, duration: isMobile ? 0.8 : 1.2, ease: 'power3.out', delay: 0.1 });
+            gsap.set(heroTitle, { opacity: 0, y: 60, scale: 0.95 });
+            gsap.to(heroTitle, { opacity: 1, y: 0, scale: 1, duration: 1.2, ease: 'power3.out', delay: 0.1 });
         }
 
         /* Hero bottom */
@@ -346,12 +320,12 @@
             });
         }
 
-        /* Reveals — use shorter distance on mobile */
+        /* Reveals */
         document.querySelectorAll('.reveal').forEach(function(el) {
             var delay = parseFloat(el.dataset.delay) || 0;
-            gsap.fromTo(el, { opacity: 0, y: isMobile ? 20 : 40 }, {
+            gsap.fromTo(el, { opacity: 0, y: 40 }, {
                 opacity: 1, y: 0, duration: 0.8, delay: delay, ease: 'power2.out',
-                scrollTrigger: { trigger: el, start: 'top 90%', once: true }
+                scrollTrigger: { trigger: el, start: 'top 85%', once: true }
             });
         });
 
@@ -360,10 +334,9 @@
             var texts = container.querySelectorAll('.big-text, .design__headline');
             if (!texts.length) return;
             texts.forEach(function(t, i) {
-                /* On mobile: simple fade-up only, no skew (prevents collision) */
-                gsap.fromTo(t, { opacity: 0, y: isMobile ? 20 : 50, skewY: isMobile ? 0 : 2 }, {
+                gsap.fromTo(t, { opacity: 0, y: 50, skewY: 2 }, {
                     opacity: 1, y: 0, skewY: 0, duration: 0.9, delay: i * 0.12, ease: 'power3.out',
-                    scrollTrigger: { trigger: container, start: 'top 85%', once: true }
+                    scrollTrigger: { trigger: container, start: 'top 80%', once: true }
                 });
             });
         });
@@ -478,35 +451,13 @@
     /* ------ 3D Carousel ------ */
     function init3DCarousel() {
         var ring = document.getElementById('carousel3d-ring');
-        var scene = document.getElementById('carousel3d-scene');
-        if (!ring || !scene) return;
+        if (!ring) return;
         var cards = ring.querySelectorAll('.carousel3d__card');
         var n = cards.length;
         var theta = 360 / n;
-
-        /* Mobile: large card = 85% of screen width so edge cards peek in from sides */
-        var cardW = isMobile ? Math.round(window.innerWidth * 0.85) : 240;
-        var cardH = isMobile ? Math.round(cardW * 9 / 16) : 135;
-        /* Radius computed from card width so adjacent cards naturally sit at the viewport edges */
+        var cardW = 240;
         var radius = Math.round((cardW / 2) / Math.tan(Math.PI / n));
-
-        /* Apply card sizes and scene height dynamically */
-        ring.style.width = cardW + 'px';
-        ring.style.height = cardH + 'px';
-        scene.style.height = (cardH + 60) + 'px';
-        cards.forEach(function(card) {
-            card.style.width = cardW + 'px';
-            card.style.height = cardH + 'px';
-        });
-
-        /* Mobile: tighten perspective so adjacent cards are more visible */
-        if (isMobile) {
-            scene.style.perspective = Math.round(radius * 1.8) + 'px';
-        }
-
-        cards.forEach(function(card, i) {
-            card.style.transform = 'rotateY(' + (theta * i) + 'deg) translateZ(' + radius + 'px)';
-        });
+        cards.forEach(function(card, i) { card.style.transform = 'rotateY(' + (theta * i) + 'deg) translateZ(' + radius + 'px)'; });
 
         var angle = 0, targetAngle = 0, speed = 0.04, isHovering = false;
         function render() {
@@ -517,7 +468,7 @@
         }
         requestAnimationFrame(render);
 
-        /* Desktop: hover to pause + scroll wheel to snap */
+        var scene = document.getElementById('carousel3d-scene');
         scene.addEventListener('mouseenter', function() { isHovering = true; });
         scene.addEventListener('mouseleave', function() { isHovering = false; });
         var scrollCooldown = false;
@@ -529,51 +480,6 @@
             targetAngle += e.deltaY > 0 ? -theta : theta;
             setTimeout(function() { scrollCooldown = false; }, 400);
         }, { passive: false });
-
-        /* Mobile: horizontal swipe to rotate, vertical scroll still works */
-        var touchStartX = 0, touchLastX = 0, touchStartY = 0;
-        var touchVelocity = 0, isSwiping = false, swipeAxis = null;
-
-        scene.addEventListener('touchstart', function(e) {
-            touchStartX = e.touches[0].clientX;
-            touchLastX  = touchStartX;
-            touchStartY = e.touches[0].clientY;
-            touchVelocity = 0;
-            swipeAxis = null;
-            isSwiping = false;
-        }, { passive: true });
-
-        scene.addEventListener('touchmove', function(e) {
-            var dx = e.touches[0].clientX - touchLastX;
-            var dy = e.touches[0].clientY - touchStartY;
-
-            /* Lock swipe axis on first significant movement */
-            if (!swipeAxis) {
-                if (Math.abs(e.touches[0].clientX - touchStartX) > 8 ||
-                    Math.abs(dy) > 8) {
-                    swipeAxis = Math.abs(e.touches[0].clientX - touchStartX) > Math.abs(dy)
-                        ? 'horizontal' : 'vertical';
-                }
-            }
-
-            if (swipeAxis === 'horizontal') {
-                isSwiping = true;
-                isHovering = true;
-                touchVelocity = dx;
-                touchLastX = e.touches[0].clientX;
-                targetAngle += dx * 0.55;
-            }
-        }, { passive: true });
-
-        scene.addEventListener('touchend', function() {
-            if (isSwiping) {
-                /* Fling: carry momentum based on last velocity */
-                targetAngle += touchVelocity * 3.5;
-            }
-            isHovering = false;
-            isSwiping = false;
-            swipeAxis = null;
-        }, { passive: true });
     }
 
     /* ------ Photo Album ------ */
@@ -671,7 +577,7 @@
                 requestAnimationFrame(tick);
                 obs.unobserve(counter);
             }
-        }, { threshold: 0.1, rootMargin: '0px 0px -20px 0px' });
+        }, { threshold: 0.5 });
         obs.observe(counter);
     }
 
@@ -704,8 +610,6 @@
 
     /* ------ Section Banner Blur on Scroll ------ */
     function initSectionBannerBlur() {
-        /* Skip on mobile — CSS already sets filter:none, and JS blur is costly */
-        if (isMobile) return;
         var banners = document.querySelectorAll('.section-banner');
         if (!banners.length) return;
         window.addEventListener('scroll', function() {
@@ -728,25 +632,21 @@
         var targetPX = 0, targetPY = 0;
         var smoothPX = 0, smoothPY = 0;
 
-        /* Mouse parallax only on desktop */
-        if (!isMobile) {
-            document.addEventListener('mousemove', function() {
-                var cx = window.innerWidth / 2;
-                var cy = window.innerHeight / 2;
-                targetPX = ((mouseX - cx) / cx) * 5;
-                targetPY = ((mouseY - cy) / cy) * 3;
-            });
-        }
+        document.addEventListener('mousemove', function() {
+            var cx = window.innerWidth / 2;
+            var cy = window.innerHeight / 2;
+            targetPX = ((mouseX - cx) / cx) * 5;
+            targetPY = ((mouseY - cy) / cy) * 3;
+        });
 
         function animate() {
             t += 0.012;
             /* Lerp parallax for buttery smooth movement */
             smoothPX += (targetPX - smoothPX) * 0.04;
             smoothPY += (targetPY - smoothPY) * 0.04;
-            /* Multi-harmonic float — gentle on mobile, full on desktop */
-            var floatAmp = isMobile ? 3 : 5;
-            var floatX = Math.sin(t * 0.6) * floatAmp + Math.sin(t * 1.2) * (isMobile ? 1 : 2);
-            var floatY = Math.sin(t * 0.8) * (isMobile ? 4 : 6) + Math.cos(t * 0.5) * (isMobile ? 1.5 : 2.5);
+            /* Multi-harmonic float — noticeable organic sway */
+            var floatX = Math.sin(t * 0.6) * 5 + Math.sin(t * 1.2) * 2;
+            var floatY = Math.sin(t * 0.8) * 6 + Math.cos(t * 0.5) * 2.5;
             if (gojoReady) {
                 var tx = floatX + smoothPX;
                 var ty = floatY + smoothPY;
@@ -809,39 +709,13 @@
             if (!rafId) rafId = requestAnimationFrame(tick);
         }
 
-        if (isMobile) {
-            /* On mobile: auto-loop forward then reverse continuously, no hover needed */
-            var mobileDir = 1;
-            var mobileLastTime = 0;
-            function mobileTick(timestamp) {
-                if (!mobileLastTime) mobileLastTime = timestamp;
-                var delta = timestamp - mobileLastTime;
-                if (delta >= frameDuration) {
-                    mobileLastTime = timestamp;
-                    currentFrame += mobileDir;
-                    if (currentFrame >= totalFrames - 1) {
-                        currentFrame = totalFrames - 1;
-                        mobileDir = -1;
-                    } else if (currentFrame <= 0) {
-                        currentFrame = 0;
-                        mobileDir = 1;
-                    }
-                    img.src = frames[currentFrame] ? frames[currentFrame].src : staticSrc;
-                }
-                requestAnimationFrame(mobileTick);
-            }
-            /* Wait for frames to preload a bit before starting loop */
-            setTimeout(function() { requestAnimationFrame(mobileTick); }, 800);
-        } else {
-            /* Desktop: hover-triggered forward/reverse */
-            link.addEventListener('mouseenter', function() {
-                startAnimation(1);
-            });
+        link.addEventListener('mouseenter', function() {
+            startAnimation(1);
+        });
 
-            link.addEventListener('mouseleave', function() {
-                startAnimation(-1);
-            });
-        }
+        link.addEventListener('mouseleave', function() {
+            startAnimation(-1);
+        });
     }
 
     /* ------ Hero Wallpaper Parallax ------ */
@@ -1065,42 +939,27 @@
         });
     }
 
-    /* ------ Work Card Entrance: Perspective Flip (desktop) / Simple Fade (mobile) ------ */
+    /* ------ Work Card Entrance: Perspective Flip ------ */
     function initWorkCardEntrance() {
         if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
         var cards = gsap.utils.toArray('.work-card');
-        if (isMobile) {
-            /* Simple fade-up on mobile — 3D transforms are laggy on low-powered GPUs */
-            gsap.set(cards, { opacity: 0, y: 30 });
-            cards.forEach(function(card, i) {
-                ScrollTrigger.create({
-                    trigger: card,
-                    start: 'top 90%',
-                    once: true,
-                    onEnter: function() {
-                        gsap.to(card, { opacity: 1, y: 0, duration: 0.6, delay: i * 0.06, ease: 'power2.out' });
-                    }
-                });
+        gsap.set(cards, { opacity: 0, rotateY: 25, transformOrigin: 'left center', transformPerspective: 1000 });
+        cards.forEach(function(card, i) {
+            ScrollTrigger.create({
+                trigger: '.work__sticky',
+                start: 'top 80%',
+                once: true,
+                onEnter: function() {
+                    gsap.to(card, {
+                        opacity: 1,
+                        rotateY: 0,
+                        duration: 0.9,
+                        delay: i * 0.1,
+                        ease: 'power3.out'
+                    });
+                }
             });
-        } else {
-            gsap.set(cards, { opacity: 0, rotateY: 25, transformOrigin: 'left center', transformPerspective: 1000 });
-            cards.forEach(function(card, i) {
-                ScrollTrigger.create({
-                    trigger: '.work__sticky',
-                    start: 'top 80%',
-                    once: true,
-                    onEnter: function() {
-                        gsap.to(card, {
-                            opacity: 1,
-                            rotateY: 0,
-                            duration: 0.9,
-                            delay: i * 0.1,
-                            ease: 'power3.out'
-                        });
-                    }
-                });
-            });
-        }
+        });
     }
 
     /* ------ Staggered Hero Title Character Split ------ */
@@ -1158,36 +1017,19 @@
             el.style.transform = 'none';
             el.classList.remove('reveal');
 
-            if (isMobile) {
-                /* Clip-path is expensive on mobile — use simple fade-up instead */
-                gsap.fromTo(el,
-                    { opacity: 0, y: 20 },
-                    {
-                        opacity: 1, y: 0,
-                        duration: 0.7,
-                        ease: 'power2.out',
-                        scrollTrigger: {
-                            trigger: el,
-                            start: 'top 90%',
-                            once: true
-                        }
+            gsap.fromTo(el,
+                { clipPath: 'inset(0 100% 0 0)' },
+                {
+                    clipPath: 'inset(0 0% 0 0)',
+                    duration: 1.1,
+                    ease: 'power3.inOut',
+                    scrollTrigger: {
+                        trigger: el,
+                        start: 'top 88%',
+                        once: true
                     }
-                );
-            } else {
-                gsap.fromTo(el,
-                    { clipPath: 'inset(0 100% 0 0)' },
-                    {
-                        clipPath: 'inset(0 0% 0 0)',
-                        duration: 1.1,
-                        ease: 'power3.inOut',
-                        scrollTrigger: {
-                            trigger: el,
-                            start: 'top 88%',
-                            once: true
-                        }
-                    }
-                );
-            }
+                }
+            );
         });
     }
     
