@@ -137,7 +137,8 @@
     function initMarquee() {
         [
             { inner: document.querySelector('.marquee__inner'),         speed: 80  },
-            { inner: document.querySelector('.footer__marquee-track'),  speed: 60  }
+            { inner: document.querySelector('.footer__marquee-track'),  speed: 60  },
+            { inner: document.querySelector('.testimonials__track'),    speed: 50  }
         ].forEach(function(m) {
             if (!m.inner) return;
             m.inner.querySelectorAll('.marquee__clone').forEach(function(el) { el.remove(); });
