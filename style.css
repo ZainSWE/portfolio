@@ -947,7 +947,7 @@ button { border:none; background:none; color:inherit; cursor:pointer; font-famil
     .case__title--large { font-size:clamp(2.5rem,10vw,5rem); }
     .album__slide { flex-direction:column !important; padding:2rem; gap:1.5rem; }
     .album__text { display:flex; max-width:100%; text-align:center; order:2; margin-top:1rem; justify-content:center; align-items:center; flex-direction:column; }
-    .album__photos { display:flex; width:180px; aspect-ratio:9/19.5; order:1; flex-shrink:0; margin-top:10rem; justify-content:center; align-items:center; flex-direction:column;}
+    .album__photos { display:flex; width:180px; aspect-ratio:9/19.5; order:1; flex-shrink:0; margin-top:5rem; justify-content:center; align-items:center; flex-direction:column;}
     .kkc__layout { margin-left:0; }
     .kkc__gallery { margin-left:calc(-1 * clamp(1.5rem,4vw,3rem)); }
     .kkc__text { max-width:100%; }
